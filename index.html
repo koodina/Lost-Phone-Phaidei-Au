@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Lost Phone · Phaidei AU</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <div id="dev">
+        <button class="hw act" title="Action button (silent mode)" aria-label="Silent mode" onclick="toggleSilent()"></button>
+        <button class="hw vup" title="Volume up" aria-label="Volume up" onclick="setVol(vol + 0.1)"></button>
+        <button class="hw vdn" title="Volume down" aria-label="Volume down" onclick="setVol(vol - 0.1)"></button>
+        <button class="hw side" title="Side button (lock)" aria-label="Lock" onclick="lockPhone()"></button>
+        <div id="ph">
+          <div id="scr"></div>
+          <div id="sb" class="sb"></div>
+          <div id="isl" class="isl"></div>
+          <div id="bns"></div>
+          <div id="volhud"><i></i></div>
+          <button class="hb" aria-label="Home" onclick="goHome()"></button>
+          <div id="off" onclick="wake()"></div>
+        </div>
+      </div>
+    </div>
+    <div id="hud">
+      <span id="prog"></span>
+      <button id="hsnd" title="Sound" onclick="hudSnd()">🔊</button>
+      <button id="hamb" title="Waves" onclick="hudAmb()">🌊</button>
+    </div>
+    <script src="story.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
