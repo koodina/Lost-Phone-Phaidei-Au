@@ -2,18 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
     <meta name="theme-color" content="#000000" />
     <title>Lost Phone · Phaidei AU</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=32" />
   </head>
   <body>
     <div id="stage">
       <div id="dev">
-        <button class="hw act" title="Action button (silent mode)" aria-label="Silent mode" onclick="toggleSilent()"></button>
-        <button class="hw vup" title="Volume up" aria-label="Volume up" onclick="setVol(vol + 0.1)"></button>
-        <button class="hw vdn" title="Volume down" aria-label="Volume down" onclick="setVol(vol - 0.1)"></button>
-        <button class="hw side" title="Side button (lock)" aria-label="Lock" onclick="lockPhone()"></button>
+        <button
+          class="hw act"
+          title="Action button (silent mode)"
+          aria-label="Silent mode"
+          onclick="toggleSilent()"
+        ></button>
+        <button
+          class="hw vup"
+          title="Volume up"
+          aria-label="Volume up"
+          onclick="setVol(vol + 0.1)"
+        ></button>
+        <button
+          class="hw vdn"
+          title="Volume down"
+          aria-label="Volume down"
+          onclick="setVol(vol - 0.1)"
+        ></button>
+        <button
+          class="hw side"
+          title="Side button (lock)"
+          aria-label="Lock"
+          onclick="lockPhone()"
+        ></button>
         <div id="ph">
           <div id="scr"></div>
           <div id="sb" class="sb"></div>
@@ -30,7 +53,7 @@
       <button id="hsnd" title="Sound" onclick="hudSnd()">🔊</button>
       <button id="hamb" title="Waves" onclick="hudAmb()">🌊</button>
     </div>
-    <script src="story.js"></script>
-    <script src="script.js"></script>
+    <script src="story.js?v=32"></script>
+    <script src="script.js?v=32"></script>
   </body>
 </html>
