@@ -951,7 +951,7 @@ function rel(e) {
     h: r.height / k,
   };
 }
-const isMob = () => document.body.classList.contains("mob");
+const isMob = () => document.body.classList.contains("full");
 const topP = () => W && W.stack[W.stack.length - 1];
 function mk(fn, args) {
   const P = fn(...args) || {};
@@ -4410,6 +4410,33 @@ function walletRoot() {
 function passPage(id) {
   const c = S.wallet.find((x) => x.id === id);
   see("w:" + id);
+  if (c.tx) {
+    const rows = c.tx
+      .filter((t) => D(t.time) <= now())
+      .map((t) => {
+        const plus = t.amount[0] === "+";
+        return `<div class="row txr"><span class="txi">${
+          (t.who.match(/\p{L}/u) || ["?"])[0]
+        }</span><span class="col"><b>${t.who}</b><small class="l2">${
+          t.what
+        }</small><small class="l2">${fDay(t.time)}, ${hm(
+          t.time
+        )}</small></span><span class="txa${plus ? " plus" : ""}">${
+          plus ? "+" : ""
+        }€${t.amount.replace(/^[-+]/, "")}</span></div>`;
+      })
+      .join("");
+    return {
+      title: c.title,
+      cls: "nolt",
+      html: pg({
+        title: c.title,
+        large: false,
+        right: `<button class="nbl">Done</button>`,
+        body: `<div class="wpass bank" style="background:linear-gradient(160deg,${c.color[0]},${c.color[1]})"><b>${c.title}</b><span>${c.sub}</span></div><div class="sech big">Latest Transactions</div><div class="grp">${rows}</div>`,
+      }),
+    };
+  }
   return {
     title: c.title,
     cls: "nolt",
@@ -4737,14 +4764,38 @@ function hudAmb() {
   ambOn ? ambStart() : ambStop();
   hudSync();
 }
+let fullPref = false;
+try {
+  fullPref = localStorage.getItem("lp-full") === "1";
+} catch (e) {}
+function hudFull() {
+  fullPref = !fullPref;
+  try {
+    localStorage.setItem("lp-full", fullPref ? "1" : "0");
+  } catch (e) {}
+  fit();
+}
 function fit() {
-  const m = innerWidth <= 520;
+  const m =
+    innerWidth <= 520 ||
+    (innerHeight <= 520 && matchMedia("(pointer: coarse)").matches);
+  const full = m && fullPref;
   document.body.classList.toggle("mob", m);
-  const k = m
+  document.body.classList.toggle("full", full);
+  const hf = $("#hfull");
+  if (hf) {
+    hf.textContent = full ? "▢" : "⛶";
+    hf.title = full ? "Show phone frame" : "Fullscreen";
+  }
+  const vh = window.visualViewport ? visualViewport.height : innerHeight;
+  const k = full
     ? 1
+    : m
+    ? Math.min(1, (vh - 54) / 852, (innerWidth - 30) / 393)
     : Math.min(1, (innerHeight - 70) / 852, (innerWidth - 40) / 393);
   document.documentElement.style.setProperty("--k", k.toFixed(4));
 }
+if (window.visualViewport) visualViewport.addEventListener("resize", fit);
 addEventListener("resize", fit);
 fit();
 renderSB();

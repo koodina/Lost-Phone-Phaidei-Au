@@ -144,27 +144,69 @@ button:focus-visible {
     color: #8a8f9c;
   }
 }
+#hfull {
+  display: none;
+}
+html,
+body {
+  overscroll-behavior: none;
+}
+body {
+  -webkit-touch-callout: none;
+}
+/* phone-sized screens: framed phone scaled to fit, HUD underneath */
 body.mob {
+  height: 100dvh;
+  gap: 8px;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+body.mob #hfull {
+  display: block;
+}
+body.mob #hud {
+  min-height: 30px;
+  gap: 8px;
+  font-size: 12px;
+}
+body.mob #hud button {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+}
+/* fullscreen mode: the real screen becomes the phone */
+body.mob.full {
   justify-content: flex-start;
   gap: 0;
+  padding: 0 0 env(safe-area-inset-bottom);
+  background: #000;
 }
-body.mob #stage {
+body.mob.full #stage {
   width: 100vw;
-  height: 100vh;
-  height: 100dvh;
+  height: calc(100dvh - 30px - env(safe-area-inset-bottom));
 }
-body.mob #dev {
+body.mob.full #dev {
   width: 100%;
   height: 100%;
   transform: none;
 }
-body.mob #ph {
+body.mob.full #ph {
   border-radius: 0;
   box-shadow: none;
 }
-body.mob .hw,
-body.mob #hud {
+body.mob.full .hw {
   display: none;
+}
+body.mob.full #hud {
+  min-height: 30px;
+  gap: 6px;
+  color: #8a8f9c;
+  font-size: 11px;
+}
+body.mob.full #hud button {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #scr {
@@ -336,7 +378,7 @@ body.mob #hud {
     opacity: 1;
   }
 }
-body.mob .isl:not(.x):not(.p) {
+body.mob.full .isl:not(.x):not(.p) {
   opacity: 0;
 }
 .isc {
@@ -4278,4 +4320,43 @@ button.row:active,
 }
 .scn.bp.shot {
   place-items: center start;
+}
+.wpass.bank {
+  min-height: 0;
+  aspect-ratio: 1.586;
+  justify-content: flex-start;
+}
+.txr {
+  align-items: center;
+  gap: 12px;
+}
+.txr .col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.txr b {
+  font-weight: 600;
+  font-size: 16px;
+}
+.txr small {
+  font-size: 13px;
+}
+.txi {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #3a3a3c;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  flex: none;
+}
+.txa {
+  font-size: 16px;
+  white-space: nowrap;
+}
+.txa.plus {
+  color: #30d158;
 }
