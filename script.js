@@ -4764,7 +4764,13 @@ function ending(k) {
   }
   const tot = Object.keys(S.finale.endings).length;
   const o = el("div", "end fadein");
-  o.innerHTML = `<div class="end-in"><div class="end-k">${found.length} of ${tot} endings</div><h2>${e.title}</h2><div class="end-tx">${e.text}</div><p class="end-res">${S.resources}</p><button onclick="location.reload()">Read again</button></div>`;
+  o.innerHTML = `<div class="end-in"><div class="end-k">${
+    found.length
+  } of ${tot} endings</div><h2>${e.title}</h2><div class="end-tx">${
+    e.text
+  }</div>${
+    S.resources ? `<p class="end-res">${S.resources}</p>` : ""
+  }<button onclick="location.reload()">Read again</button></div>`;
   PH.appendChild(o);
   $("#off").classList.remove("on");
 }
@@ -4783,13 +4789,9 @@ function scrn(html, btn, fn) {
 function boot() {
   state = "boot";
   scrn(
-    `<h2>Content warning</h2><div class="end-tx">${
-      S.warning
-    }</div><p class="end-res">${
-      S.resources
-    }</p><div class="sndrow"><button id="snd1" class="chip${
-      sndOn ? " on" : ""
-    }">${
+    `<h2>Content warning</h2><div class="end-tx">${S.warning}</div>${
+      S.resources ? `<p class="end-res">${S.resources}</p>` : ""
+    }<div class="sndrow"><button id="snd1" class="chip${sndOn ? " on" : ""}">${
       sndOn ? "🔊 Sound on" : "🔇 Sound off"
     }</button><span class="l2">Best with headphones.</span></div>`,
     "I understand, continue",

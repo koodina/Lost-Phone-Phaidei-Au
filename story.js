@@ -105,8 +105,8 @@ const STORY = {
   ],
 
   /* ------------------------------------------------------------ messages
-           ["~","YYYY-MM-DD HH:MM"] divider · ["me",…] Phainon · ["them",…] the other person
-           [contactId,…] who's talking in a group · 3rd item {photo:{scene,emoji,src}} sends a picture */
+             ["~","YYYY-MM-DD HH:MM"] divider · ["me",…] Phainon · ["them",…] the other person
+             [contactId,…] who's talking in a group · 3rd item {photo:{scene,emoji,src}} sends a picture */
   threads: [
     {
       id: "dei",
@@ -605,9 +605,9 @@ const STORY = {
 
   /* ------------------------------------------------------------ phone */
   calls: [
-    { who: "cas", kind: "missed", time: "2026-11-21 07:05" },
-    { who: "hya", kind: "missed", time: "2026-11-21 06:41" },
-    { who: "hya", kind: "missed", time: "2026-11-21 06:20" },
+    { who: "cas", kind: "missed", time: "2026-11-21 07:50" },
+    { who: "hya", kind: "missed", time: "2026-11-21 07:45" },
+    { who: "hya", kind: "missed", time: "2026-11-21 07:43" },
     { who: "cas", kind: "in", time: "2026-11-08 20:40", len: "14 minutes" },
     { who: "agl", kind: "missed", time: "2026-10-14 09:58" },
     { who: "dei", kind: "out", time: "2024-11-21 20:31", len: "11 minutes" },
@@ -616,7 +616,7 @@ const STORY = {
     {
       id: "vcas",
       who: "cas",
-      time: "2026-11-21 07:05",
+      time: "2026-11-21 07:50",
       len: "0:09",
       text: "Phainon, can you call me back? I just want to hear you’re okay. Please.",
     },
@@ -647,7 +647,7 @@ const STORY = {
   ],
 
   /* ------------------------------------------------------------ deleted messages
-           Messages › Filters › Recently Deleted. Gets a badge once `badgeAfter` is seen. */
+             Messages › Filters › Recently Deleted. Gets a badge once `badgeAfter` is seen. */
   deletedMsgs: {
     badgeAfter: "v:v2",
     items: [
@@ -1133,30 +1133,30 @@ const STORY = {
         clue: true,
         bg: "#f6efe3",
         html: `<div style="background:#f6efe3;color:#2b2118;min-height:100%;font-family:Georgia,'Times New Roman',serif;padding-bottom:30px">
-        <div style="display:flex;justify-content:flex-end;padding:10px 16px 0;font-family:-apple-system,sans-serif;font-size:14px"><button onclick="acct()" style="color:#8a5a1c;font-weight:600">My orders</button></div>
-        <div style="padding:16px 22px 20px;text-align:center;border-bottom:1px solid #e2d5bf">
-          <div style="font-size:11px;letter-spacing:3px;color:#a0784a">KREMNOS · EST. 2026</div>
-          <div style="font-size:34px;margin-top:8px">Golden Honeycake</div>
-          <div style="font-size:14px;color:#7a6650;margin-top:4px;font-style:italic">the royal choice</div>
-        </div>
-        <div style="margin:18px 16px;padding:18px;border-radius:14px;background:#2b2118;color:#f6efe3">
-          <div style="font-size:11px;letter-spacing:2px;color:#e8b04a;font-family:-apple-system,sans-serif">THIS SATURDAY ONLY · 21 NOVEMBER</div>
-          <div style="font-size:24px;margin-top:6px">Honey suncakes, the Aedes Elysiae way</div>
-        </div>
-        <div style="padding:6px 22px">
-          <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">EVERY DAY</div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Golden honeycakes</span><span>2.50</span></div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Rye &amp; fig loaf</span><span>6.00</span></div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Fig stew (Saturdays)</span><span>8.00</span></div>
-          <div style="display:flex;justify-content:space-between;padding:9px 0 2px"><span>The Serious Bun</span><span>1.80</span></div>
-          <div style="font-size:13px;color:#7a6650;font-style:italic">it has eyebrows. you’ll see.</div>
-        </div>
-        <div style="padding:22px 22px 0;font-size:15px;line-height:1.55">
-          <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">A LIBRARY WITH NO LOCKS</div>
-          There’s a shelf of books by the window, and a few tables where you can sit and read while you wait for your order. We have a selection of novels, poetry, and local history. Please don’t take the books home; they’re for everyone to enjoy.
-        </div>
-        <div style="padding:22px 22px 0;font-size:14px;color:#7a6650;font-family:-apple-system,sans-serif">Tue–Sun · 07:00–14:00 · closed Mondays<br>4 Gate Street, Kremnos</div>
-      </div>`,
+          <div style="display:flex;justify-content:flex-end;padding:10px 16px 0;font-family:-apple-system,sans-serif;font-size:14px"><button onclick="acct()" style="color:#8a5a1c;font-weight:600">My orders</button></div>
+          <div style="padding:16px 22px 20px;text-align:center;border-bottom:1px solid #e2d5bf">
+            <div style="font-size:11px;letter-spacing:3px;color:#a0784a">KREMNOS · EST. 2026</div>
+            <div style="font-size:34px;margin-top:8px">Golden Honeycake</div>
+            <div style="font-size:14px;color:#7a6650;margin-top:4px;font-style:italic">the royal choice</div>
+          </div>
+          <div style="margin:18px 16px;padding:18px;border-radius:14px;background:#2b2118;color:#f6efe3">
+            <div style="font-size:11px;letter-spacing:2px;color:#e8b04a;font-family:-apple-system,sans-serif">THIS SATURDAY ONLY · 21 NOVEMBER</div>
+            <div style="font-size:24px;margin-top:6px">Honey suncakes, the Aedes Elysiae way</div>
+          </div>
+          <div style="padding:6px 22px">
+            <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">EVERY DAY</div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Golden honeycakes</span><span>2.50</span></div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Rye &amp; fig loaf</span><span>6.00</span></div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Fig stew (Saturdays)</span><span>8.00</span></div>
+            <div style="display:flex;justify-content:space-between;padding:9px 0 2px"><span>The Serious Bun</span><span>1.80</span></div>
+            <div style="font-size:13px;color:#7a6650;font-style:italic">it has eyebrows. you’ll see.</div>
+          </div>
+          <div style="padding:22px 22px 0;font-size:15px;line-height:1.55">
+            <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">A LIBRARY WITH NO LOCKS</div>
+            There’s a shelf of books by the window, and a few tables where you can sit and read while you wait for your order. We have a selection of novels, poetry, and local history. Please don’t take the books home; they’re for everyone to enjoy.
+          </div>
+          <div style="padding:22px 22px 0;font-size:14px;color:#7a6650;font-family:-apple-system,sans-serif">Tue–Sun · 07:00–14:00 · closed Mondays<br>4 Gate Street, Kremnos</div>
+        </div>`,
       },
       {
         id: "rail",
@@ -1165,15 +1165,15 @@ const STORY = {
         bg: "#0d3b66",
         light: false,
         html: `<div style="background:#fff;color:#111;min-height:100%;font-family:-apple-system,sans-serif">
-        <div style="background:#0d3b66;color:#fff;padding:16px 18px;font-weight:700;font-size:17px">Amphoreus Rail</div>
-        <div style="padding:20px 18px">
-          <div style="font-size:13px;color:#666">Booking reference</div>
-          <div style="font-size:24px;font-weight:700;margin:2px 0 14px">KRM-4417</div>
-          <div style="display:inline-block;background:#fde8e8;color:#b42318;font-weight:600;font-size:13px;padding:4px 10px;border-radius:20px">Cancelled</div>
-          <div style="margin-top:18px;padding:14px;border:1px solid #e3e3e3;border-radius:12px;line-height:1.6"><b>Okhema Central 08:10 → Kremnos 11:52</b><br>Saturday 21 November 2026<br>Coach 6 · Seat 41</div>
-          <div style="margin-top:14px;color:#444;font-size:14px">Refund requested on 20 Nov at 18:02.</div>
-        </div>
-      </div>`,
+          <div style="background:#0d3b66;color:#fff;padding:16px 18px;font-weight:700;font-size:17px">Amphoreus Rail</div>
+          <div style="padding:20px 18px">
+            <div style="font-size:13px;color:#666">Booking reference</div>
+            <div style="font-size:24px;font-weight:700;margin:2px 0 14px">KRM-4417</div>
+            <div style="display:inline-block;background:#fde8e8;color:#b42318;font-weight:600;font-size:13px;padding:4px 10px;border-radius:20px">Cancelled</div>
+            <div style="margin-top:18px;padding:14px;border:1px solid #e3e3e3;border-radius:12px;line-height:1.6"><b>Okhema Central 08:10 → Kremnos 11:52</b><br>Saturday 21 November 2026<br>Coach 6 · Seat 41</div>
+            <div style="margin-top:14px;color:#444;font-size:14px">Refund requested on 20 Nov at 18:02.</div>
+          </div>
+        </div>`,
       },
       {
         id: "lib",
@@ -1181,14 +1181,14 @@ const STORY = {
         url: "kremnoslibrary.kr",
         bg: "#1f2a24",
         html: `<div style="background:#f3f1ea;color:#1f2a24;min-height:100%;font-family:Georgia,'Times New Roman',serif;padding-bottom:30px">
-        <div style="background:#1f2a24;color:#e9e4d4;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-family:-apple-system,sans-serif;font-size:14px"><b style="letter-spacing:1px">KREMNOS OLD LIBRARY</b><button onclick="libAcct()" style="color:#d9c07a;font-weight:600">My account</button></div>
-        <div style="padding:26px 22px 8px">
-          <div style="font-size:11px;letter-spacing:3px;color:#7d8a6f;font-family:-apple-system,sans-serif">REOPENED SPRING 2025</div>
-          <div style="font-size:30px;margin-top:8px;line-height:1.15">We're open again</div>
-          <div style="font-size:15px;color:#55604c;margin-top:12px;line-height:1.5">Borrow, read, and stay as long as you'd like! Kremnos library welcoms you. <br>Holds placed online are kept at the front desk for 7 days.</div>
-        </div>
-        <div style="padding:16px 22px 0;font-size:14px;color:#55604c;font-family:-apple-system,sans-serif">Tue–Sun · 09:00–19:00 · Mon 12:00–19:00<br>1 Archive Square, Kremnos</div>
-      </div>`,
+          <div style="background:#1f2a24;color:#e9e4d4;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-family:-apple-system,sans-serif;font-size:14px"><b style="letter-spacing:1px">KREMNOS OLD LIBRARY</b><button onclick="libAcct()" style="color:#d9c07a;font-weight:600">My account</button></div>
+          <div style="padding:26px 22px 8px">
+            <div style="font-size:11px;letter-spacing:3px;color:#7d8a6f;font-family:-apple-system,sans-serif">REOPENED SPRING 2025</div>
+            <div style="font-size:30px;margin-top:8px;line-height:1.15">We're open again</div>
+            <div style="font-size:15px;color:#55604c;margin-top:12px;line-height:1.5">Borrow, read, and stay as long as you'd like! Kremnos library welcoms you. <br>Holds placed online are kept at the front desk for 7 days.</div>
+          </div>
+          <div style="padding:16px 22px 0;font-size:14px;color:#55604c;font-family:-apple-system,sans-serif">Tue–Sun · 09:00–19:00 · Mon 12:00–19:00<br>1 Archive Square, Kremnos</div>
+        </div>`,
       },
     ],
     history: [
@@ -1253,14 +1253,14 @@ const STORY = {
         url: "Search",
       },
       {
-        time: "2025-04-28 16:20",
-        title: "Han Jisung / Lee Minho fanfiction",
-        url: "archiveofourown.org",
-      },
-      {
         time: "2026-06-07 03:40",
         title: "flower delivery kremnos",
         url: "Search",
+      },
+      {
+        time: "2025-05-13 13:45",
+        title: "Han Jisung / Lee Minho fanfiction",
+        url: "archiveofourown.org",
       },
       {
         time: "2025-04-28 16:20",
@@ -1483,23 +1483,6 @@ const STORY = {
   ],
   // Find My · People. Positions are places on the map: okhema, okhemaStation, aedes, aedesBeach, kremnos, train1, train2
   findmy: [
-    {
-      who: "hya",
-      steps: [
-        ["start", "okhema", "Home · Okhema"],
-        ["g3", "okhema", "Phainon’s flat · Okhema"],
-        ["g4", "okhemaStation", "Okhema Central"],
-        ["fin", "train1", "On a train to Aedes"],
-      ],
-    },
-    {
-      who: "cas",
-      steps: [
-        ["start", "okhema", "Home · Okhema"],
-        ["g4", "okhemaStation", "Okhema Central"],
-        ["fin", "train1", "On a train to Aedes"],
-      ],
-    },
     {
       who: "agl",
       steps: [
