@@ -857,7 +857,7 @@ const STORY = {
         [0, "golden honeycakes (practise first)"],
         [0, "go to the cat cafe he likes"],
       ],
-      body: "",
+      body: "<strong>DON'T</strong> walk near a kfc. bad luck.",
     },
   ],
 
@@ -1234,8 +1234,8 @@ const STORY = {
       },
       {
         time: "2026-10-12 23:44",
-        title: "how do you call your ex situationship",
-        url: "Search",
+        title: "A Home Far Away · Manga",
+        url: "Comix.to",
       },
       {
         time: "2026-10-09 22:24",
@@ -1256,6 +1256,11 @@ const STORY = {
         time: "2026-06-07 03:40",
         title: "flower delivery kremnos",
         url: "Search",
+      },
+      {
+        time: "2025-04-28 16:20",
+        title: "Gojo Satoru / Getou Suguru fanfiction",
+        url: "archiveofourown.org",
       },
       {
         time: "2025-04-28 16:20",
