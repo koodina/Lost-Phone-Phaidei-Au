@@ -3951,7 +3951,7 @@ function libPage() {
     cls: "nolt saf",
     light: true,
     html: wrap(
-      `${top_}<h2>Sign in</h2><label>Library card number</label><input class="acc-i" id="libno" inputmode="numeric" placeholder="0000 0000"><label>PIN</label><input class="acc-i" value="••••" readonly><button class="acc-b" onclick="libTry()">Sign in</button><div class="acc-err" id="liberr"></div><div class="acc-e" style="margin-top:10px">Your card number is printed on your library card.</div></div>`
+      `${top_}<h2>Sign in</h2><label>Library card number</label><input class="acc-i" id="libno" inputmode="numeric" placeholder="0000 0000"><button class="acc-b" onclick="libTry()">Sign in</button><div class="acc-err" id="liberr"></div><div class="acc-e" style="margin-top:10px">Your card number is printed on your library card.</div></div>`
     ),
   };
 }
