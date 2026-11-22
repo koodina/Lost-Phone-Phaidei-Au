@@ -194,6 +194,7 @@ const CLUES = new Set();
   if (S.hiddenPassword) CLUES.add("x:hidden");
   CLUES.add("x:edit");
   if (S.safari && S.safari.account) CLUES.add("s:orders");
+  if (S.safari && S.safari.library) CLUES.add("s:lib");
 })();
 const nClues = () => [...seen].filter((k) => CLUES.has(k)).length;
 function see(k) {
@@ -3890,6 +3891,82 @@ function acctCode() {
     sfx("fail");
   }
 }
+function libAcct() {
+  push(libPage);
+}
+function libPage() {
+  const L = S.safari.library,
+    wrap = (h) =>
+      `<div class="sc web" style="background:#f3f1ea">${h}</div><div class="sfb"><div class="sfa"><span class="aa">aA</span><span class="sfu">${I(
+        "lock",
+        11
+      )} kremnoslibrary.kr</span><span>${I(
+        "reload",
+        18
+      )}</span></div><div class="sft"><button onclick="goBack()">${I(
+        "back",
+        22
+      )}</button><span class="dim">${I("chev", 22)}</span><span>${I(
+        "share",
+        23
+      )}</span><span>${I("book", 24)}</span><span>${I(
+        "tabs",
+        23
+      )}</span></div></div>`;
+  const top_ = `<div class="acc lib"><div class="acc-h">Kremnos Old Library</div>`;
+  if (ok.lib) {
+    see("s:lib");
+    return {
+      title: "My account",
+      cls: "nolt saf",
+      light: true,
+      html: wrap(
+        `${top_}<h2>My account</h2><div class="acc-e">${
+          L.name
+        } · member since ${fDate(L.since)}</div><div class="lib-sh">Holds (${
+          L.holds.length
+        })</div>${L.holds
+          .map(
+            (h) =>
+              `<div class="ord"><div class="ord-t"><b>${
+                h.title
+              }</b></div><div class="acc-e" style="margin:2px 0 6px">${
+                h.sub
+              }</div><div class="ord-s lib-ok">${
+                h.status
+              }</div><div>Hold until ${
+                h.until
+              } · front desk</div><div class="acc-e" style="margin:6px 0 0">Placed ${fLong(
+                h.placed
+              )}</div></div>`
+          )
+          .join(
+            ""
+          )}<div class="lib-sh">Loans</div><div class="acc-e">You haven’t borrowed anything yet.</div></div>`
+      ),
+    };
+  }
+  return {
+    title: "Sign in",
+    cls: "nolt saf",
+    light: true,
+    html: wrap(
+      `${top_}<h2>Sign in</h2><label>Library card number</label><input class="acc-i" id="libno" inputmode="numeric" placeholder="0000 0000"><label>PIN</label><input class="acc-i" value="••••" readonly><button class="acc-b" onclick="libTry()">Sign in</button><div class="acc-err" id="liberr"></div><div class="acc-e" style="margin-top:10px">Your card number is printed on your library card.</div></div>`
+    ),
+  };
+}
+function libTry() {
+  const v = ($("#libno").value || "").replace(/\D/g, "");
+  if (v === S.safari.library.card.replace(/\D/g, "")) {
+    ok.lib = 1;
+    sfx("tick");
+    rerender(topP());
+  } else {
+    const e = $("#liberr");
+    if (e) e.textContent = "We couldn’t find that card number.";
+    sfx("fail");
+  }
+}
 function stAsk() {
   sheet({
     btns: [
@@ -3925,13 +4002,13 @@ function tabsPage() {
       body: `<div class="tbg">${ts
         .map(
           (t) =>
-            `<button class="tcard${
+            `<div class="tcard${
               t.id === safTab ? " cur" : ""
-            }" onclick="safTab='${
+            }" role="button" onclick="safTab='${
               t.id
-            }';goBack();setTimeout(()=>rerender(topP()),400)"><span class="tcw"><span class="tcs">${
+            }';goBack();setTimeout(()=>rerender(topP()),400)"><div class="tcw"><div class="tcs">${
               t.html
-            }</span></span><b>${t.title}</b></button>`
+            }</div></div><b>${t.title}</b></div>`
         )
         .join("")}</div>`,
       foot: `<div class="tbar"><span>${I("plus", 24)}</span><span class="tbc">${

@@ -23,7 +23,7 @@ const STORY = {
   signal: 1,
   network: "4G",
   passcode: "2691",
-  passHint: "i just wanted to request that you witness era nova with me",
+  passHint: "Hint : I just wanted to request that you witness era nova with me",
   passHintAfter: 1, // wrong tries before the hint shows under the dots
   hiddenPassword: ["hyacinth", "hyacinths"], // Photos › Hidden has its own password
   hiddenHint: "his favourite flowers",
@@ -36,9 +36,7 @@ const STORY = {
   showProgress: true,
 
   warning:
-    "This story deals with suicide, depression and grief. Please look after yourself while you read, and stop whenever you need to.",
-  resources:
-    "If you or someone near you is struggling: France 3114 (24/7) · UK &amp; Ireland Samaritans 116 123 · US call or text 988 · elsewhere: findahelpline.com",
+    "This story deals with sensitive topics. Please look after yourself while you read.",
   intro:
     "Saturday, 07:51. The beach at Aedes is almost empty. Half out of the sand by the lifeguard hut, a phone keeps lighting up, buzzing, lighting up again.<br><br>You pick it up.",
 
@@ -89,19 +87,19 @@ const STORY = {
       app: "phone",
       title: "Missed Call",
       text: "Castorice",
-      time: "2026-11-21 07:05",
+      time: "2026-11-21 07:50",
     },
     {
       app: "phone",
       title: "Missed Calls",
       text: "Hyacine (2)",
-      time: "2026-11-21 06:41",
+      time: "2026-11-21 07:45",
     },
     {
       app: "messages",
       title: "Hyacine",
       text: "two years exactly today huh. call me",
-      time: "2026-11-21 06:16",
+      time: "2026-11-21 07:42",
       more: 2,
     },
   ],
@@ -532,10 +530,9 @@ const STORY = {
         ["them", "omg finally. tell her hi from me"],
         ["~", "2026-11-20 23:52"],
         ["me", "thank you hyacinth, for everything"],
-        ["~", "2026-11-21 06:14"],
+        ["~", "2026-11-21 07:42"],
         ["them", "phai?? what’s that about"],
         ["them", "are you ok?"],
-        ["~", "2026-11-21 06:16"],
         ["them", "two years exactly today huh. call me"],
       ],
     },
@@ -793,7 +790,7 @@ const STORY = {
   
   you didn’t do anything wrong. you left breakfast on the counter, you waited outside in the cold, you told me to come see your library like it was nothing. you just let me exist by your side like I was allowed to. I kept waiting for you to figure out I wasn’t worth all that. kept waiting for the day you'd realize this wasn't what you wanted and leave. you never did, so I made it happen for you.
   
-  I got your newsletter. honey suncakes on saturday? hah.. the aedes elysiae way. that’s my mom’s recipe you made me give you for my birthday. I read it standing in the kitchen and I had to sit down. I bought a ticket and ordered the suncakes. I cancelled them. I ordered them again. I've cancelled them three times now, which is embarrassing even for me. i hope they don't suspend my account for bot behavior
+  I got your newsletter. honey suncakes on saturday? hah.. the aedes elysiae way. that’s my mom’s recipe you had me give you for my birthday. I read it standing in the kitchen and I had to sit down. I bought a ticket and ordered the suncakes. I cancelled them. I ordered them again. I've cancelled them three times now, which is embarrassing even for me. i hope they don't suspend my account for bot behavior
   
   tonight I cancelled the ticket too. not because of you. I'm a coward. I'm scared to see the life you've built for yourself without me. I don't want to see it. no that’s not true, I want to see all of it. of course i'm happy for you. I just can't stand the possibility there's not a place for me in it. that you don't want me in it. and if I don’t go I never have to find out.
   
@@ -1178,6 +1175,21 @@ const STORY = {
         </div>
       </div>`,
       },
+      {
+        id: "lib",
+        title: "Kremnos Old Library",
+        url: "kremnoslibrary.kr",
+        bg: "#1f2a24",
+        html: `<div style="background:#f3f1ea;color:#1f2a24;min-height:100%;font-family:Georgia,'Times New Roman',serif;padding-bottom:30px">
+        <div style="background:#1f2a24;color:#e9e4d4;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-family:-apple-system,sans-serif;font-size:14px"><b style="letter-spacing:1px">KREMNOS OLD LIBRARY</b><button onclick="libAcct()" style="color:#d9c07a;font-weight:600">My account</button></div>
+        <div style="padding:26px 22px 8px">
+          <div style="font-size:11px;letter-spacing:3px;color:#7d8a6f;font-family:-apple-system,sans-serif">REOPENED SPRING 2025</div>
+          <div style="font-size:30px;margin-top:8px;line-height:1.15">We're open again</div>
+          <div style="font-size:15px;color:#55604c;margin-top:12px;line-height:1.5">Borrow, read, and stay as long as you'd like! Kremnos library welcoms you. <br>Holds placed online are kept at the front desk for 7 days.</div>
+        </div>
+        <div style="padding:16px 22px 0;font-size:14px;color:#55604c;font-family:-apple-system,sans-serif">Tue–Sun · 09:00–19:00 · Mon 12:00–19:00<br>1 Archive Square, Kremnos</div>
+      </div>`,
+      },
     ],
     history: [
       {
@@ -1251,6 +1263,21 @@ const STORY = {
         url: "Search",
       },
     ],
+    // Library "My account": needs the card number from the library card in Wallet
+    library: {
+      card: "2410 1506",
+      name: "Phainon",
+      since: "2024-10-15",
+      holds: [
+        {
+          title: "Kremnoan Language Basics",
+          sub: "with audio · beginner",
+          placed: "2026-11-14 09:25",
+          status: "Ready for pickup",
+          until: "Mon 23 Nov 2026",
+        },
+      ],
+    },
     // "My orders": Forgot password → a code arrives in Mail
     account: {
       email: "phainon.deliverer@okhemamail.com",
@@ -1418,6 +1445,15 @@ const STORY = {
       clue: true,
     },
     {
+      id: "w5",
+      title: "Kremnos Old Library",
+      sub: "Library card",
+      detail:
+        "Phainon<br>Member since 15 Oct 2024<br><br>Card no. <b>2410 1506</b>",
+      color: ["#1f2a24", "#3d5245"],
+      clue: true,
+    },
+    {
       id: "w4",
       title: "Cipher’s",
       sub: "Loyalty card · 10 / 10",
@@ -1500,13 +1536,7 @@ const STORY = {
   ],
   alarms: [
     { id: "train", time: "07:55", label: "train!", repeat: "Never", on: true },
-    {
-      id: "wk",
-      time: "07:00",
-      label: "didn't need the masters fml",
-      repeat: "Monday, Tuesday, Wednesday, Friday",
-      on: false,
-    },
+    { id: "wk", time: "07:00", label: "Work", repeat: "Weekdays", on: false },
   ],
 
   /* ------------------------------------------------------------ live events */

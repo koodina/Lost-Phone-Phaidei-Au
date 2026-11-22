@@ -4360,3 +4360,26 @@ button.row:active,
 .txa.plus {
   color: #30d158;
 }
+.acc.lib {
+  color: #1f2a24;
+}
+.acc.lib .acc-h {
+  border-color: #d9d4c3;
+}
+.acc.lib .acc-b {
+  background: #1f2a24;
+  color: #e9e4d4;
+}
+.lib-sh {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7d8a6f;
+  margin: 18px 0 8px;
+}
+.lib-ok {
+  color: #2f7a46 !important;
+}
+.tcard {
+  cursor: pointer;
+}
