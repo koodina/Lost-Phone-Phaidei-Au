@@ -1239,7 +1239,7 @@ const STORY = {
       },
       {
         time: "2026-10-09 22:24",
-        title: "screen time limit one website",
+        title: "how to stop ahoge from growing",
         url: "Search",
       },
       {
