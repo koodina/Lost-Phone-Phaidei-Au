@@ -15,6 +15,7 @@
    give the photo  src:"images/whatever.jpg". Without src, `scene` draws a
    placeholder (see SCENES in script.js) with the optional `emoji` on top.
    ===================================================================== */
+
 const STORY = {
   owner: "Phainon",
   start: "2026-11-21 07:51",
@@ -24,7 +25,7 @@ const STORY = {
   network: "4G",
   passcode: "2691",
   passHint: "Hint : I just wanted to request that you witness era nova with me",
-  passHintAfter: 1, // wrong tries before the hint shows under the dots
+  passHintAfter: 0, // wrong tries before the hint shows under the dots
   hiddenPassword: ["hyacinth", "hyacinths"], // Photos › Hidden has its own password
   hiddenHint: "his favourite flowers",
 
@@ -265,7 +266,7 @@ const STORY = {
         ["hya", "", { photo: { src: "images/ica.jpg" } }],
         ["hya", "I think she's mad at me"],
         ["me", "she wants me"],
-        ["cas", "She looks so angry. I love her."],
+        ["cas", "She looks so angry I love her"],
         ["~", "2026-11-15 16:44"],
         ["me", "", { photo: { src: "images/c_attempt3.jpg" } }],
         ["me", "honeycakes attempt #3"],
