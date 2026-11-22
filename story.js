@@ -1491,15 +1491,6 @@ const STORY = {
         ["fin", "aedesBeach", "Aedes Beach"],
       ],
     },
-    {
-      who: "dei",
-      note: "still sharing",
-      clue: true,
-      steps: [
-        ["start", "kremnos", "Golden Honeycake · Kremnos"],
-        ["d4", "train2", "On a train"],
-      ],
-    },
   ],
   maps: [
     {
