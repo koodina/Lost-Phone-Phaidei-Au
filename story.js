@@ -856,7 +856,7 @@ const STORY = {
       check: [
         [1, "hyacinths (his favourite!! NOT roses, he’ll judge)"],
         [0, "golden honeycakes (practise first)"],
-        [0, "go to the cat cafe he likes"],
+        [1, "go to the cat cafe he likes"],
       ],
       body: "<strong>DON'T</strong> walk near a kfc. bad luck.",
     },
