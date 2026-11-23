@@ -107,8 +107,8 @@ const STORY = {
   ],
 
   /* ------------------------------------------------------------ messages
-                   ["~","YYYY-MM-DD HH:MM"] divider · ["me",…] Phainon · ["them",…] the other person
-                   [contactId,…] who's talking in a group · 3rd item {photo:{scene,emoji,src}} sends a picture */
+                     ["~","YYYY-MM-DD HH:MM"] divider · ["me",…] Phainon · ["them",…] the other person
+                     [contactId,…] who's talking in a group · 3rd item {photo:{scene,emoji,src}} sends a picture */
   threads: [
     {
       id: "dei",
@@ -649,7 +649,7 @@ const STORY = {
   ],
 
   /* ------------------------------------------------------------ deleted messages
-                   Messages › Filters › Recently Deleted. Gets a badge once `badgeAfter` is seen. */
+                     Messages › Filters › Recently Deleted. Gets a badge once `badgeAfter` is seen. */
   deletedMsgs: {
     badgeAfter: "v:v2",
     items: [
@@ -721,7 +721,7 @@ const STORY = {
       time: "2026-11-19 07:00",
       clue: true,
       subj: "this weekend at golden honeycake",
-      body: "Morning from Kremnos.\n\nThis weekend:\n· Golden honeycakes (always)\n· Fig stew, Saturday lunch\n· The serious bun \n· Saturday 21st only: honey suncakes, the Aedes Elysiae way\n\nOpen 7–14. The day's specials might sell out earlier so be sure to catch those.\n— M.\n\n\nYou’re receiving this because you signed up at goldenhoneycake.kr · Unsubscribe",
+      body: "Morning from Kremnos.\n\nThis weekend:\n· Golden honeycakes (always)\n· Fig stew, Saturday lunch\n· The serious bun \n· Saturday 21st only: honey suncakes, the Aedes Elysiae way\n\nOpen 7–14. The day's specials might sell out earlier so be sure to catch those.\n— M.\n\n\nYou’re receiving this because you signed up at goldenhoneycake.kr as n•••••496 · Unsubscribe",
     },
     {
       id: "ship",
@@ -782,27 +782,27 @@ const STORY = {
       hintAfter: "x:hidden", // the hint only shows once Photos › Hidden has been opened
       hintBefore: "Hint : you’ll know it when you see it",
       body: `dei,
-        
-        I’ve started this like nine times so i’m just going to write it.
-        
-        the fight wasn’t about the word. you asked what we were and i made a joke, because if i said it out loud it was real, and every real thing i’ve had ends up taken away. so i broke it myself first. at least then it was my fault. sounds stupid when i write it out but at the time it made sense in my head.
-        
-        you didn’t do anything wrong. you left breakfast on the counter, you waited outside in the cold, you told me to come see your library like it was nothing. you just let me exist by your side like I was allowed to. I kept waiting for you to figure out I wasn’t worth all that. kept waiting for the day you'd realize this wasn't what you wanted and leave. you never did, so I made it happen for you.
-        
-        I got your newsletter. honey suncakes on saturday? hah.. the aedes elysiae way. that’s my mom’s recipe you had me give you for my birthday. I read it standing in the kitchen and I had to sit down. I bought a ticket and ordered the suncakes. I cancelled them. I ordered them again. I've cancelled them three times now, which is embarrassing even for me. i hope they don't suspend my account for bot behavior
-        
-        tonight I cancelled the ticket too. not because of you. I'm a coward. I'm scared to see the life you've built for yourself without me. I don't want to see it. no that’s not true, I want to see all of it. of course i'm happy for you. I just can't stand the possibility there's not a place for me in it. that you don't want me in it. and if I don’t go I never have to find out.
-        
-        hyacine says I decide things for people. she’s right. she’s always right it’s annoying.
-        
-        I came to aedes instead. I don’t really know why. It’s where I go when I can’t think. the place where it all started. where I lost everything. where I gained something for the first time again. the sea is really loud tonight. you’d hate it.
-        
-        I don’t know what I’m doing tomorrow. I don’t know if I’ll send this.
-        
-        but if I don’t say it now I never will. i love you. I had it the whole time I just didn’t know how to keep it. I don’t know if I can. but I want to try. I want to be with you. I want and want and want and I'm bad at wanting.
-        
-        
-        — Phainon`,
+          
+          I’ve started this like nine times so i’m just going to write it.
+          
+          the fight wasn’t about the word. you asked what we were and i made a joke, because if i said it out loud it was real, and every real thing i’ve had ends up taken away. so i broke it myself first. at least then it was my fault. sounds stupid when i write it out but at the time it made sense in my head.
+          
+          you didn’t do anything wrong. you left breakfast on the counter, you waited outside in the cold, you told me to come see your library like it was nothing. you just let me exist by your side like I was allowed to. I kept waiting for you to figure out I wasn’t worth all that. kept waiting for the day you'd realize this wasn't what you wanted and leave. you never did, so I made it happen for you.
+          
+          I got your newsletter. honey suncakes on saturday? hah.. the aedes elysiae way. that’s my mom’s recipe you had me give you for my birthday. I read it standing in the kitchen and I had to sit down. I bought a ticket and ordered the suncakes. I cancelled them. I ordered them again. I've cancelled them three times now, which is embarrassing even for me. i hope they don't suspend my account for bot behavior
+          
+          tonight I cancelled the ticket too. not because of you. I'm a coward. I'm scared to see the life you've built for yourself without me. I don't want to see it. no that’s not true, I want to see all of it. of course i'm happy for you. I just can't stand the possibility there's not a place for me in it. that you don't want me in it. and if I don’t go I never have to find out.
+          
+          hyacine says I decide things for people. she’s right. she’s always right it’s annoying.
+          
+          I came to aedes instead. I don’t really know why. It’s where I go when I can’t think. the place where it all started. where I lost everything. where I gained something for the first time again. the sea is really loud tonight. you’d hate it.
+          
+          I don’t know what I’m doing tomorrow. I don’t know if I’ll send this.
+          
+          but if I don’t say it now I never will. i love you. I had it the whole time I just didn’t know how to keep it. I don’t know if I can. but I want to try. I want to be with you. I want and want and want and I'm bad at wanting.
+          
+          
+          — Phainon`,
     },
     {
       id: "todo",
@@ -1166,30 +1166,30 @@ const STORY = {
         clue: true,
         bg: "#f6efe3",
         html: `<div style="background:#f6efe3;color:#2b2118;min-height:100%;font-family:Georgia,'Times New Roman',serif;padding-bottom:30px">
-                <div style="display:flex;justify-content:flex-end;padding:10px 16px 0;font-family:-apple-system,sans-serif;font-size:14px"><button onclick="acct()" style="color:#8a5a1c;font-weight:600">My orders</button></div>
-                <div style="padding:16px 22px 20px;text-align:center;border-bottom:1px solid #e2d5bf">
-                  <div style="font-size:11px;letter-spacing:3px;color:#a0784a">KREMNOS · EST. 2026</div>
-                  <div style="font-size:34px;margin-top:8px">Golden Honeycake</div>
-                  <div style="font-size:14px;color:#7a6650;margin-top:4px;font-style:italic">the royal choice</div>
-                </div>
-                <div style="margin:18px 16px;padding:18px;border-radius:14px;background:#2b2118;color:#f6efe3">
-                  <div style="font-size:11px;letter-spacing:2px;color:#e8b04a;font-family:-apple-system,sans-serif">THIS SATURDAY ONLY · 21 NOVEMBER</div>
-                  <div style="font-size:24px;margin-top:6px">Honey suncakes, the Aedes Elysiae way</div>
-                </div>
-                <div style="padding:6px 22px">
-                  <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">EVERY DAY</div>
-                  <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Golden honeycakes</span><span>2.50</span></div>
-                  <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Rye &amp; fig loaf</span><span>6.00</span></div>
-                  <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Fig stew (Saturdays)</span><span>8.00</span></div>
-                  <div style="display:flex;justify-content:space-between;padding:9px 0 2px"><span>The Serious Bun</span><span>1.80</span></div>
-                  <div style="font-size:13px;color:#7a6650;font-style:italic">it has eyebrows. you’ll see.</div>
-                </div>
-                <div style="padding:22px 22px 0;font-size:15px;line-height:1.55">
-                  <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">A LIBRARY WITH NO LOCKS</div>
-                  There’s a shelf of books by the window, and a few tables where you can sit and read while you wait for your order. We have a selection of novels, poetry, and local history. Please don’t take the books home; they’re for everyone to enjoy.
-                </div>
-                <div style="padding:22px 22px 0;font-size:14px;color:#7a6650;font-family:-apple-system,sans-serif">Tue–Sun · 07:00–14:00 · closed Mondays<br>4 Gate Street, Kremnos</div>
-              </div>`,
+                  <div style="display:flex;justify-content:flex-end;padding:10px 16px 0;font-family:-apple-system,sans-serif;font-size:14px"><button onclick="acct()" style="color:#8a5a1c;font-weight:600">My orders</button></div>
+                  <div style="padding:16px 22px 20px;text-align:center;border-bottom:1px solid #e2d5bf">
+                    <div style="font-size:11px;letter-spacing:3px;color:#a0784a">KREMNOS · EST. 2026</div>
+                    <div style="font-size:34px;margin-top:8px">Golden Honeycake</div>
+                    <div style="font-size:14px;color:#7a6650;margin-top:4px;font-style:italic">the royal choice</div>
+                  </div>
+                  <div style="margin:18px 16px;padding:18px;border-radius:14px;background:#2b2118;color:#f6efe3">
+                    <div style="font-size:11px;letter-spacing:2px;color:#e8b04a;font-family:-apple-system,sans-serif">THIS SATURDAY ONLY · 21 NOVEMBER</div>
+                    <div style="font-size:24px;margin-top:6px">Honey suncakes, the Aedes Elysiae way</div>
+                  </div>
+                  <div style="padding:6px 22px">
+                    <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">EVERY DAY</div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Golden honeycakes</span><span>2.50</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Rye &amp; fig loaf</span><span>6.00</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Fig stew (Saturdays)</span><span>8.00</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0 2px"><span>The Serious Bun</span><span>1.80</span></div>
+                    <div style="font-size:13px;color:#7a6650;font-style:italic">it has eyebrows. you’ll see.</div>
+                  </div>
+                  <div style="padding:22px 22px 0;font-size:15px;line-height:1.55">
+                    <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">A LIBRARY WITH NO LOCKS</div>
+                    There’s a shelf of books by the window, and a few tables where you can sit and read while you wait for your order. We have a selection of novels, poetry, and local history. Please don’t take the books home; they’re for everyone to enjoy.
+                  </div>
+                  <div style="padding:22px 22px 0;font-size:14px;color:#7a6650;font-family:-apple-system,sans-serif">Tue–Sun · 07:00–14:00 · closed Mondays<br>4 Gate Street, Kremnos</div>
+                </div>`,
       },
       {
         id: "rail",
@@ -1198,15 +1198,15 @@ const STORY = {
         bg: "#0d3b66",
         light: false,
         html: `<div style="background:#fff;color:#111;min-height:100%;font-family:-apple-system,sans-serif">
-                <div style="background:#0d3b66;color:#fff;padding:16px 18px;font-weight:700;font-size:17px">Amphoreus Rail</div>
-                <div style="padding:20px 18px">
-                  <div style="font-size:13px;color:#666">Booking reference</div>
-                  <div style="font-size:24px;font-weight:700;margin:2px 0 14px">KRM-4417</div>
-                  <div style="display:inline-block;background:#fde8e8;color:#b42318;font-weight:600;font-size:13px;padding:4px 10px;border-radius:20px">Cancelled</div>
-                  <div style="margin-top:18px;padding:14px;border:1px solid #e3e3e3;border-radius:12px;line-height:1.6"><b>Okhema Central 08:10 → Kremnos 11:52</b><br>Saturday 21 November 2026<br>Coach 6 · Seat 41</div>
-                  <div style="margin-top:14px;color:#444;font-size:14px">Refund requested on 20 Nov at 18:02.</div>
-                </div>
-              </div>`,
+                  <div style="background:#0d3b66;color:#fff;padding:16px 18px;font-weight:700;font-size:17px">Amphoreus Rail</div>
+                  <div style="padding:20px 18px">
+                    <div style="font-size:13px;color:#666">Booking reference</div>
+                    <div style="font-size:24px;font-weight:700;margin:2px 0 14px">KRM-4417</div>
+                    <div style="display:inline-block;background:#fde8e8;color:#b42318;font-weight:600;font-size:13px;padding:4px 10px;border-radius:20px">Cancelled</div>
+                    <div style="margin-top:18px;padding:14px;border:1px solid #e3e3e3;border-radius:12px;line-height:1.6"><b>Okhema Central 08:10 → Kremnos 11:52</b><br>Saturday 21 November 2026<br>Coach 6 · Seat 41</div>
+                    <div style="margin-top:14px;color:#444;font-size:14px">Refund requested on 20 Nov at 18:02.</div>
+                  </div>
+                </div>`,
       },
       {
         id: "lib",
@@ -1214,14 +1214,14 @@ const STORY = {
         url: "kremnoslibrary.kr",
         bg: "#1f2a24",
         html: `<div style="background:#f3f1ea;color:#1f2a24;min-height:100%;font-family:Georgia,'Times New Roman',serif;padding-bottom:30px">
-                <div style="background:#1f2a24;color:#e9e4d4;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-family:-apple-system,sans-serif;font-size:14px"><b style="letter-spacing:1px">KREMNOS OLD LIBRARY</b><button onclick="libAcct()" style="color:#d9c07a;font-weight:600">My account</button></div>
-                <div style="padding:26px 22px 8px">
-                  <div style="font-size:11px;letter-spacing:3px;color:#7d8a6f;font-family:-apple-system,sans-serif">REOPENED SPRING 2025</div>
-                  <div style="font-size:30px;margin-top:8px;line-height:1.15">We're open again</div>
-                  <div style="font-size:15px;color:#55604c;margin-top:12px;line-height:1.5">Borrow, read, and stay as long as you'd like! Kremnos library welcomes you. <br>Holds placed online are kept at the front desk for 7 days.</div>
-                </div>
-                <div style="padding:16px 22px 0;font-size:14px;color:#55604c;font-family:-apple-system,sans-serif">Tue–Sun · 09:00–19:00 · Mon 12:00–19:00<br>1 Archive Square, Kremnos</div>
-              </div>`,
+                  <div style="background:#1f2a24;color:#e9e4d4;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-family:-apple-system,sans-serif;font-size:14px"><b style="letter-spacing:1px">KREMNOS OLD LIBRARY</b><button onclick="libAcct()" style="color:#d9c07a;font-weight:600">My account</button></div>
+                  <div style="padding:26px 22px 8px">
+                    <div style="font-size:11px;letter-spacing:3px;color:#7d8a6f;font-family:-apple-system,sans-serif">REOPENED SPRING 2025</div>
+                    <div style="font-size:30px;margin-top:8px;line-height:1.15">We're open again</div>
+                    <div style="font-size:15px;color:#55604c;margin-top:12px;line-height:1.5">Borrow, read, and stay as long as you'd like! Kremnos library welcomes you. <br>Holds placed online are kept at the front desk for 7 days.</div>
+                  </div>
+                  <div style="padding:16px 22px 0;font-size:14px;color:#55604c;font-family:-apple-system,sans-serif">Tue–Sun · 09:00–19:00 · Mon 12:00–19:00<br>1 Archive Square, Kremnos</div>
+                </div>`,
       },
     ],
     history: [
@@ -1267,8 +1267,8 @@ const STORY = {
       },
       {
         time: "2026-10-12 23:44",
-        title: "A Home Far Away · Manga",
-        url: "Comix.to",
+        title: "how to get rid of too many look alikes",
+        url: "Search",
       },
       {
         time: "2026-10-09 22:24",
@@ -1533,7 +1533,7 @@ const STORY = {
       who: "agl",
       steps: [
         ["start", "aedes", "Home · Aedes"],
-        ["a2", "aedesWalk", "Walking · Aedes"],
+        ["a1", "aedesWalk", "Walking · Aedes"],
         ["fin", "aedesBeach", "Aedes Beach"],
       ],
     },
@@ -1835,7 +1835,6 @@ const STORY = {
       msgs: [
         ["hya", "ok i used his spare key. he’s not here"],
         ["hya", "his bed’s made?? he never makes his bed"],
-        ["hya", "his keys are here but his wallet's gone"],
         ["hya", "there was a parcel on the doormat"],
         ["hya", "from kremnos"],
         ["cas", "From Mydei???"],
@@ -1847,6 +1846,7 @@ const STORY = {
         ["cas", "Wait didn’t Phainon say he was going to Aglaea’s?"],
         ["hya", "yeah right he said he'd visit this weekend"],
         ["hya", "thought it'd be for tomorrow but maybe he went today"],
+        ["hya", "his wallet's gone but his keys are here"],
         ["cas", "I’m calling her."],
       ],
     },
@@ -1859,9 +1859,9 @@ const STORY = {
         ["them", "Castorice just called me"],
         [
           "them",
-          "You told Hyacine you were coming to visit. You never told me anything.",
+          "You told Hyacine you were coming to visit you never told me anything",
         ],
-        ["them", "Phainon, where are you?"],
+        ["them", "Phainon where are you?"],
       ],
     },
     {
@@ -1874,18 +1874,8 @@ const STORY = {
       },
     },
     {
-      id: "a2",
-      after: "a1",
-      delay: 60000,
-      thread: "agl",
-      msgs: [
-        ["them", "Find My says your phone is at the beach"],
-        ["them", "I’m going down now"],
-      ],
-    },
-    {
       id: "g4",
-      after: "a2",
+      after: "a1",
       delay: 25000,
       thread: "grp",
       msgs: [
@@ -1936,9 +1926,9 @@ const STORY = {
           "…",
           "Who is this?",
           "Is he with you?",
-          "Okay. Okay. Don’t go anywhere. I’m calling Aglaea.",
+          "Okay. Okay. Please stay with the phone.",
         ],
-        vm: "Phainon. Hyacine called. I saw your messages. Call me back. Please. I’m getting on a train.",
+        vm: "Phainon, Hyacine called. I saw your messages. Call me back. Please. I’m getting on a train.",
       },
     },
     {
@@ -1948,8 +1938,11 @@ const STORY = {
       flag: "deicall=answered",
       thread: "dei",
       msgs: [
-        ["them", "I called aglaea she's on her way to the beach"],
-        ["them", "Please stay there"],
+        ["them", "Is he there? Could you look around for me"],
+        ["them", "White hair"],
+        ["them", "Stupidly tall"],
+        ["them", "Blue eyes"],
+        ["them", "I'm on the train, I'll be there by two"],
       ],
     },
     {
@@ -1960,8 +1953,9 @@ const STORY = {
       thread: "dei",
       msgs: [
         ["them", "Pick up"],
-        ["them", "Phainon please."],
-        ["them", "I’m on a train I’ll be in Aedes by two"],
+        ["them", "Phainon please"],
+        ["them", "I know I said I won't reach out"],
+        ["them", "Please just tell me you're okay"],
       ],
     },
     {
@@ -1983,10 +1977,45 @@ const STORY = {
       delay: 26000,
       thread: "grp",
       msgs: [
-        ["hya", "next train is leaving in 10"],
+        ["hya", "next train here is leaving in 10"],
         ["cas", "I'll meet you at the station"],
       ],
     },
+
+    {
+      id: "d6b",
+      after: "g6",
+      delay: 10000,
+      flag: "deicall=missed",
+      thread: "dei",
+      msgs: [
+        [
+          "them",
+          "I never opened your messages. I read every preview and left them there. I told myself it was because of what I said, that I wouldn't ask again, but honestly I think I was scared that if I opened one I would get on a train that same night, and I didn't know if that was what you wanted or just what I wanted",
+        ],
+        [
+          "them",
+          "I've thought about that night a lot. I shouldn't have asked you what we were like that, so suddenly. I knew how you get when something matters too much. You get defensive and draw your sword, you say the cruelest thing you can think of so it hurts them before it can hurt you, and then you leave before anyone can leave you first. I knew that about you and I asked anyway because I was tired of not knowing. I'm not saying it was my fault. I'm saying I understand it better now than I did then",
+        ],
+        [
+          "them",
+          "When you said those things on the phone I knew you didn't mean them. That's what made it so hard. If I'd believed you it would have been easier to leave, to just hate you and move on. I went back to Kremnos because I couldn't keep walking past your building and not knocking, and I couldn't knock, because you'd asked me not to",
+        ],
+        [
+          "them",
+          "The suncakes on Saturday were for you. I knew you'd see the newsletter, you still care, after all. Did you really think I never noticed neikos496? Every order that came in at midnight and got cancelled ten minutes later. I never said anything, because I didn't know if you'd come and I didn't want to scare you off. I just wanted you to know where I'd be and what I'd be making, in case you ever wanted to. I've made your mother's recipe six times this week, it needs more honey than you told me, I think you knew that",
+        ],
+        [
+          "them",
+          "The key is for the back door of the bakery. I wanted you to be able to come in on a day it's closed, without having to stand in a queue with time to change your mind, to turn back around and walk away like you got used to. You don't have to use it. I just wanted you to have a door that was yours",
+        ],
+        [
+          "them",
+          "I'm on a train I'll be in Aedes by two. You don't have to say anything when I get there, I'm not coming to make you explain, I just need to see you",
+        ],
+      ],
+    },
+
     {
       id: "tx",
       after: "g5",
@@ -2000,46 +2029,88 @@ const STORY = {
         go: { app: "wallet", card: "w0" },
       },
     },
+    // FINALE · Aglaea calls from the beach. Answer → her ending. Decline (or let it ring) → Mydei's thread opens for a reply.
     {
       id: "fin",
-      after: "a2,g5",
+      after: "g6",
       delay: 8000,
       seen: "n:dei",
-      thread: "agl",
-      finale: true,
-      msgs: [
-        ["them", "I’m on the beach"],
-        ["them", "There’s someone by the lifeguard hut holding a phone"],
-        ["them", "Is that you?"],
+      call: {
+        who: "agl",
+        ring: 30000,
+        flag: "aglcall",
+        talk: [
+          "(wind)",
+          "Phainon?",
+          "…",
+          "Who is this?",
+          "Where did you find it?",
+          "Okay, I'm on my way. ",
+          {
+            need: "x:ticket",
+            me: true,
+            t: "You tell her about the bank notification. A ticket to Kremnos, bought at Aedes Station a few minutes ago.",
+          },
+          { need: "x:ticket", t: "…Kremnos?" },
+          "Don’t move. I’m coming over.",
+        ],
+      },
+    },
+    // answered → Aglaea's ending (the ticket one if the player had found it)
+    {
+      id: "fa",
+      after: "fin",
+      delay: 1500,
+      flag: "aglcall=answered",
+      ending: [
+        ["x:ticket", "ticket_agl"],
+        [null, "agl"],
       ],
+    },
+    // declined → she texts once, then Mydei writes and his thread opens for a reply
+    {
+      id: "fb",
+      after: "fin",
+      delay: 2500,
+      flag: "aglcall=missed",
+      thread: "agl",
+      msgs: [
+        ["them", "I can see someone by the hut"],
+        ["them", "Whoever you are, please don’t leave"],
+      ],
+    },
+    {
+      id: "fd1",
+      after: "fb",
+      delay: 9000,
+      flag: "deicall=answered",
+      thread: "dei",
+      finale: true,
+      msgs: [["them", "Are you still with the phone?"]],
+    },
+    {
+      id: "fd2",
+      after: "fb",
+      delay: 9000,
+      flag: "deicall=missed",
+      thread: "dei",
+      finale: true,
+      msgs: [["them", "HKS?"]],
     },
   ],
 
   /* ------------------------------------------------------------ finale (open endings) */
   finale: {
     idle: 360000,
-    lastText: "I’m on my way.",
+    lastText: "I’m on my way",
     // each thread can have several replies. "need" = what the player must have seen for it to show up.
     // x:ticket = the train ticket in Wallet (the bank notification only comes once every clue is found)
+    // replies only exist in Mydei's thread now (Aglaea's path goes through her call).
     replies: {
-      agl: [
-        {
-          label: "This isn’t Phainon…",
-          text: "This isn’t Phainon I found his phone in the sand this morning, I’m the one by the lifeguard hut I’ll wait for you",
-          end: "agl",
-        },
-        {
-          need: "x:ticket",
-          label: "He bought a ticket…",
-          text: "This isn’t Phainon I found his phone on the beach. His bank just sent a notification I think he paid for a train ticket at Aedes Station a few minutes ago, to Kremnos",
-          end: "ticket",
-          answer: ["What?", "I’m calling Mydei"],
-        },
-      ],
       dei: [
         {
           label: "This isn’t Phainon…",
-          text: "This isn’t Phainon I found his phone on the beach. I’m sorry I’ll stay with it until someone comes.",
+          text: "This isn’t Phainon I found his phone on the beach. I’m sorry I’ll stay with it until someone comes",
           end: "dei",
           answer: ["Stay there I'm coming", "Please"],
         },
@@ -2047,23 +2118,27 @@ const STORY = {
           need: "x:ticket",
           label: "He bought a ticket…",
           text: "This isn’t Phainon I found his phone on the beach. His bank just sent a notification I think he paid for a train ticket at Aedes Station a few minutes ago, to Kremnos",
-          end: "ticket",
-          answer: ["…", "Thank you"],
+          end: "ticket_dei",
+          answer: ["…", "Thank you, I’m getting off at the next stop"],
         },
       ],
     },
     endings: {
       agl: {
         title: "She sees you.",
-        text: "A woman in a long coat is coming down the beach toward you. She isn’t running, but she’s walking faster than the sand allows. The wind keeps blowing her golden curls across her face, but she doesn't push them back. She stops in front of you and looks at the phone in your hand first, then at you. “Where was it?” You point at the lifeguard hut and she nods. She doesn’t ask you to leave, so you don’t. She calls his name while the two of you walk the length of the beach together. <br><br>Castorice and Hyacine arrive a little before noon. Hyacine is still in her slippers, soaked through by now. Castorice hugs Aglaea for a long time without saying anything.<br><br>Just after two, a man with strawberry-blond hair comes down from the station almost running, coat open, and starts stopping strangers. Have you seen a guy, tall, white hair, he would’ve been here last night. Most people shake their heads.<br><br>You never find out how it ends. On the way back to the road, you catch yourself looking twice at everyone on the beach and you realise you don't even know what his face looks like.",
+        text: "A woman in a long coat is coming down the beach toward you, her phone still in her hand even though the call has ended. She isn’t running, but she’s walking faster than the sand allows, and the wind keeps blowing her golden curls across her face. She doesn’t push them back.<br><br>She stops in front of you and looks at the phone in your hand first, then at you and she nods. She doesn’t ask you to leave, so you don’t.<br><br>You walk the length of the beach together while she calls his name, and somewhere near the rocks she starts talking, not really to you. The first winter after his mother died, he used to come down here every morning before school and sit on the steps by the road. <br><br>Castorice and Hyacine arrive a little before noon. Hyacine is still in her slippers, soaked through by now. Castorice holds on to Aglaea for a long time without saying anything, and then the three of them split up along the shore with their phones out.<br><br>Eventually you give the phone to Aglaea, and she holds it in both hands. You never find out how it ends. On the way back to the road you catch yourself looking twice at everyone on the beach, and you realise you don’t even know what his face looks like.",
+      },
+      ticket_agl: {
+        title: "For when you go",
+        text: "Aglaea doesn’t hang up straight away. You hear the wind on her end, and then she repeats what you told her, slowly, like she’s checking each word: Aedes Station, a few minutes ago, Kremnos.<br><br>She finds you a minute later and sits down in the sand next to you all at once, like her legs decided for her. She laughs, once, into her hand, and then she’s quiet for a long time, looking at the water.<br><br>When she finally talks, it’s about the gift card. She saw the bakery’s newsletter open on his phone at dinner in September and pretended she hadn’t, and the next week she bought him a card for a place he had never once mentioned to her.<br><br>She doesn’t call anyone. Castorice and Hyacine arrive before noon, and the three of them stand together over Hyacine’s phone, working out from the timetable which station his train would be passing by now.<br><br>Nobody knows if he’s still on it, or if he got off somewhere in between. But a few minutes after eight this morning he tapped his card at a ticket machine and bought a seat to Kremnos, and for the first time since you picked up this phone, that feels like something you can hold on to.",
       },
       dei: {
         title: "Read.",
-        text: "For two years, every message this phone sent him stayed on Delivered. He’d promised he wouldn’t ask again, and reading them would have felt like an invitation, one he knew he would take and knew he shouldn’t.<br><br>He asked you to stay, so you stay. You sit on the steps of the lifeguard hut with the phone in your lap and watch the battery drop one percent at a time.<br><br>Aglaea finds you first. Then Castorice and Hyacine, out of breath from the station, Hyacine in still in her slippers. Nobody asks who you are.<br><br>Mydei gets there a little after two. His apron is still on under his coat, flour on one sleeve. He doesn’t say greet anyone, he just holds out his hand, and you give him the phone and tell him there’s a note on it for him.<br><br> He doesn't stop to think as he unlocks the phone. You watch him read it, and then read it again from the top. At one point he laughs, short and surprised, and has to look out at the water for a while before he can finish.<br><br>When he’s done, Hyacine takes the key from the parcel out of her pocket and puts it in his hand without saying anything. He closes his fingers around it and puts the phone away in his coat, and when he turns to the others his voice is steadier than you expected.<br><br>“He’s here somewhere,” he says. “We’re finding him.”",
+        text: "For two years, every message this phone sent him stayed on Delivered. He’d promised he wouldn’t ask again, and reading them would have felt like an invitation, one he knew he would take and knew he shouldn’t.<br><br>He asked you to stay, so you stay. You sit on the steps of the lifeguard hut with the phone in your lap and watch the battery drop one percent at a time.<br><br>Aglaea arrives first, Castorice and Hyacine a little before noon, out of breath from the station, Hyacine still in her slippers. Nobody asks who you are. Castorice sits down next to you and doesn’t say anything, which helps more than you’d expect.<br><br>Mydei gets there a little after two. His apron is still on under his coat, flour on one sleeve. He doesn’t greet anyone, he just holds out his hand, and you give him the phone and tell him there’s a note on it for him.<br><br>He doesn’t stop to think as he unlocks the phone. You watch him read it, and then read it again from the top. At one point he laughs, short and surprised, and has to look out at the water for a while before he can finish.<br><br>When he’s done, Hyacine takes the key from the parcel out of her pocket and puts it in his hand without saying anything. He closes his fingers around it and puts the phone away in his coat, and when he turns to the others his voice is steadier than you expected.<br><br>“He’s here somewhere,” he says. “We’re finding him.”",
       },
-      ticket: {
+      ticket_dei: {
         title: "To Kremnos",
-        text: "Somewhere around Okhema, two trains pass each other going opposite ways.<br><br>On one of them, a man with strawberry-blond hair, flour still on one sleeve, has just been told about a card payment at Aedes Station, a few minutes ago. At the next station he gets off, crosses the platform, and stands under the departures board until the next train back to Kremnos comes in. He gets on it.<br><br>On the beach, Aglaea sits down on the sand next to you all at once, like her legs decided for her. She doesn’t cry. She laughs, once, into her hand, and then stays quiet for a long time, looking at the water.<br><br>Nobody knows if he’s on that train. Whether he got off somewhere in between, or if he’ll end up standing outside a bakery with a sign on the door that says <i>closed today</i>.<br><br>But a few minutes after eight this morning, someone tapped his card at Aedes Station for a ticket to Kremnos.<br><br>A ticket is a plan, and for the first time since you picked up this phone, that feels like something you can hold on to.",
+        text: "Somewhere around Okhema, two trains pass each other going opposite ways.<br><br>On one of them, a man with strawberry-blond hair and flour still on one sleeve gets off at the next stop, crosses the platform, and stands under the departures board until the next train back to Kremnos comes in. Before he gets on, he sends you one more message: <i>Thank you. Keep his phone safe.</i><br><br>Castorice and Hyacine arrive a little before noon and you show them. Hyacine sits down in the sand and cries for the first time all morning, then laughs at herself for crying now, of all times. Castorice reads the bank notification three times before she believes it.<br><br>Nobody knows if Phainon is still on his train, or if he got off somewhere in between, or if he’ll end up outside a bakery with a sign on the door that says <i>closed today</i>, with no idea there’s a key to the back door waiting for him in Hyacine’s pocket.<br><br>But a few minutes after eight this morning he bought a seat to Kremnos, and Mydei is on his way back there to meet whichever train he’s on.",
       },
       dark: {
         title: "1%",
