@@ -1598,7 +1598,7 @@ button.row:active,
 .albs button + button {
   border-left: 0.5px solid #48484a;
 }
-.albs button.b {
+.albs button.btn-b {
   font-weight: 600;
 }
 .albs.v {
@@ -1649,7 +1649,7 @@ button.row:active,
 .shg button:first-child {
   border-top: 0;
 }
-.shg .b {
+.shg .btn-b {
   font-weight: 600;
 }
 .sht {

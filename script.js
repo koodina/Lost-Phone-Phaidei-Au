@@ -1816,7 +1816,7 @@ function alertBox(o) {
   }<div class="albs${o.btns.length > 2 ? " v" : ""}">${o.btns
     .map(
       (b, i) =>
-        `<button class="${b.b ? "b" : ""}${
+        `<button class="${b.b ? "btn-b" : ""}${
           b.red ? " red" : ""
         }" data-i="${i}">${b.t}</button>`
     )
@@ -1855,7 +1855,7 @@ function sheet(opts) {
     )
     .join(
       ""
-    )}</div><div class="shg"><button class="b" data-i="-1">Cancel</button></div></div>`;
+    )}</div><div class="shg"><button class="btn-b" data-i="-1">Cancel</button></div></div>`;
   $$("button", a).forEach(
     (b) =>
       (b.onclick = () => {
@@ -3268,17 +3268,19 @@ function noteUnlock(id) {
             a.remove();
             sfx("fail");
             show(
-              `Incorrect password.${
-                n.hint && tries >= 1 ? `<br><br><b>Hint:</b> ${n.hint}` : ""
-              }`
+              `Incorrect password.${hintTxt() ? `<br><br>${hintTxt()}` : ""}`
             );
           },
         },
       ],
     });
+  const hintTxt = () =>
+    n.hintAfter && !n.hintAfter.split(",").every((k) => seen.has(k.trim()))
+      ? n.hintBefore || ""
+      : n.hint || "";
   show(
     `Enter the password for “${n.title}”.${
-      n.hint ? `<br><br><b>Hint:</b> ${n.hint}` : ""
+      hintTxt() ? `<br><br>${hintTxt()}` : ""
     }`
   );
 }
@@ -3463,7 +3465,7 @@ function lockedAlbum(k) {
               sfx("fail");
               ask(
                 `Incorrect password.${
-                  S.hiddenHint ? `<br><br><b>Hint:</b> ${S.hiddenHint}` : ""
+                  S.hiddenHint ? `<br><br>${S.hiddenHint}` : ""
                 }`
               );
             },
@@ -3472,7 +3474,7 @@ function lockedAlbum(k) {
       });
     ask(
       `Enter the password for this album.${
-        S.hiddenHint ? `<br><br><b>Hint:</b> ${S.hiddenHint}` : ""
+        S.hiddenHint ? `<br><br>${S.hiddenHint}` : ""
       }`
     );
     return;
@@ -3901,14 +3903,22 @@ function acctPage() {
       cls: "nolt saf",
       light: true,
       html: wrap(
-        `${top_}<h2>My orders</h2><div class="acc-e">${A.email}</div>${A.orders
+        `${top_}<h2>My orders</h2><div class="acc-e">${A.email}</div>${
+          A.alias
+            ? `<div class="acc-e">Signed in as <b>${A.alias}</b></div>`
+            : ""
+        }${A.orders
           .map(
             (o) =>
               `<div class="ord"><div class="ord-t"><b>Order ${
                 o.id
-              }</b><span>${fDate(o.date)}</span></div><div>${
-                o.items
-              }</div><div class="ord-s">${o.status}</div></div>`
+              }</b><span>${fDate(o.date)}</span></div><div>${o.items}</div>${
+                A.alias || o.name
+                  ? `<div class="acc-e" style="margin:4px 0 0">Name for pickup: <b>${
+                      o.name || A.alias
+                    }</b></div>`
+                  : ""
+              }<div class="ord-s">${o.status}</div></div>`
           )
           .join("")}</div>`
       ),
