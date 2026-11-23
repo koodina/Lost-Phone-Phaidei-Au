@@ -3824,7 +3824,10 @@ function memosRoot() {
     title: "All Recordings",
     html: pg({
       title: "All Recordings",
-      left: `<button class="bk">${I("back", 22)}<span>Back</span></button>`,
+      left: `<button class="bk" onclick="goBack()">${I(
+        "back",
+        22
+      )}<span>Back</span></button>`,
       right: `<button class="nbl">Edit</button>`,
       body,
       search: true,
@@ -4178,7 +4181,7 @@ function histPage() {
     html: pg({
       title: "History",
       large: true,
-      right: `<button class="nbl b" onclick="goBack()">Done</button>`,
+      right: `<button class="nbl nbb" onclick="goBack()">Done</button>`,
       left: "<span></span>",
       body:
         `<div class="seg wide"><button>${I(
@@ -4898,7 +4901,10 @@ function remindersRoot() {
     cls: "remp",
     html: pg({
       title: "Reminders",
-      left: `<button class="bk">${I("back", 22)}<span>Lists</span></button>`,
+      left: `<button class="bk" onclick="goBack()">${I(
+        "back",
+        22
+      )}<span>Lists</span></button>`,
       right: `<button class="nbi">${I("dots", 24)}</button>`,
       body,
     }),

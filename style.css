@@ -1210,9 +1210,11 @@ body.mob.full .isl:not(.x):not(.p) {
   font-size: 17px;
   padding: 0 8px;
   height: 44px;
+  white-space: nowrap;
 }
-.nbl.b {
+.nbl.nbb {
   font-weight: 600;
+  white-space: nowrap;
 }
 .nbi {
   color: var(--ac);
@@ -4719,4 +4721,9 @@ button.row:active,
   background: none;
   color: #8e8e93;
   font-weight: 500;
+}
+/* call buttons: keep the phone icon white (".red" is also the red-text class) */
+.cr.red,
+.cbig.red {
+  color: #fff;
 }

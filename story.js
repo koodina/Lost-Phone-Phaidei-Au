@@ -160,14 +160,16 @@ const STORY = {
         ["them", "Nothing. The door’s open."],
         ["~", "2024-04-21 16:12"],
         ["them", "", { photo: { src: "images/c_dog.jpg" } }],
-        ["them", "The dog likes you more than me."],
+        ["them", "The dog likes you more than me"],
         ["me", "everyone likes me more than you"],
         ["them", "HKS"],
         ["~", "2024-06-07 00:01"],
         ["me", "happy birthday princess"],
         ["them", "No"],
         ["me", "PRINCESS"],
-        ["them", "HKS."],
+        ["them", "fuck you"],
+        ["me", "I have a better idea"],
+        ["me", "but anywayss"],
         ["me", "i made you golden honeycakes"],
         ["me", "well i tried"],
         ["me", "idk if they're edible but hey they're golden ig"],
@@ -984,7 +986,6 @@ const STORY = {
       src: "images/h_cookies.jpg",
       place: "Mydei’s flat",
       caption: "i was not allowed to help",
-      clue: true,
     },
     {
       id: "h2",
@@ -1006,7 +1007,6 @@ const STORY = {
       src: "images/h_hair.jpg",
       place: "Okhema",
       caption: "",
-      clue: true,
     },
     {
       id: "h5",
@@ -1043,7 +1043,7 @@ const STORY = {
       src: "images/onshoulders.jpg",
       place: "Okhema",
       caption:
-        "i gave him a ride on my shoulders. he said it was stupid but he liked it",
+        "i gave him a ride on my shoulders, he thinks he's slick but i know he likes getting manhandled",
       clue: true,
     },
     {
@@ -1052,7 +1052,7 @@ const STORY = {
       src: "images/h_heart.jpg",
       place: "Aedes Beach",
       caption:
-        "i made a heart in the sand for him. he said it was stupid but he liked it",
+        "i made a heart in the sand for him. he said it was stupid but he took a picture of it",
       clue: true,
     },
     {
@@ -1100,7 +1100,6 @@ const STORY = {
       end: "2026-11-21 11:52",
       where: "Okhema Central · platform 4",
       notes: "bring the honeycakes",
-      clue: true,
     },
     {
       id: "din",
@@ -1124,7 +1123,6 @@ const STORY = {
       allDay: true,
       repeat: "yearly",
       notes: "",
-      clue: true,
     },
   ],
 
@@ -1137,7 +1135,7 @@ const STORY = {
       len: "0:11",
       bed: "room",
       clue: true,
-      text: "Hi, can I get six golden honeycakes. (pause) Six is a lot. Four. Can I get four— (sighs) Okay.",
+      text: "Hi, can I get six golden honeycakes. Hmm... six is a lot. Four. Can I get four- (sighs) Okay.",
     },
 
     {
@@ -1329,6 +1327,7 @@ const STORY = {
       card: "1086 42", // printed on the library card photo in Photos › Hidden
       name: "Phainon",
       since: "2024-10-15",
+      clue: true,
       holds: [
         {
           title: "Kremnoan Language Basics",
@@ -1351,6 +1350,7 @@ const STORY = {
       email: "phainon.deliverer@okhemamail.com",
       alias: "neikos496", // shown once logged in, and as the pickup name on every order
       code: "482913",
+      clue: true,
       orders: [
         {
           id: "#0038",
@@ -1402,7 +1402,7 @@ const STORY = {
       color: ["#1c1c1e", "#3a3a3c"],
       clue: true,
       tx: [
-        // appears when the "tx" event fires, stamped with that moment's time. Seeing it unlocks the third reply.
+        // appears when the "tx" event fires, stamped with that moment's time. Seeing it unlocks ticket endings
         {
           time: "live",
           who: "Aedes Station",
@@ -1543,6 +1543,7 @@ const STORY = {
   // Find My · People. Positions are places on the map: okhema, okhemaStation, aedes, aedesBeach, kremnos, train1, train2
   findmy: [
     {
+      clue: true,
       who: "agl",
       steps: [
         ["start", "aedes", "Home · Aedes"],
@@ -1553,6 +1554,7 @@ const STORY = {
   ],
   maps: [
     {
+      clue: true,
       icon: "🏖️",
       title: "Aedes Beach",
       sub: "Yesterday · walked from Aedes station",
@@ -1670,6 +1672,12 @@ const STORY = {
             sp: "1fffWiFwKibt8lvSlGz9SG",
           },
           {
+            t: "The 6th Summer",
+            cover: "images/covers/the_6th_summer.jpg",
+            a: "PLAVE",
+            sp: "1lODrFR40rSNAw5cX4j2J2",
+          },
+          {
             t: "Senses",
             cover: "images/covers/senses.jpg",
             a: "MICO",
@@ -1753,12 +1761,6 @@ const STORY = {
             sp: "4E0P1xs3JNmsNr5c5nFTZJ",
           },
           {
-            t: "The 6th Summer",
-            cover: "images/covers/the_6th_summer.jpg",
-            a: "PLAVE",
-            sp: "1lODrFR40rSNAw5cX4j2J2",
-          },
-          {
             t: "冬のはなし",
             cover: "images/covers/fuyu_no_hanashi.jpg",
             a: "Given",
@@ -1831,7 +1833,7 @@ const STORY = {
       id: "g2",
       clues: 8,
       after: "g1",
-      delay: 90000,
+      delay: 80000,
       thread: "grp",
       msgs: [
         ["hya", "okay okay"],
@@ -1889,7 +1891,7 @@ const STORY = {
     {
       id: "g4",
       after: "a1",
-      delay: 60000,
+      delay: 50000,
       thread: "grp",
       msgs: [
         ["cas", "Aglaea says his phone is at Aedes beach"],
@@ -1919,7 +1921,7 @@ const STORY = {
     {
       id: "d2",
       after: "d1",
-      delay: 20000,
+      delay: 10000,
       receipt: { thread: "dei", text: "Read" },
     },
     {
@@ -1931,7 +1933,7 @@ const STORY = {
     {
       id: "d4",
       after: "d3",
-      delay: 20000,
+      delay: 10000,
       call: {
         who: "dei",
         ring: 30000,
@@ -1953,7 +1955,7 @@ const STORY = {
     {
       id: "d5a",
       after: "d4",
-      delay: 7000,
+      delay: 5000,
       flag: "deicall=answered",
       thread: "dei",
       msgs: [
@@ -1967,7 +1969,7 @@ const STORY = {
     {
       id: "d5b",
       after: "d4",
-      delay: 7000,
+      delay: 5000,
       flag: "deicall=missed",
       thread: "dei",
       msgs: [
@@ -1980,7 +1982,7 @@ const STORY = {
     {
       id: "g5",
       after: "d4",
-      delay: 80000,
+      delay: 40000,
       thread: "grp",
       msgs: [
         ["cas", "Mydei just called me, hes on a train to Aedes"],
@@ -1993,7 +1995,7 @@ const STORY = {
     {
       id: "g6",
       after: "g5",
-      delay: 70000,
+      delay: 50000,
       thread: "grp",
       msgs: [
         ["hya", "next train here is leaving in 10"],
@@ -2004,7 +2006,7 @@ const STORY = {
     {
       id: "d6b",
       after: "g6",
-      delay: 40000,
+      delay: 20000,
       flag: "deicall=missed",
       thread: "dei",
       msgs: [
