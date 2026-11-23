@@ -4437,3 +4437,245 @@ button.row:active,
 .txr.pend .txa {
   opacity: 0.75;
 }
+/* music */
+.mart.xs {
+  width: 46px;
+  height: 46px;
+  aspect-ratio: auto;
+  border-radius: 6px;
+  flex: none;
+}
+.mart.big {
+  width: 220px;
+  height: 220px;
+  aspect-ratio: auto;
+  border-radius: 10px;
+  margin: 6px auto 0;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+.plh {
+  text-align: center;
+  padding: 4px 20px 14px;
+}
+.plh h2 {
+  font-size: 22px;
+  margin: 14px 0 2px;
+}
+.pl-by {
+  color: var(--ac, #fa2d48);
+  color: #fa2d48;
+  font-size: 17px;
+}
+.pl-sub {
+  font-size: 13px;
+  margin-top: 6px;
+}
+.trks {
+  padding: 0 0 150px;
+}
+.trk {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 6px 16px;
+  text-align: left;
+  position: relative;
+}
+.trk::after {
+  content: "";
+  position: absolute;
+  left: 74px;
+  right: 0;
+  bottom: 0;
+  height: 0.5px;
+  background: var(--sep);
+}
+.trk .col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.trk b {
+  font-weight: 400;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trk small {
+  font-size: 13px;
+}
+.trk.on b {
+  color: #fa2d48;
+}
+.trk.na {
+  opacity: 0.35;
+}
+.trk-p {
+  color: #fa2d48;
+}
+.mini button {
+  color: #fff;
+}
+.mini-t {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+.np {
+  padding: 10px 26px 40px;
+  display: flex;
+  flex-direction: column;
+}
+.np-art {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  transform: scale(0.86);
+  transition: transform 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.np-art.pl {
+  transform: scale(1);
+}
+.np-ti {
+  display: flex;
+  flex-direction: column;
+  margin-top: 26px;
+}
+.np-ti b {
+  font-size: 20px;
+  font-weight: 600;
+}
+.np-ti span {
+  font-size: 18px;
+}
+.np-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-top: 22px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.np-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: rgba(255, 255, 255, 0.85);
+}
+.np-tt {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--l2);
+  margin-top: 6px;
+}
+.np-c {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 18px;
+}
+.np-c .dim {
+  opacity: 0.35;
+}
+.np-note {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 18px;
+}
+.np-sp {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #282828;
+}
+.np-sp iframe {
+  display: block;
+  border: 0;
+}
+#hud button#hmus.off {
+  opacity: 0.4;
+}
+/* library card photo */
+.scn.libc {
+  background: radial-gradient(
+      ellipse at 30% 20%,
+      rgba(255, 230, 190, 0.25),
+      transparent 60%
+    ),
+    linear-gradient(160deg, #4a3a2c, #241a12);
+  display: grid;
+  place-items: center;
+}
+.lc-card {
+  width: 78%;
+  aspect-ratio: 1.586;
+  background: linear-gradient(160deg, #26362c, #3d5245);
+  border-radius: 6%/9%;
+  color: #e9e4d4;
+  padding: 7% 8%;
+  display: flex;
+  flex-direction: column;
+  transform: rotate(-6deg);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+  font-family: -apple-system, sans-serif;
+}
+.scn.t .lc-card {
+  font-size: 6px;
+}
+.scn.v .lc-card {
+  font-size: 14px;
+}
+.lc-h {
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  font-size: 0.85em;
+  color: #d9c07a;
+}
+.lc-n {
+  font-size: 2.1em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-top: auto;
+  font-variant-numeric: tabular-nums;
+}
+.lc-bc {
+  height: 1.6em;
+  margin: 0.5em 0;
+  background: repeating-linear-gradient(
+    90deg,
+    #e9e4d4 0 2px,
+    transparent 2px 4px,
+    #e9e4d4 4px 5px,
+    transparent 5px 8px
+  );
+  opacity: 0.8;
+}
+.lc-f {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em;
+  opacity: 0.85;
+}
+.ord.desk {
+  border-color: #d9c07a;
+  background: #fffaf0;
+}
+.desk-n {
+  font-style: italic;
+  color: #55604c;
+  margin-top: 8px;
+  font-size: 13px;
+}
+.mini.low {
+  bottom: 34px;
+}

@@ -195,6 +195,9 @@ const CLUES = new Set();
   CLUES.add("x:edit");
   if (S.safari && S.safari.account) CLUES.add("s:orders");
   if (S.safari && S.safari.library) CLUES.add("s:lib");
+  ((S.music && S.music.playlists) || []).forEach(
+    (m) => m.clue && CLUES.add("u:" + m.id)
+  );
 })();
 const nClues = () => [...seen].filter((k) => CLUES.has(k)).length;
 function see(k) {
@@ -628,6 +631,7 @@ function bedStop() {
 function setVol(v) {
   vol = Math.max(0, Math.min(1, v));
   if (AU.m) AU.m.gain.value = vol;
+  if (MUS) MUS.volume = vol;
   const h = $("#volhud");
   h.querySelector("i").style.height = vol * 100 + "%";
   h.classList.add("on");
@@ -666,6 +670,9 @@ const IP = {
   heart:
     '<path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.8"/>',
   play: '<path d="M7 4.5v15l13-7.5z"/>',
+  next: '<path d="M3 5.5v13l9-6.5zM12 5.5v13l9-6.5z"/>',
+  prev: '<path d="M21 5.5v13l-9-6.5zM12 5.5v13l-9-6.5z"/>',
+  note: '<path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5c.6 0 1.1.2 1.5.5V5l11-2v12.5a2.5 2.5 0 1 1-2.5-2.5c.6 0 1.1.2 1.5.5V7.2L10 8.6v9.9z"/>',
   pause:
     '<rect x="6" y="4.5" width="4" height="15" rx="1"/><rect x="14" y="4.5" width="4" height="15" rx="1"/>',
   b15: '<path d="M12 4.5a7.5 7.5 0 1 1-7 4.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12 1.6v5.8L8.6 4.5z"/><text x="12.3" y="15.6" font-size="7" text-anchor="middle" font-weight="700" font-family="-apple-system,sans-serif">15</text>',
@@ -931,6 +938,16 @@ function scene(p, cls) {
     } url('${p.src}') center/${
       cls === "v" ? "contain no-repeat" : "cover"
     }"></div>`;
+  if (p.scene === "libcard") {
+    const [h, n, who, since] = p.shot || [];
+    return `<div class="scn libc ${cls}"><div class="lc-card"><div class="lc-h">${
+      h || ""
+    }</div><div class="lc-n">${
+      n || ""
+    }</div><div class="lc-bc"></div><div class="lc-f"><span>${
+      who || ""
+    }</span><span>${since || ""}</span></div></div></div>`;
+  }
   if (p.scene === "shot")
     return `<div class="scn shot ${cls}"><div class="shot-in">${(p.shot || [])
       .map((l) => `<div>${l}</div>`)
@@ -2669,6 +2686,7 @@ function callOv() {
 function incoming(c, evId) {
   if (CALL) return;
   CALL = { ...c, evId, st: "ring" };
+  musDuckOn();
   ringStart();
   if (state === "home") islandCall();
   else {
@@ -2782,6 +2800,7 @@ function callMissed() {
   islandClose();
   $("#call") && $("#call").remove();
   CALL = null;
+  setTimeout(musDuckOff, 800);
   if (c.flag) flags[c.flag] = "missed";
   S.calls.push({ who: c.who, kind: "missed", time: stamp(now()) });
   notify({
@@ -2817,6 +2836,7 @@ function callEnd() {
   clearTimeout(c.lt);
   bedStop();
   sfx("end");
+  setTimeout(musDuckOff, 1500);
   const o = $("#call");
   if (o) {
     const s = $("#cls", o);
@@ -2878,6 +2898,7 @@ function alarmRing(id) {
   const a = (S.alarms || []).find((x) => x.id === id);
   if (!a || ALM || ended) return;
   ALM = a;
+  musDuckOn();
   alarmStart();
   if (state === "home")
     islandOpen(
@@ -2912,6 +2933,7 @@ function alarmStop(snooze) {
   $("#almf") && $("#almf").remove();
   if (snooze) snz = { id: ALM.id, at: new Date(now().getTime() + 9 * 6e4) };
   ALM = null;
+  setTimeout(musDuckOff, 800);
 }
 
 /* ===================================================================== MEDIA PLAYBACK */
@@ -2922,6 +2944,7 @@ function playMedia(kind, id, len, bedK) {
     return;
   }
   stopMedia();
+  musDuckOn();
   MED = { kind, id, dur: durS(len), t0: Date.now() };
   bedStart(bedK || "room");
   MED.iv = setInterval(() => {
@@ -2948,6 +2971,7 @@ function stopMedia() {
   clearInterval(MED.iv);
   MED = null;
   bedStop();
+  musDuckOff();
 }
 
 /* ===================================================================== MAIL */
@@ -3993,9 +4017,17 @@ function libPage() {
                 h.placed
               )}</div></div>`
           )
-          .join(
-            ""
-          )}<div class="lib-sh">Loans</div><div class="acc-e">You haven’t borrowed anything yet.</div></div>`
+          .join("")}${
+          L.desk
+            ? `<div class="lib-sh">Waiting for you at the front desk</div><div class="ord desk"><div class="ord-t"><b>${
+                L.desk.item
+              }</b></div><div>Left for you by <b>${
+                L.desk.from
+              }</b></div><div class="acc-e" style="margin:6px 0 0">Held since ${fDate(
+                L.desk.since
+              )}</div><div class="desk-n">${L.desk.note}</div></div>`
+            : ""
+        }<div class="lib-sh">Loans</div><div class="acc-e">You haven’t borrowed anything yet.</div></div>`
       ),
     };
   }
@@ -4372,17 +4404,132 @@ function mapsRoot() {
     html: pg({ title: "", noNav: true, large: false, body }),
   };
 }
+/* ===================================================================== MUSIC
+      Only tracks with a `src` actually play (and keep playing in the background).
+      Tracks with a Spotify id open a 30-second Spotify preview instead. */
+let MUS = null,
+  MUST = null,
+  musDuck = false;
+const PLS = () => (S.music && S.music.playlists) || [];
+const TRK = (p, i) => PLS()[p].tracks[i];
+// cover image on top of the colour gradient: if the image file is missing, the gradient still shows
+const artCSS = (o) => {
+  const c = o.color || ["#3a3a3c", "#1c1c1e"],
+    g = `linear-gradient(135deg,${c[0]},${c[1]})`;
+  return o.cover ? `url('${o.cover}') center/cover no-repeat, ${g}` : g;
+};
+function musRefresh() {
+  const t = W && W.app === "music" && topP();
+  if (t && (t.fn === nowPage || t.fn === musicRoot || t.fn === plPage))
+    rerender(t);
+  musMini();
+}
+function musPlay(p, i) {
+  const t = TRK(p, i);
+  if (!t.src) return;
+  if (MUS && MUST && MUST.p === p && MUST.i === i) {
+    MUS.paused ? MUS.play().catch(() => {}) : MUS.pause();
+    musRefresh();
+    return;
+  }
+  musStop();
+  MUS = new Audio(t.src);
+  MUS.loop = true;
+  MUS.volume = vol;
+  MUST = { p, i };
+  MUS.addEventListener("timeupdate", musProg);
+  MUS.play().catch(() => {});
+  if (ambOn) ambStop();
+  musRefresh();
+  hudSync();
+}
+function musStop() {
+  if (MUS) {
+    MUS.pause();
+    MUS.removeEventListener("timeupdate", musProg);
+  }
+  MUS = null;
+  MUST = null;
+}
+function musToggle() {
+  if (!MUS) {
+    const f = musFirstPlayable();
+    if (f) musPlay(f.p, f.i);
+    return;
+  }
+  MUS.paused ? MUS.play().catch(() => {}) : MUS.pause();
+  musRefresh();
+  hudSync();
+}
+function musFirstPlayable() {
+  for (let p = 0; p < PLS().length; p++) {
+    const i = PLS()[p].tracks.findIndex((t) => t.src);
+    if (i >= 0) return { p, i };
+  }
+  return null;
+}
+function musDuckOn() {
+  if (MUS && !MUS.paused) {
+    MUS.pause();
+    musDuck = true;
+  }
+}
+function musDuckOff() {
+  if (musDuck && MUS && !ended) {
+    MUS.play().catch(() => {});
+  }
+  musDuck = false;
+}
+const mmss = (s) => {
+  s = Math.max(0, Math.floor(s || 0));
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+};
+function musProg() {
+  if (!MUS) return;
+  const f = $(".np-bar i"),
+    a = $(".np-t0"),
+    b = $(".np-t1");
+  if (f && MUS.duration)
+    f.style.width = (MUS.currentTime / MUS.duration) * 100 + "%";
+  if (a) a.textContent = mmss(MUS.currentTime);
+  if (b && MUS.duration)
+    b.textContent = "-" + mmss(MUS.duration - MUS.currentTime);
+}
+function musSeek(e) {
+  if (!MUS || !MUS.duration) return;
+  const r = e.currentTarget.getBoundingClientRect();
+  MUS.currentTime = ((e.clientX - r.left) / r.width) * MUS.duration;
+  musProg();
+}
+function musMini() {
+  const t = MUST && TRK(MUST.p, MUST.i);
+  $$(".win .mini").forEach(
+    (m) =>
+      (m.innerHTML = t
+        ? `<span class="mart sm" style="background:${artCSS({
+            ...PLS()[MUST.p],
+            ...t,
+          })}"></span><button class="mini-t" onclick="push(nowPage,[${MUST.p},${
+            MUST.i
+          }])">${t.t}</button><button onclick="musToggle()">${I(
+            MUS && !MUS.paused ? "pause" : "play",
+            22
+          )}</button>`
+        : `<span class="mart sm"></span><span>Not Playing</span>${I(
+            "play",
+            22
+          )}`)
+  );
+}
 function musicRoot() {
-  const body = `<div class="sech big">Recently Played</div><div class="mus">${(
-    S.music || []
-  )
+  const body = `<div class="sech big">Playlists</div><div class="mus">${PLS()
     .map(
-      (m) =>
-        `<button class="mc"><span class="mart" style="background:linear-gradient(135deg,${
-          m.color[0]
-        },${m.color[1]})">${I("play", 26)}</span><b>${
+      (m, p) =>
+        `<button class="mc" onclick="push(plPage,[${p}])"><span class="mart" style="background:${artCSS(
+          m
+        )}">${m.cover ? "" : I("note", 34)}</span><b>${
           m.title
-        }</b><small class="l2">${m.sub}</small></button>`
+        }</b><small class="l2">${m.by || "Phainon"}</small></button>`
     )
     .join("")}</div>`;
   return {
@@ -4393,10 +4540,7 @@ function musicRoot() {
       left: "<span></span>",
       right: `<button class="nbl">Edit</button>`,
       body,
-      foot: `<div class="mini"><span class="mart sm"></span><span>Not Playing</span>${I(
-        "play",
-        22
-      )}</div>${tabbar(
+      foot: `<div class="mini"></div>${tabbar(
         [
           ["l", "Library", "albums"],
           ["s", "Search", "search"],
@@ -4405,6 +4549,102 @@ function musicRoot() {
         "void"
       )}`,
     }),
+    mount() {
+      musMini();
+    },
+  };
+}
+function plPage(p) {
+  const m = PLS()[p];
+  if (m.clue) see("u:" + m.id);
+  const rows = m.tracks
+    .map((t, i) => {
+      const on = MUST && MUST.p === p && MUST.i === i,
+        avail = t.src || t.sp;
+      return `<button class="trk${avail ? "" : " na"}${
+        on ? " on" : ""
+      }" onclick="${
+        avail ? `push(nowPage,[${p},${i}])` : ""
+      }"><span class="mart xs" style="background:${artCSS({
+        ...m,
+        ...t,
+      })}"></span><span class="col"><b>${on && MUS && !MUS.paused ? "♪ " : ""}${
+        t.t
+      }</b><small class="l2">${t.a}</small></span>${
+        t.src ? `<span class="trk-p">${I("play", 15)}</span>` : ""
+      }</button>`;
+    })
+    .join("");
+  return {
+    title: m.title,
+    cls: "nolt plp",
+    html: pg({
+      title: m.title,
+      large: false,
+      right: `<button class="nbi">${I("dots", 24)}</button>`,
+      body: `<div class="plh"><span class="mart big" style="background:${artCSS(
+        m
+      )}">${m.cover ? "" : I("note", 54)}</span><h2>${
+        m.title
+      }</h2><div class="pl-by">${
+        m.by || "Phainon"
+      }</div><div class="l2 pl-sub">${
+        m.sub || ""
+      }</div></div><div class="trks">${rows}</div>`,
+      foot: `<div class="mini low"></div>`,
+    }),
+    mount() {
+      musMini();
+    },
+  };
+}
+function nowPage(p, i) {
+  const m = PLS()[p],
+    t = TRK(p, i);
+  if (t.clue) see("u:" + t.clue);
+  if (!t.src) {
+    return {
+      title: "",
+      cls: "nolt npp",
+      html: pg({
+        title: "",
+        large: false,
+        body: `<div class="np"><div class="np-sp"><iframe src="https://open.spotify.com/embed/track/${t.sp}?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media" loading="lazy"></iframe></div><div class="np-ti"><b>${t.t}</b><span class="l2">${t.a}</span></div><div class="l2 np-note">Preview from Spotify · from “${m.title}”</div></div>`,
+      }),
+    };
+  }
+  const on = MUST && MUST.p === p && MUST.i === i,
+    pl = on && MUS && !MUS.paused;
+  return {
+    title: "",
+    cls: "nolt npp",
+    html: pg({
+      title: "",
+      large: false,
+      body: `<div class="np"><div class="np-art${
+        pl ? " pl" : ""
+      }" style="background:${artCSS({ ...m, ...t })}">${
+        t.cover || m.cover ? "" : I("note", 90)
+      }</div><div class="np-ti"><b>${t.t}</b><span class="l2">${
+        t.a
+      }</span></div><div class="np-bar" onclick="musSeek(event)"><i></i></div><div class="np-tt"><span class="np-t0">0:00</span><span class="np-t1">${
+        t.len ? "-" + t.len : ""
+      }</span></div><div class="np-c"><button class="dim">${I(
+        "prev",
+        30
+      )}</button><button class="np-pp" onclick="musPlay(${p},${i})">${I(
+        pl ? "pause" : "play",
+        44
+      )}</button><button class="dim">${I(
+        "next",
+        30
+      )}</button></div><div class="l2 np-note">${
+        pl ? "Keeps playing when you leave Music." : "Tap play to listen."
+      }</div></div>`,
+    }),
+    mount() {
+      musProg();
+    },
   };
 }
 function cameraRoot() {
@@ -4674,7 +4914,8 @@ function evReady(ev) {
     return false;
   if (ev.any && !ev.any.split(",").some((k) => seen.has(k.trim())))
     return false;
-  if (ev.clues && nClues() < ev.clues) return false;
+  if (ev.clues && nClues() < (ev.clues === "all" ? CLUES.size : ev.clues))
+    return false;
   if (ev.flag) {
     const [k, v] = ev.flag.split("=");
     if (flags[k] !== v) return false;
@@ -4815,6 +5056,7 @@ function darkEnd() {
 }
 function ending(k) {
   if (state === "end") return;
+  musStop();
   ended = true;
   state = "end";
   ringStop();
@@ -4895,6 +5137,12 @@ function hudSync() {
     a.classList.toggle("off", !ambOn);
     a.title = ambOn ? "Waves: on" : "Waves: off";
   }
+  const mu = $("#hmus");
+  if (mu) {
+    const on = MUS && !MUS.paused;
+    mu.classList.toggle("off", !on);
+    mu.title = on ? "Music: on" : "Play Coronal Radiance";
+  }
 }
 function hudSnd() {
   sndOn = !sndOn;
@@ -4902,12 +5150,26 @@ function hudSnd() {
     ringStop();
     ambStop();
     bedStop();
+    if (MUS) MUS.pause();
   } else if (state !== "boot") ambStart();
   hudSync();
 }
 function hudAmb() {
   ambOn = !ambOn;
+  if (ambOn && MUS && !MUS.paused) {
+    MUS.pause();
+    musRefresh();
+  }
   ambOn ? ambStart() : ambStop();
+  hudSync();
+}
+function hudMus() {
+  if (MUS && !MUS.paused) {
+    MUS.pause();
+  } else {
+    musToggle();
+  }
+  musRefresh();
   hudSync();
 }
 let fullPref = false;
