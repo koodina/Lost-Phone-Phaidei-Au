@@ -2151,9 +2151,9 @@ function inputBar(t) {
     20
   )}</button><div class="ibf${r ? " live" : ""}${dr ? " has" : ""}" ${
     r ? `onclick="kbOpen('${t.id}')"` : dr ? `onclick="see('x:draft')"` : ""
-  }><span class="ibt">${
-    dr ? t.draft : ""
-  }</span><span class="ibph">iMessage</span><span class="ibm">${I(
+  }><span class="ibt">${dr ? t.draft : ""}</span><span class="ibph">${
+    r ? "Tap to reply" : "iMessage"
+  }</span><span class="ibm">${I(
     "mic",
     17
   )}</span><button class="ibs" onclick="event.stopPropagation();sendReply('${
@@ -2195,6 +2195,7 @@ function pump(t) {
     t.typing = false;
     arrive(t, m);
     t.busy = 0;
+    if (!t.q.length) lastQuiet = Date.now();
     setTimeout(() => pump(t), 700);
   }, wait);
 }
@@ -2774,7 +2775,19 @@ function callAccept() {
       e = $("#cls");
     if (e) e.textContent = p2(Math.floor(s / 60)) + ":" + p2(s % 60);
   }, 500);
-  const lines = c.talk && c.talk.length ? c.talk : ["(silence)"];
+  const ok_ = (l) =>
+    typeof l === "string" ||
+    !l.need ||
+    l.need.split(",").every((k) => seen.has(k.trim()));
+  const lines = (c.talk && c.talk.length ? c.talk : ["(silence)"])
+    .filter(ok_)
+    .map((l) =>
+      typeof l === "string"
+        ? l
+        : l.me
+        ? `<span class="capme">${l.t}</span>`
+        : l.t
+    );
   let n = 0;
   const nx = () => {
     if (CALL !== c) return;
@@ -4905,8 +4918,18 @@ openApp = function (app, from, then) {
 };
 
 /* ===================================================================== EVENTS / TICK */
+let lastQuiet = 0;
+// messages and calls never pile up: they wait until nothing else is arriving, plus a short pause (STORY.eventGap)
+const anyBusy = () =>
+  (S.threads || []).some((t) => t.busy || (t.q && t.q.length));
 function evReady(ev) {
   if (fired[ev.id] || ev._live) return false;
+  if (
+    (ev.msgs || ev.call) &&
+    !ev.noGap &&
+    (anyBusy() || CALL || Date.now() - lastQuiet < (S.eventGap ?? 12000))
+  )
+    return false;
   if (ev.call && (CALL || ALM)) return false;
   if (ev.alarm && (CALL || ALM)) return false;
   const af = (ev.after || (ev.at ? "start" : "unlock"))
@@ -4962,6 +4985,14 @@ function fire(ev) {
     })
   );
   if (ev.notif) notify({ ...ev.notif, sound: "notif" });
+  if (ev.ending) {
+    const pick = Array.isArray(ev.ending)
+      ? (ev.ending.find(
+          ([n]) => !n || n.split(",").every((k) => seen.has(k.trim()))
+        ) || ev.ending[ev.ending.length - 1])[1]
+      : ev.ending;
+    setTimeout(() => ending(pick), ev.endDelay || 0);
+  }
   if (ev.mail) {
     S.mails.push({ ...ev.mail, unread: true, time: stamp(now()) });
     notify({

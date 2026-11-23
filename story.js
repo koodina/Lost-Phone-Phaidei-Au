@@ -34,6 +34,7 @@ const STORY = {
   homeWallpaper: "images/forgetmenots.jpg", //
   wallpaper: ["#12308f", "#5b2bb8", "#d93a4a"],
   cameraImage: "images/beachday.jpg", // what the Camera app shows and "takes"
+  eventGap: 12000, // ms of quiet between two bursts of messages/calls
   sound: true,
   ambience: true,
   showProgress: true,
@@ -41,7 +42,7 @@ const STORY = {
   warning:
     "This story deals with sensitive topics. Please look after yourself while you read.",
   intro:
-    "Saturday, 07:51. The beach at Aedes is almost empty. Half out of the sand by the lifeguard hut, a phone keeps lighting up, buzzing, lighting up again.<br><br>You pick it up.",
+    "Saturday, 07:51. The beach at Aedes Elysiae is almost empty. Half out of the sand by the lifeguard hut, a phone keeps lighting up, buzzing, lighting up again.<br><br>You pick it up.",
 
   /* ------------------------------------------------------------ people */
   contacts: {
@@ -80,12 +81,6 @@ const STORY = {
   /* ------------------------------------------------------------ lock screen (newest first) */
   lockNotifs: [
     {
-      app: "messages",
-      title: "Aglaea",
-      text: "Call me. I woke up with a bad feeling and I can’t shake it…",
-      time: "2026-11-21 07:38",
-    },
-    {
       app: "phone",
       title: "Missed Call",
       text: "Castorice",
@@ -104,11 +99,17 @@ const STORY = {
       time: "2026-11-21 07:42",
       more: 2,
     },
+    {
+      app: "messages",
+      title: "Aglaea",
+      text: "Call me. I woke up with a bad feeling and I can’t shake it…",
+      time: "2026-11-21 07:38",
+    },
   ],
 
   /* ------------------------------------------------------------ messages
-                       ["~","YYYY-MM-DD HH:MM"] divider · ["me",…] Phainon · ["them",…] the other person
-                       [contactId,…] who's talking in a group · 3rd item {photo:{scene,emoji,src}} sends a picture */
+                         ["~","YYYY-MM-DD HH:MM"] divider · ["me",…] Phainon · ["them",…] the other person
+                         [contactId,…] who's talking in a group · 3rd item {photo:{scene,emoji,src}} sends a picture */
   threads: [
     {
       id: "dei",
@@ -238,13 +239,15 @@ const STORY = {
           "hya",
           "mydei carried him to the car because he “couldn’t feel his feet”",
         ],
-        ["cas", "I have so many photos of this"],
+        ["cas", "Send more pics for reference"],
         ["me", "i was INJURED"],
         ["hya", "you were drunk"],
+        ["me", "also what do you mean reference"],
+        ["cas", "Don't worry about it"],
         ["~", "2026-04-12 13:10"],
         ["hya", "who stole my umbrella"],
         ["me", "borrowed"],
-        ["hya", "in FEBRUARY"],
+        ["hya", "i'm never seeing it again"],
         ["cas", "Phainon, you also have my book."],
         ["me", "I’m basically a library at this point"],
         ["~", "2026-09-12 19:05"],
@@ -274,10 +277,10 @@ const STORY = {
         ["hya", "PHAINON"],
         ["cas", "Oh no"],
         ["me", "it’s abstract art you don't get it"],
-        ["~", "2026-11-20 18:41"],
+        ["~", "2026-11-18 18:41"],
         ["me", "returned hya’s umbrella AND cas’s book"],
         ["me", "i’m a functioning adult now"],
-        ["hya", "who are you and what have you done with phai"],
+        ["hya", "who are you and what have you done with phainon"],
         ["cas", "Proud of you 🥹"],
       ],
     },
@@ -649,7 +652,7 @@ const STORY = {
   ],
 
   /* ------------------------------------------------------------ deleted messages
-                       Messages › Filters › Recently Deleted. Gets a badge once `badgeAfter` is seen. */
+                         Messages › Filters › Recently Deleted. Gets a badge once `badgeAfter` is seen. */
   deletedMsgs: {
     badgeAfter: "v:v2",
     items: [
@@ -721,7 +724,7 @@ const STORY = {
       time: "2026-11-19 07:00",
       clue: true,
       subj: "this weekend at golden honeycake",
-      body: "Morning from Kremnos.\n\nThis weekend:\n· Golden honeycakes (always)\n· Fig stew, Saturday lunch\n· The serious bun \n· Saturday 21st only: honey suncakes, the Aedes Elysiae way\n\nOpen 7–14. The day's specials might sell out earlier so be sure to catch those.\n— M.\n\n\nYou’re receiving this because you signed up at goldenhoneycake.kr as n•••••496 · Unsubscribe",
+      body: "Morning from Kremnos.\n\nThis weekend:\n· Golden honeycakes (always)\n· Fig stew, Saturday lunch\n· The serious bun \n· Saturday 21st only: honey suncakes, the Aedes Elysiae way\n\nOpen 7–14. The day's specials might sell out earlier so be sure to catch those.\n— M.\n\n\nYou’re receiving this because you signed up at goldenhoneycake.kr · Unsubscribe",
     },
     {
       id: "ship",
@@ -782,27 +785,27 @@ const STORY = {
       hintAfter: "x:hidden", // the hint only shows once Photos › Hidden has been opened
       hintBefore: "Hint : you’ll know it when you see it",
       body: `dei,
-            
-            I’ve started this like nine times so i’m just going to write it.
-            
-            the fight wasn’t about the word. you asked what we were and i made a joke, because if i said it out loud it was real, and every real thing i’ve had ends up taken away. so i broke it myself first. at least then it was my fault. sounds stupid when i write it out but at the time it made sense in my head.
-            
-            you didn’t do anything wrong. you left breakfast on the counter, you waited outside in the cold, you told me to come see your library like it was nothing. you just let me exist by your side like I was allowed to. I kept waiting for you to figure out I wasn’t worth all that. kept waiting for the day you'd realize this wasn't what you wanted and leave. you never did, so I made it happen for you.
-            
-            I got your newsletter. honey suncakes on saturday? hah.. the aedes elysiae way. that’s my mom’s recipe you had me give you for my birthday. I read it standing in the kitchen and I had to sit down. I bought a ticket and ordered the suncakes. I cancelled them. I ordered them again. I've cancelled them three times now, which is embarrassing even for me. i hope they don't suspend my account for bot behavior
-            
-            tonight I cancelled the ticket too. not because of you. I'm a coward. I'm scared to see the life you've built for yourself without me. I don't want to see it. no that’s not true, I want to see all of it. of course i'm happy for you. I just can't stand the possibility there's not a place for me in it. that you don't want me in it. and if I don’t go I never have to find out.
-            
-            hyacine says I decide things for people. she’s right. she’s always right it’s annoying.
-            
-            I came to aedes instead. I don’t really know why. It’s where I go when I can’t think. the place where it all started. where I lost everything. where I gained something for the first time again. the sea is really loud tonight. you’d hate it.
-            
-            I don’t know what I’m doing tomorrow. I don’t know if I’ll send this.
-            
-            but if I don’t say it now I never will. i love you. I had it the whole time I just didn’t know how to keep it. I don’t know if I can. but I want to try. I want to be with you. I want and want and want and I'm bad at wanting.
-            
-            
-            — Phainon`,
+              
+              I’ve started this like nine times so i’m just going to write it.
+              
+              the fight wasn’t about the word. you asked what we were and i made a joke, because if i said it out loud it was real, and every real thing i’ve had ends up taken away. so i broke it myself first. at least then it was my fault. sounds stupid when i write it out but at the time it made sense in my head.
+              
+              you didn’t do anything wrong. you left breakfast on the counter, you waited outside in the cold, you told me to come see your library like it was nothing. you just let me exist by your side like I was allowed to. I kept waiting for you to figure out I wasn’t worth all that. kept waiting for the day you'd realize this wasn't what you wanted and leave. you never did, so I made it happen for you.
+              
+              I got your newsletter. honey suncakes on saturday? hah.. the aedes elysiae way. that’s my mom’s recipe you had me give you for my birthday. I read it standing in the kitchen and I had to sit down. I bought a ticket and ordered the suncakes. I cancelled them. I ordered them again. I've cancelled them three times now, which is embarrassing even for me. i hope they don't suspend my account for bot behavior
+              
+              tonight I cancelled the ticket too. not because of you. I'm a coward. I'm scared to see the life you've built for yourself without me. I don't want to see it. no that’s not true, I want to see all of it. of course i'm happy for you. I just can't stand the possibility there's not a place for me in it. that you don't want me in it. and if I don’t go I never have to find out.
+              
+              hyacine says I decide things for people. she’s right. she’s always right it’s annoying.
+              
+              I came to aedes instead. I don’t really know why. It’s where I go when I can’t think. the place where it all started. where I lost everything. where I gained something for the first time again. the sea is really loud tonight. you’d hate it.
+              
+              I don’t know what I’m doing tomorrow. I don’t know if I’ll send this.
+              
+              but if I don’t say it now I never will. i love you. I had it the whole time I just didn’t know how to keep it. I don’t know if I can. but I want to try. I want to be with you. I want and want and want and I'm bad at wanting.
+              
+              
+              — Phainon`,
     },
     {
       id: "todo",
@@ -925,6 +928,13 @@ const STORY = {
       src: "images/p_anaxa.jpg",
       place: "Okhema University",
       caption: "prof anaxa called me out after this",
+    },
+    {
+      id: "att4",
+      time: "2026-02-17 20:40",
+      src: "images/rain.jpg",
+      place: "Okhema",
+      caption: "forgot an umbrella",
     },
     {
       id: "att4",
@@ -1166,30 +1176,30 @@ const STORY = {
         clue: true,
         bg: "#f6efe3",
         html: `<div style="background:#f6efe3;color:#2b2118;min-height:100%;font-family:Georgia,'Times New Roman',serif;padding-bottom:30px">
-                    <div style="display:flex;justify-content:flex-end;padding:10px 16px 0;font-family:-apple-system,sans-serif;font-size:14px"><button onclick="acct()" style="color:#8a5a1c;font-weight:600">My orders</button></div>
-                    <div style="padding:16px 22px 20px;text-align:center;border-bottom:1px solid #e2d5bf">
-                      <div style="font-size:11px;letter-spacing:3px;color:#a0784a">KREMNOS · EST. 2026</div>
-                      <div style="font-size:34px;margin-top:8px">Golden Honeycake</div>
-                      <div style="font-size:14px;color:#7a6650;margin-top:4px;font-style:italic">the royal choice</div>
-                    </div>
-                    <div style="margin:18px 16px;padding:18px;border-radius:14px;background:#2b2118;color:#f6efe3">
-                      <div style="font-size:11px;letter-spacing:2px;color:#e8b04a;font-family:-apple-system,sans-serif">THIS SATURDAY ONLY · 21 NOVEMBER</div>
-                      <div style="font-size:24px;margin-top:6px">Honey suncakes, the Aedes Elysiae way</div>
-                    </div>
-                    <div style="padding:6px 22px">
-                      <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">EVERY DAY</div>
-                      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Golden honeycakes</span><span>2.50</span></div>
-                      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Rye &amp; fig loaf</span><span>6.00</span></div>
-                      <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Fig stew (Saturdays)</span><span>8.00</span></div>
-                      <div style="display:flex;justify-content:space-between;padding:9px 0 2px"><span>The Serious Bun</span><span>1.80</span></div>
-                      <div style="font-size:13px;color:#7a6650;font-style:italic">it has eyebrows. you’ll see.</div>
-                    </div>
-                    <div style="padding:22px 22px 0;font-size:15px;line-height:1.55">
-                      <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">A LIBRARY WITH NO LOCKS</div>
-                      There’s a shelf of books by the window, and a few tables where you can sit and read while you wait for your order. We have a selection of novels, poetry, and local history. Please don’t take the books home; they’re for everyone to enjoy.
-                    </div>
-                    <div style="padding:22px 22px 0;font-size:14px;color:#7a6650;font-family:-apple-system,sans-serif">Tue–Sun · 07:00–14:00 · closed Mondays<br>4 Gate Street, Kremnos</div>
-                  </div>`,
+                      <div style="display:flex;justify-content:flex-end;padding:10px 16px 0;font-family:-apple-system,sans-serif;font-size:14px"><button onclick="acct()" style="color:#8a5a1c;font-weight:600">My orders</button></div>
+                      <div style="padding:16px 22px 20px;text-align:center;border-bottom:1px solid #e2d5bf">
+                        <div style="font-size:11px;letter-spacing:3px;color:#a0784a">KREMNOS · EST. 2026</div>
+                        <div style="font-size:34px;margin-top:8px">Golden Honeycake</div>
+                        <div style="font-size:14px;color:#7a6650;margin-top:4px;font-style:italic">the royal choice</div>
+                      </div>
+                      <div style="margin:18px 16px;padding:18px;border-radius:14px;background:#2b2118;color:#f6efe3">
+                        <div style="font-size:11px;letter-spacing:2px;color:#e8b04a;font-family:-apple-system,sans-serif">THIS SATURDAY ONLY · 21 NOVEMBER</div>
+                        <div style="font-size:24px;margin-top:6px">Honey suncakes, the Aedes Elysiae way</div>
+                      </div>
+                      <div style="padding:6px 22px">
+                        <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">EVERY DAY</div>
+                        <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Golden honeycakes</span><span>2.50</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Rye &amp; fig loaf</span><span>6.00</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted #cdbb9c"><span>Fig stew (Saturdays)</span><span>8.00</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:9px 0 2px"><span>The Serious Bun</span><span>1.80</span></div>
+                        <div style="font-size:13px;color:#7a6650;font-style:italic">it has eyebrows. you’ll see.</div>
+                      </div>
+                      <div style="padding:22px 22px 0;font-size:15px;line-height:1.55">
+                        <div style="font-size:11px;letter-spacing:2px;color:#a0784a;font-family:-apple-system,sans-serif;margin-bottom:6px">A LIBRARY WITH NO LOCKS</div>
+                        There’s a shelf of books by the window, and a few tables where you can sit and read while you wait for your order. We have a selection of novels, poetry, and local history. Please don’t take the books home; they’re for everyone to enjoy.
+                      </div>
+                      <div style="padding:22px 22px 0;font-size:14px;color:#7a6650;font-family:-apple-system,sans-serif">Tue–Sun · 07:00–14:00 · closed Mondays<br>4 Gate Street, Kremnos</div>
+                    </div>`,
       },
       {
         id: "rail",
@@ -1198,15 +1208,15 @@ const STORY = {
         bg: "#0d3b66",
         light: false,
         html: `<div style="background:#fff;color:#111;min-height:100%;font-family:-apple-system,sans-serif">
-                    <div style="background:#0d3b66;color:#fff;padding:16px 18px;font-weight:700;font-size:17px">Amphoreus Rail</div>
-                    <div style="padding:20px 18px">
-                      <div style="font-size:13px;color:#666">Booking reference</div>
-                      <div style="font-size:24px;font-weight:700;margin:2px 0 14px">KRM-4417</div>
-                      <div style="display:inline-block;background:#fde8e8;color:#b42318;font-weight:600;font-size:13px;padding:4px 10px;border-radius:20px">Cancelled</div>
-                      <div style="margin-top:18px;padding:14px;border:1px solid #e3e3e3;border-radius:12px;line-height:1.6"><b>Okhema Central 08:10 → Kremnos 11:52</b><br>Saturday 21 November 2026<br>Coach 6 · Seat 41</div>
-                      <div style="margin-top:14px;color:#444;font-size:14px">Refund requested on 20 Nov at 18:02.</div>
-                    </div>
-                  </div>`,
+                      <div style="background:#0d3b66;color:#fff;padding:16px 18px;font-weight:700;font-size:17px">Amphoreus Rail</div>
+                      <div style="padding:20px 18px">
+                        <div style="font-size:13px;color:#666">Booking reference</div>
+                        <div style="font-size:24px;font-weight:700;margin:2px 0 14px">KRM-4417</div>
+                        <div style="display:inline-block;background:#fde8e8;color:#b42318;font-weight:600;font-size:13px;padding:4px 10px;border-radius:20px">Cancelled</div>
+                        <div style="margin-top:18px;padding:14px;border:1px solid #e3e3e3;border-radius:12px;line-height:1.6"><b>Okhema Central 08:10 → Kremnos 11:52</b><br>Saturday 21 November 2026<br>Coach 6 · Seat 41</div>
+                        <div style="margin-top:14px;color:#444;font-size:14px">Refund requested on 20 Nov at 18:02.</div>
+                      </div>
+                    </div>`,
       },
       {
         id: "lib",
@@ -1214,14 +1224,14 @@ const STORY = {
         url: "kremnoslibrary.kr",
         bg: "#1f2a24",
         html: `<div style="background:#f3f1ea;color:#1f2a24;min-height:100%;font-family:Georgia,'Times New Roman',serif;padding-bottom:30px">
-                    <div style="background:#1f2a24;color:#e9e4d4;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-family:-apple-system,sans-serif;font-size:14px"><b style="letter-spacing:1px">KREMNOS OLD LIBRARY</b><button onclick="libAcct()" style="color:#d9c07a;font-weight:600">My account</button></div>
-                    <div style="padding:26px 22px 8px">
-                      <div style="font-size:11px;letter-spacing:3px;color:#7d8a6f;font-family:-apple-system,sans-serif">REOPENED SPRING 2025</div>
-                      <div style="font-size:30px;margin-top:8px;line-height:1.15">We're open again</div>
-                      <div style="font-size:15px;color:#55604c;margin-top:12px;line-height:1.5">Borrow, read, and stay as long as you'd like! Kremnos library welcomes you. <br>Holds placed online are kept at the front desk for 7 days.</div>
-                    </div>
-                    <div style="padding:16px 22px 0;font-size:14px;color:#55604c;font-family:-apple-system,sans-serif">Tue–Sun · 09:00–19:00 · Mon 12:00–19:00<br>1 Archive Square, Kremnos</div>
-                  </div>`,
+                      <div style="background:#1f2a24;color:#e9e4d4;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-family:-apple-system,sans-serif;font-size:14px"><b style="letter-spacing:1px">KREMNOS OLD LIBRARY</b><button onclick="libAcct()" style="color:#d9c07a;font-weight:600">My account</button></div>
+                      <div style="padding:26px 22px 8px">
+                        <div style="font-size:11px;letter-spacing:3px;color:#7d8a6f;font-family:-apple-system,sans-serif">REOPENED SPRING 2025</div>
+                        <div style="font-size:30px;margin-top:8px;line-height:1.15">We're open again</div>
+                        <div style="font-size:15px;color:#55604c;margin-top:12px;line-height:1.5">Borrow, read, and stay as long as you'd like! Kremnos library welcomes you. <br>Holds placed online are kept at the front desk for 7 days.</div>
+                      </div>
+                      <div style="padding:16px 22px 0;font-size:14px;color:#55604c;font-family:-apple-system,sans-serif">Tue–Sun · 09:00–19:00 · Mon 12:00–19:00<br>1 Archive Square, Kremnos</div>
+                    </div>`,
       },
     ],
     history: [
@@ -1359,19 +1369,19 @@ const STORY = {
         },
         {
           id: "#0024",
-          date: "2026-10-30 23:51",
+          date: "2026-10-30 00:51",
           items: "6 × golden honeycakes · delivery",
           status: "Cancelled 31 Oct, 00:03",
         },
         {
           id: "#0017",
-          date: "2026-10-07 22:10",
+          date: "2026-10-07 02:10",
           items: "6 × golden honeycakes · delivery",
           status: "Cancelled 7 Oct, 22:14",
         },
         {
           id: "#0009",
-          date: "2026-09-21 13:02",
+          date: "2026-09-21 00:02",
           items: "6 × golden honeycakes · delivery",
           status: "Cancelled 21 Sep, 13:05",
         },
@@ -1816,6 +1826,7 @@ const STORY = {
     },
     {
       id: "g2",
+      clues: 8,
       after: "g1",
       delay: 60000,
       thread: "grp",
@@ -1853,7 +1864,7 @@ const STORY = {
     {
       id: "a1",
       after: "g3",
-      delay: 40000,
+      delay: 80000,
       thread: "agl",
       msgs: [
         ["them", "Castorice just called me"],
@@ -1876,7 +1887,7 @@ const STORY = {
     {
       id: "g4",
       after: "a1",
-      delay: 25000,
+      delay: 45000,
       thread: "grp",
       msgs: [
         ["cas", "Aglaea says his phone is at Aedes beach"],
@@ -1890,8 +1901,9 @@ const STORY = {
     },
     {
       id: "d1",
-      after: "g3",
-      delay: 30000,
+      after: "g4",
+      delay: 40000,
+      clues: 16, // Hya only calls Mydei once the player has found a good part of the story
       seen: "t:dei",
       any: "e:krm,e:ref,e:ord,e:aed,e:hna,s:bakery,s:orders,n:todo,n:groc,p:train,p:bch1,p:d1",
       thread: "grp",
@@ -1961,7 +1973,7 @@ const STORY = {
     {
       id: "g5",
       after: "d4",
-      delay: 26000,
+      delay: 60000,
       thread: "grp",
       msgs: [
         ["cas", "Mydei just called me, hes on a train to Aedes"],
@@ -1974,7 +1986,7 @@ const STORY = {
     {
       id: "g6",
       after: "g5",
-      delay: 26000,
+      delay: 30000,
       thread: "grp",
       msgs: [
         ["hya", "next train here is leaving in 10"],
@@ -1985,7 +1997,7 @@ const STORY = {
     {
       id: "d6b",
       after: "g6",
-      delay: 10000,
+      delay: 15000,
       flag: "deicall=missed",
       thread: "dei",
       msgs: [
@@ -2033,7 +2045,7 @@ const STORY = {
     {
       id: "fin",
       after: "g6",
-      delay: 60000, // leaves time to read Mydei’s long messages first
+      delay: 90000, // leaves time to read Mydei’s long messages first
       seen: "n:dei",
       call: {
         who: "agl",
@@ -2047,12 +2059,12 @@ const STORY = {
           "Where did you find it?",
           {
             me: true,
-            t: "You tell her: by the lifeguard hut, half buried in the sand.",
+            t: "By the lifeguard hut, half buried in the sand.",
           },
           {
             need: "x:ticket",
             me: true,
-            t: "You tell her about the bank notification. A ticket to Kremnos, bought at Aedes Station a few minutes ago.",
+            t: "There was a bank notification. A ticket to Kremnos, bought at Aedes Station a few minutes ago.",
           },
           { need: "x:ticket", t: "…Kremnos?" },
           "Okay. I’m on my way. Don’t move.",
@@ -2120,7 +2132,7 @@ const STORY = {
         {
           need: "x:ticket",
           label: "He bought a ticket…",
-          text: "This isn’t Phainon I found his phone on the beach. His bank just sent a notification I think he paid for a train ticket at Aedes Station a few minutes ago, to Kremnos",
+          text: "This isn’t Phainon I found his phone on the beach. His bank just sent a notification, I think he paid for a train ticket at Aedes Station a few minutes ago, to Kremnos",
           end: "ticket_dei",
           answer: ["…", "Thank you, I’m getting off at the next stop"],
         },
