@@ -195,7 +195,8 @@ const CLUES = new Set();
   add("s:", (S.safari || {}).tabs);
   (S.wallet || []).forEach((w) => w.clue && CLUES.add("w:" + w.id));
   (S.reminders || []).forEach((r) => r.clue && CLUES.add("r:" + r.text));
-  if ((S.findmy || []).some((f) => f.clue)) CLUES.add("f:dei");
+  (S.findmy || []).forEach((f) => f.clue && CLUES.add("f:" + f.who));
+  (S.maps || []).forEach((m, i) => m.clue && CLUES.add("g:" + i));
   if (S.deletedMsgs) CLUES.add("x:deleted");
   if (S.hiddenPassword) CLUES.add("x:hidden");
   CLUES.add("x:edit");
@@ -4437,6 +4438,7 @@ function weatherRoot() {
   };
 }
 function mapsRoot() {
+  (S.maps || []).forEach((m, i) => m.clue && see("g:" + i));
   const body = `<div class="map"><svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice"><rect width="400" height="600" fill="#2b3a2f"/><path d="M0 330 C80 310 120 360 190 340 S320 300 400 320 V600 H0Z" fill="#1d3a55"/><path d="M0 330 C80 310 120 360 190 340 S320 300 400 320" fill="none" stroke="#c9b58a" stroke-width="10" opacity=".55"/><path d="M40 0 L120 200 L210 260 L400 230" fill="none" stroke="#7a7f88" stroke-width="5"/><path d="M210 260 L260 0" fill="none" stroke="#7a7f88" stroke-width="3.5"/><path d="M120 200 L0 240" fill="none" stroke="#61666e" stroke-width="3"/><text x="150" y="185" fill="#cfd3da" font-size="15" font-family="-apple-system,sans-serif" font-weight="600">Aedes</text><text x="250" y="420" fill="#8fb3d6" font-size="12" font-family="-apple-system,sans-serif" font-style="italic">Sea</text><text x="232" y="250" fill="#aab0b8" font-size="10" font-family="-apple-system,sans-serif">Aedes Station</text></svg><span class="me_"><i></i></span></div><div class="msh"><span class="grab"></span><div class="srch">${I(
     "search",
     16
@@ -4753,7 +4755,7 @@ function findRoot() {
     });
     return { ...f, st };
   });
-  if (people.some((p) => p.who === "dei")) see("f:dei");
+  people.forEach((p) => p.clue && see("f:" + p.who));
   const dots = people
     .map((p) => {
       const [x, y] = P[p.st[1]] || [200, 200];

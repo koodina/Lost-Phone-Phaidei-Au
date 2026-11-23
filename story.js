@@ -43,7 +43,7 @@ const STORY = {
     "This story deals with sensitive topics. Please look after yourself while you read.",
   // shown at the bottom of every ending
   credit:
-    'Made by <a href="https://x.com/Kooguang" target="_blank" rel="noopener">@Kooguang</a> on Twitter ♡<br>If you have a minute, tell me how it went: which ending you got, what you found, what you missed, anything that felt off. It really helps me make this better.',
+    'Made by <a href="https://x.com/Kooguang" target="_blank" rel="noopener">@Kooguang</a> on Twitter ♡<br>If you have a minute, come tell me how it went: which ending you got, what you found, what you missed, anything that felt off with the story, or a recommendation you have! It helps me make future AUs better!',
   intro:
     "Saturday, 07:51. The beach at Aedes Elysiae is almost empty. Half out of the sand by the lifeguard hut, a phone keeps lighting up, buzzing, lighting up again.<br><br>You pick it up.",
 
@@ -1881,11 +1881,11 @@ const STORY = {
     },
     {
       id: "cal",
-      at: "08:10",
+      at: "08:05",
       notif: {
         app: "calendar",
         title: "Kremnos 🚆",
-        text: "Now · Okhema Central · platform 4",
+        text: "In 5min · Okhema Central · platform 4",
       },
     },
     {
