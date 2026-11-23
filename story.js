@@ -762,6 +762,13 @@ const STORY = {
       body: "Congrats to team “Deliverer” (1 member??) for taking first place on Friday.\n\nYour prize: one free round. Please bring friends next time.",
     },
     {
+      id: "dj",
+      from: "Melonbooks Overseas",
+      time: "2025-04-02 01:12",
+      subj: "Your order has shipped · #MB-77310",
+      body: 'Hi Phainon,\n\nGood news, your order is on its way!\n\n1 × 「蒼と夏の終わり」 (The End of a Blue Summer) · Gojo Satoru × Geto Suguru · R-18 · circle: hollow purple club · ¥4,320\n1 × Gift wrapping · ¥300\n\nGift message: "happy birthday cas!! you said you\'d read it at the café, please do NOT read it at the café. — Phainon"\n\nShipping to: Castorice, Okhema\nEstimated delivery: 7-9th April\n\nThanks for shopping with us!',
+    },
+    {
       id: "shs",
       from: "Student Health Service",
       time: "2024-11-28 08:02",
@@ -1061,7 +1068,7 @@ const STORY = {
       scene: "libcard",
       shot: [
         "KREMNOS OLD LIBRARY",
-        "1086 42",
+        "3355 0336",
         "Phainon",
         "member since 15 · 10 · 2024",
       ],
@@ -1257,11 +1264,6 @@ const STORY = {
         url: "Search",
       },
       {
-        time: "2026-11-19 02:13",
-        title: "kremnos old library reopening",
-        url: "Search",
-      },
-      {
         time: "2026-11-15 10:40",
         title: "golden honeycake recipe",
         url: "Search",
@@ -1277,11 +1279,6 @@ const STORY = {
         url: "Search",
       },
       {
-        time: "2026-10-12 23:44",
-        title: "how to get rid of too many look alikes",
-        url: "Search",
-      },
-      {
         time: "2026-10-09 22:24",
         title: "how to stop ahoge from growing",
         url: "Search",
@@ -1292,13 +1289,13 @@ const STORY = {
         url: "goldenhoneycake.kr",
       },
       {
-        time: "2026-07-14 07:40",
-        title: "how much to feed an obese cat",
+        time: "2026-08-14 21:40",
+        title: "Link click season 3 ep 1 eng sub",
         url: "Search",
       },
       {
-        time: "2026-06-27 21:40",
-        title: "Link click season 3 ep 9 eng sub",
+        time: "2026-07-14 07:40",
+        title: "how much to feed an obese cat",
         url: "Search",
       },
       {
@@ -1307,8 +1304,13 @@ const STORY = {
         url: "Search",
       },
       {
+        time: "2025-10-12 23:44",
+        title: "get rid of too many look alikes",
+        url: "Search",
+      },
+      {
         time: "2025-04-28 16:20",
-        title: "Gojo Satoru / Getou Suguru fanfiction",
+        title: "Han Jisung / Lee Minho fanfiction",
         url: "archiveofourown.org",
       },
       {
@@ -1317,9 +1319,9 @@ const STORY = {
         url: "Search",
       },
       {
-        time: "2025-03-13 13:45",
-        title: "Han Jisung / Lee Minho fanfiction",
-        url: "archiveofourown.org",
+        time: "2025-03-19 02:13",
+        title: "kremnos old library reopening",
+        url: "Search",
       },
     ],
     // Library "My account": needs the card number from the library card in Wallet
@@ -1349,7 +1351,7 @@ const STORY = {
     account: {
       email: "phainon.deliverer@okhemamail.com",
       alias: "neikos496", // shown once logged in, and as the pickup name on every order
-      code: "482913",
+      code: "108642",
       clue: true,
       orders: [
         {
