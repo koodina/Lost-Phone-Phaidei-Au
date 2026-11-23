@@ -1506,7 +1506,9 @@ function pass() {
   o.id = "pw";
   o.innerHTML = `<div class="pw-t" id="pwt">Enter Passcode</div><div class="dots" id="pd">${"<i></i>".repeat(
     S.passcode.length
-  )}</div><div class="pw-h" id="pwh"></div>${keypad(
+  )}</div><div class="pw-h" id="pwh">${
+    (S.passHintAfter ?? 3) <= 0 && S.passHint ? S.passHint : ""
+  }</div>${keypad(
     "pkey"
   )}<div class="pw-b"><button>Emergency</button><button id="pwc" onclick="pdel()">Cancel</button></div>`;
   L.appendChild(o);
@@ -1770,6 +1772,7 @@ function go(g) {
   const deep = () => {
     if (g.thread) push(threadPage, [g.thread], false);
     else if (g.mail) push(mailView, [g.mail], false);
+    else if (g.card) push(passPage, [g.card], false);
   };
   if (g.app === "phone" && g.vm) phTab = "vm";
   if (g.app === "phone" && !g.vm) phTab = "recents";
@@ -2124,7 +2127,7 @@ function threadPage(id) {
   };
 }
 function inputBar(t) {
-  const r = finale && ((S.finale || {}).replies || {})[t.id];
+  const r = finale && replyOpts(t.id).length;
   const dr = !r && t.draft;
   return `<div class="ib"><button class="ibp">${I(
     "plus",
@@ -2226,17 +2229,48 @@ function badgesRefresh() {
 /* keyboard for the finale */
 let KB = null;
 const KROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
+function replyOpts(tid) {
+  const r = S.finale && S.finale.replies && S.finale.replies[tid];
+  if (!r) return [];
+  return []
+    .concat(r)
+    .filter(
+      (o) => !o.need || o.need.split(",").every((k) => seen.has(k.trim()))
+    );
+}
+function kbPick(n) {
+  if (!KB) return;
+  const o = KB.opts[n];
+  sfx("kb");
+  KB.opt = o;
+  KB.text = o.text;
+  KB.i = o.text.length;
+  $$(".qt button").forEach((b, i) => b.classList.toggle("on", i === n));
+  updField();
+}
 function kbOpen(tid) {
-  const r = finale && S.finale.replies[tid];
-  if (!r || KB) return;
-  KB = { tid, text: r.text, i: 0 };
+  const opts = finale ? replyOpts(tid) : [];
+  if (!opts.length || KB) return;
+  const r = opts[0];
+  KB = {
+    tid,
+    opts,
+    opt: opts.length === 1 ? r : null,
+    text: opts.length === 1 ? r.text : "",
+    i: 0,
+  };
   const pgEl = topP().el;
   pgEl.classList.add("kbon");
   const k = el("div", "kb");
-  k.innerHTML = `<div class="qt"><button onclick="kbFill()">“${strip(r.text)
-    .split(" ")
-    .slice(0, 4)
-    .join(" ")}…”</button></div><div class="kr">${[...KROWS[0]]
+  const lab = (o) =>
+    o.label || `“${strip(o.text).split(" ").slice(0, 4).join(" ")}…”`;
+  k.innerHTML = `<div class="qt${opts.length > 1 ? " multi" : ""}">${
+    opts.length > 1
+      ? opts
+          .map((o, n) => `<button onclick="kbPick(${n})">${lab(o)}</button>`)
+          .join("")
+      : `<button onclick="kbFill()">${lab(r)}</button>`
+  }</div><div class="kr">${[...KROWS[0]]
     .map((c) => `<button onclick="kbKey()">${c}</button>`)
     .join("")}</div><div class="kr r2">${[...KROWS[1]]
     .map((c) => `<button onclick="kbKey()">${c}</button>`)
@@ -2257,6 +2291,15 @@ function kbOpen(tid) {
 function kbKey() {
   if (!KB) return;
   sfx("kb");
+  if (!KB.opt) {
+    const q = $(".qt");
+    if (q) {
+      q.classList.remove("nudge");
+      void q.offsetWidth;
+      q.classList.add("nudge");
+    }
+    return;
+  }
   const t = KB.text;
   if (KB.i >= t.length) return;
   let j = t.indexOf(" ", KB.i + 1);
@@ -2264,7 +2307,7 @@ function kbKey() {
   updField();
 }
 function kbFill() {
-  if (!KB) return;
+  if (!KB || !KB.opt) return;
   sfx("kb");
   KB.i = KB.text.length;
   updField();
@@ -2290,8 +2333,8 @@ function kbClose(silentClose) {
   $$(".kbon").forEach((x) => x.classList.remove("kbon"));
 }
 function sendReply(tid) {
-  if (!KB || KB.i < KB.text.length || KB.tid !== tid) return;
-  const r = S.finale.replies[tid],
+  if (!KB || !KB.opt || KB.i < KB.text.length || KB.tid !== tid) return;
+  const r = KB.opt,
     t = TH(tid);
   kbClose();
   finale = false;
@@ -3158,7 +3201,11 @@ function noteView(id) {
       )}</button>`,
       body: `<div class="ndt">${fLong(n.time)}</div><div class="nv"><h1>${
         n.title
-      }</h1>${ck}${n.body ? `<div class="nb_">${n.body}</div>` : ""}</div>`,
+      }</h1>${ck}${
+        n.body
+          ? `<div class="nb_">${String(n.body).replace(/^[ \t]+/gm, "")}</div>`
+          : ""
+      }</div>`,
     }),
   };
 }
@@ -3205,7 +3252,11 @@ function noteUnlock(id) {
         },
       ],
     });
-  show(`Enter the password for “${n.title}”.`);
+  show(
+    `Enter the password for “${n.title}”.${
+      n.hint ? `<br><br><b>Hint:</b> ${n.hint}` : ""
+    }`
+  );
 }
 
 /* ===================================================================== PHOTOS */
@@ -3388,16 +3439,18 @@ function lockedAlbum(k) {
               sfx("fail");
               ask(
                 `Incorrect password.${
-                  S.hiddenHint && tries >= 2
-                    ? `<br><br><b>Hint:</b> ${S.hiddenHint}`
-                    : ""
+                  S.hiddenHint ? `<br><br><b>Hint:</b> ${S.hiddenHint}` : ""
                 }`
               );
             },
           },
         ],
       });
-    ask("Enter the password for this album.");
+    ask(
+      `Enter the password for this album.${
+        S.hiddenHint ? `<br><br><b>Hint:</b> ${S.hiddenHint}` : ""
+      }`
+    );
     return;
   }
   if (ok.photos) {
@@ -3434,7 +3487,7 @@ function codePage(title, code, cb, hint, sub) {
         sub ? `<div class="cd-sub">${sub}</div>` : ""
       }<div class="pw-t" id="cdt">${title}</div><div class="dots" id="cdd">${"<i></i>".repeat(
         code.length
-      )}</div><div class="pw-h" id="cdh"></div>${keypad(
+      )}</div><div class="pw-h" id="cdh">${hint || ""}</div>${keypad(
         "ckey"
       )}<div class="pw-b"><span></span><button onclick="cdel()">Delete</button></div></div>`,
     }),
@@ -4364,7 +4417,7 @@ function cameraRoot() {
       "down",
       14
     )}</span><span class="cam-live"></span></div><div class="vf"><div class="vfi">${scene(
-      { scene: "beach" },
+      S.cameraImage ? { src: S.cameraImage } : { scene: "beach" },
       "v"
     )}<span class="wv1"></span><span class="wv2"></span></div><div class="zm"><span>.5</span><span class="on">1×</span><span>2</span></div></div><div class="modes"><span>TIME-LAPSE</span><span>SLO-MO</span><span>VIDEO</span><span class="on">PHOTO</span><span>PORTRAIT</span><span>PANO</span></div><div class="cam-b"><button class="cam-th" onclick="${
       state === "home" ? "openApp('photos')" : ""
@@ -4385,7 +4438,7 @@ function shoot() {
   camShots.push({
     id: "cam" + Date.now(),
     time: stamp(now()),
-    scene: "beach",
+    ...(S.cameraImage ? { src: S.cameraImage } : { scene: "beach" }),
     place: "Aedes Beach",
     caption: "",
   });
@@ -4489,18 +4542,27 @@ function passPage(id) {
   see("w:" + id);
   if (c.tx) {
     const rows = c.tx
-      .filter((t) => D(t.time) <= now())
+      .filter(
+        (t) =>
+          t.time !== "live" &&
+          D(t.time) <= now() &&
+          (!t.appear || fired[t.appear])
+      )
+      .sort((a, b) => D(b.time) - D(a.time))
       .map((t) => {
         const plus = t.amount[0] === "+";
-        return `<div class="row txr"><span class="txi">${
+        if (t.clue) see("x:" + t.clue);
+        return `<div class="row txr${
+          t.pending ? " pend" : ""
+        }"><span class="txi">${
           (t.who.match(/\p{L}/u) || ["?"])[0]
         }</span><span class="col"><b>${t.who}</b><small class="l2">${
           t.what
-        }</small><small class="l2">${fDay(t.time)}, ${hm(
+        }</small><small class="l2">${t.pending ? "Pending · " : ""}${fDay(
           t.time
-        )}</small></span><span class="txa${plus ? " plus" : ""}">${
-          plus ? "+" : ""
-        }€${t.amount.replace(/^[-+]/, "")}</span></div>`;
+        )}, ${hm(t.time)}</small></span><span class="txa${
+          plus ? " plus" : ""
+        }">${plus ? "+" : ""}€${t.amount.replace(/^[-+]/, "")}</span></div>`;
       })
       .join("");
     return {
@@ -4643,6 +4705,11 @@ function fire(ev) {
     incoming(ev.call, ev.id);
   }
   if (ev.alarm) alarmRing(ev.alarm);
+  (S.wallet || []).forEach((c) =>
+    (c.tx || []).forEach((t) => {
+      if (t.appear === ev.id && t.time === "live") t.time = stamp(now());
+    })
+  );
   if (ev.notif) notify({ ...ev.notif, sound: "notif" });
   if (ev.mail) {
     S.mails.push({ ...ev.mail, unread: true, time: stamp(now()) });
