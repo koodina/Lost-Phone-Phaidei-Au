@@ -4,6 +4,12 @@
    ===================================================================== */
 "use strict";
 const S = STORY;
+const STORY_SIG = (() => {
+  const j = JSON.stringify(STORY);
+  let h = 0;
+  for (let i = 0; i < j.length; i++) h = (h * 31 + j.charCodeAt(i)) | 0;
+  return String(h);
+})();
 const PH = document.getElementById("ph"),
   SCR = document.getElementById("scr");
 const $ = (s, r = document) => r.querySelector(s),
@@ -2373,6 +2379,8 @@ function sendReply(tid) {
         r.answer.map((x) => ["them", x])
       );
   }, 6200);
+  pendEnd = r.end;
+  save();
   setTimeout(
     () => ending(r.end),
     8200 + (r.answer ? r.answer.length * 2600 : 0)
@@ -3904,10 +3912,13 @@ function acctPage() {
       )}</button><span class="dim">${I("chev", 22)}</span><span>${I(
         "share",
         23
-      )}</span><span>${I("book", 24)}</span><span>${I(
+      )}</span><button onclick="push(histPage)">${I(
+        "book",
+        24
+      )}</button><button onclick="push(tabsPage)">${I(
         "tabs",
         23
-      )}</span></div></div>`;
+      )}</button></div></div>`;
   const top_ = `<div class="acc"><div class="acc-h">Golden Honeycake</div>`;
   if (ok.acct) {
     see("s:orders");
@@ -4009,10 +4020,13 @@ function libPage() {
       )}</button><span class="dim">${I("chev", 22)}</span><span>${I(
         "share",
         23
-      )}</span><span>${I("book", 24)}</span><span>${I(
+      )}</span><button onclick="push(histPage)">${I(
+        "book",
+        24
+      )}</button><button onclick="push(tabsPage)">${I(
         "tabs",
         23
-      )}</span></div></div>`;
+      )}</button></div></div>`;
   const top_ = `<div class="acc lib"><div class="acc-h">Kremnos Old Library</div>`;
   if (ok.lib) {
     see("s:lib");
@@ -4098,6 +4112,17 @@ function stAsk() {
     ],
   });
 }
+// pick a tab: drop any account/history pages under the tab view, then slide back to the browser
+function safPick(id) {
+  safTab = id;
+  while (W && W.stack.length > 2) {
+    const x = W.stack.splice(W.stack.length - 2, 1)[0];
+    x.P && x.P.unmount && x.P.unmount();
+    x.el.remove();
+    hback();
+  }
+  goBack();
+}
 function tabsPage() {
   const ts = S.safari.tabs;
   return {
@@ -4112,11 +4137,11 @@ function tabsPage() {
           (t) =>
             `<div class="tcard${
               t.id === safTab ? " cur" : ""
-            }" role="button" onclick="safTab='${
+            }" role="button" onclick="safPick('${
               t.id
-            }';goBack();setTimeout(()=>rerender(topP()),400)"><div class="tcw"><div class="tcs">${
-              t.html
-            }</div></div><b>${t.title}</b></div>`
+            }')"><div class="tcw"><div class="tcs">${t.html}</div></div><b>${
+              t.title
+            }</b></div>`
         )
         .join("")}</div>`,
       foot: `<div class="tbar"><span>${I("plus", 24)}</span><span class="tbc">${
@@ -5112,14 +5137,15 @@ function ending(k) {
   } catch (x) {
     found = [k];
   }
+  saveClear();
   const tot = Object.keys(S.finale.endings).length;
   const o = el("div", "end fadein");
   o.innerHTML = `<div class="end-in"><div class="end-k">${
     found.length
   } of ${tot} endings</div><h2>${e.title}</h2><div class="end-tx">${
     e.text
-  }</div>${
-    S.resources ? `<p class="end-res">${S.resources}</p>` : ""
+  }</div>${S.resources ? `<p class="end-res">${S.resources}</p>` : ""}${
+    S.credit ? `<div class="end-cr">${S.credit}</div>` : ""
   }<button onclick="location.reload()">Read again</button></div>`;
   PH.appendChild(o);
   $("#off").classList.remove("on");
@@ -5138,6 +5164,25 @@ function scrn(html, btn, fn) {
 }
 function boot() {
   state = "boot";
+  const sv = saveLoad();
+  if (sv) {
+    const o = el("div", "end fadein");
+    o.id = "intro";
+    o.innerHTML = `<div class="end-in"><h2>Welcome back</h2><div class="end-tx">You still have his phone. It’s ${hm(
+      new Date(START.getTime() + sv.el * (S.speed || 1))
+    )} on the beach, right where you left off.</div><button id="introbtn">Continue</button><button id="introbtn2" class="ghost">Start over</button></div>`;
+    PH.appendChild(o);
+    $("#introbtn").onclick = () => {
+      o.remove();
+      restore(sv);
+    };
+    $("#introbtn2").onclick = () => {
+      saveClear();
+      o.remove();
+      boot();
+    };
+    return;
+  }
   scrn(
     `<h2>Content warning</h2><div class="end-tx">${S.warning}</div>${
       S.resources ? `<p class="end-res">${S.resources}</p>` : ""
@@ -5153,6 +5198,124 @@ function boot() {
     $("#snd1").classList.toggle("on", sndOn);
     hudSync();
   };
+}
+/* ===================================================================== SAVE
+      Progress is kept in this browser (localStorage) every few seconds, so a refresh doesn't lose it.
+      Editing story.js makes old saves invalid on purpose (they'd no longer match the story). */
+const SAVE_K = "lostphone-save";
+let pendEnd = null;
+function saveClear() {
+  try {
+    localStorage.removeItem(SAVE_K);
+  } catch (e) {}
+}
+function saveLoad() {
+  try {
+    const sv = JSON.parse(localStorage.getItem(SAVE_K) || "null");
+    return sv && sv.sig === STORY_SIG ? sv : null;
+  } catch (e) {
+    return null;
+  }
+}
+function save() {
+  if (!clock0 || ended || state === "boot" || state === "end") return;
+  const t = Date.now(),
+    fl = { ...flags };
+  if (CALL && CALL.flag) delete fl[CALL.flag]; // a call cut off by the refresh rings again
+  const fr = {};
+  for (const k in fired) fr[k] = t - fired[k];
+  const sv = {
+    sig: STORY_SIG,
+    el: t - clock0,
+    fired: fr,
+    seen: [...seen],
+    flags: fl,
+    ok: { ...ok },
+    lowPower,
+    lowWarned,
+    finale,
+    finT: finale ? t - finT : 0,
+    acctSent,
+    pendEnd,
+    lockList,
+    threads: S.threads.map((x) => ({
+      id: x.id,
+      msgs: x.msgs,
+      unread: x.unread || 0,
+      receipt: x.receipt,
+      q: x.q || [],
+    })),
+    calls: S.calls,
+    voicemails: S.voicemails,
+    mails: S.mails,
+    cam: camShots,
+    tx: (S.wallet || []).map((c) => (c.tx || []).map((x) => x.time)),
+  };
+  try {
+    localStorage.setItem(SAVE_K, JSON.stringify(sv));
+  } catch (e) {}
+}
+setInterval(save, 3000);
+addEventListener("pagehide", save);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) save();
+});
+function restore(sv) {
+  ac();
+  const t = Date.now();
+  clock0 = t - sv.el;
+  for (const k in sv.fired) fired[k] = t - sv.fired[k];
+  sv.seen.forEach((k) => seen.add(k));
+  Object.assign(flags, sv.flags);
+  Object.assign(ok, sv.ok);
+  lowPower = sv.lowPower;
+  lowWarned = sv.lowWarned;
+  acctSent = sv.acctSent;
+  sv.threads.forEach((x) => {
+    const th = TH(x.id);
+    if (th)
+      Object.assign(th, {
+        msgs: x.msgs,
+        unread: x.unread,
+        receipt: x.receipt,
+        q: x.q,
+        busy: 0,
+        typing: false,
+      });
+  });
+  S.calls = sv.calls;
+  S.voicemails = sv.voicemails;
+  S.mails = sv.mails;
+  camShots.push(...(sv.cam || []));
+  (S.wallet || []).forEach((c, i) =>
+    (c.tx || []).forEach((x, j) => {
+      const v = sv.tx[i] && sv.tx[i][j];
+      if (v) x.time = v;
+    })
+  );
+  lastQuiet = t;
+  battery = Math.max(3, (S.battery ?? 20) - Math.floor(sv.el / 150000));
+  state = "lock";
+  PH.classList.add("locked");
+  renderSB();
+  renderLock();
+  ambStart();
+  prog();
+  if (fired.unlock) unlock();
+  else {
+    lockList = sv.lockList || lockList;
+    renderLockNs();
+  }
+  if (sv.pendEnd) {
+    setTimeout(() => ending(sv.pendEnd), 600);
+    return;
+  }
+  if (sv.finale) {
+    finale = true;
+    finT = t - sv.finT;
+  }
+  S.threads.forEach((th) => th.q && th.q.length && pump(th));
+  refresh();
 }
 function pickUp() {
   ac();
