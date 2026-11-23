@@ -2363,6 +2363,7 @@ function sendReply(tid) {
     t = TH(tid);
   kbClose();
   finale = false;
+  t.draft = ""; // the unsent draft is gone once the player has written something
   sfx("send");
   t.receipt = "Delivered";
   arrive(t, ["me", r.text]);
