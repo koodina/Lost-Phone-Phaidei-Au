@@ -1811,7 +1811,7 @@ const STORY = {
     {
       id: "g1",
       after: "cas-u",
-      delay: 45000,
+      delay: 60000,
       thread: "grp",
       msgs: [
         ["hya", "cas can you reach phainon?"],
@@ -1828,7 +1828,7 @@ const STORY = {
       id: "g2",
       clues: 8,
       after: "g1",
-      delay: 60000,
+      delay: 120000,
       thread: "grp",
       msgs: [
         ["hya", "okay okay"],
@@ -1840,7 +1840,7 @@ const STORY = {
     {
       id: "g3",
       after: "g2",
-      delay: 30000,
+      delay: 200000,
       seen: "e:parcel",
       thread: "grp",
       msgs: [
@@ -1853,18 +1853,17 @@ const STORY = {
         ["hya", "", { photo: { src: "images/key.jpg" } }],
         ["hya", "a key??"],
         ["cas", "Oh"],
-
         ["cas", "Wait didn’t Phainon say he was going to Aglaea’s?"],
         ["hya", "yeah right he said he'd visit this weekend"],
         ["hya", "thought it'd be for tomorrow but maybe he went today"],
         ["hya", "his wallet's gone but his keys are here"],
-        ["cas", "I’m calling her."],
+        ["cas", "I’m calling her"],
       ],
     },
     {
       id: "a1",
       after: "g3",
-      delay: 80000,
+      delay: 240000,
       thread: "agl",
       msgs: [
         ["them", "Castorice just called me"],
@@ -1887,7 +1886,7 @@ const STORY = {
     {
       id: "g4",
       after: "a1",
-      delay: 45000,
+      delay: 60000,
       thread: "grp",
       msgs: [
         ["cas", "Aglaea says his phone is at Aedes beach"],
@@ -1903,7 +1902,7 @@ const STORY = {
       id: "d1",
       after: "g4",
       delay: 40000,
-      clues: 16, // Hya only calls Mydei once the player has found a good part of the story
+      clues: 22, // Hya only calls Mydei once the player has found a good part of the story
       seen: "t:dei",
       any: "e:krm,e:ref,e:ord,e:aed,e:hna,s:bakery,s:orders,n:todo,n:groc,p:train,p:bch1,p:d1",
       thread: "grp",
@@ -1917,14 +1916,19 @@ const STORY = {
     {
       id: "d2",
       after: "d1",
-      delay: 6000,
+      delay: 20000,
       receipt: { thread: "dei", text: "Read" },
     },
-    { id: "d3", after: "d2", delay: 3000, typing: { thread: "dei", ms: 7000 } },
+    {
+      id: "d3",
+      after: "d2",
+      delay: 10000,
+      typing: { thread: "dei", ms: 7000 },
+    },
     {
       id: "d4",
       after: "d3",
-      delay: 9000,
+      delay: 20000,
       call: {
         who: "dei",
         ring: 30000,
@@ -1940,13 +1944,13 @@ const STORY = {
           "Is he with you?",
           "Okay. Okay. Please stay with the phone.",
         ],
-        vm: "Phainon, Hyacine called. I saw your messages. Call me back. Please. I’m getting on a train.",
+        vm: "Phainon, Hyacine called. I saw your messages. Call me back, please. I’m getting on a train.",
       },
     },
     {
       id: "d5a",
       after: "d4",
-      delay: 4000,
+      delay: 7000,
       flag: "deicall=answered",
       thread: "dei",
       msgs: [
@@ -1960,7 +1964,7 @@ const STORY = {
     {
       id: "d5b",
       after: "d4",
-      delay: 4000,
+      delay: 7000,
       flag: "deicall=missed",
       thread: "dei",
       msgs: [
@@ -1973,7 +1977,7 @@ const STORY = {
     {
       id: "g5",
       after: "d4",
-      delay: 60000,
+      delay: 80000,
       thread: "grp",
       msgs: [
         ["cas", "Mydei just called me, hes on a train to Aedes"],
@@ -1986,7 +1990,7 @@ const STORY = {
     {
       id: "g6",
       after: "g5",
-      delay: 30000,
+      delay: 70000,
       thread: "grp",
       msgs: [
         ["hya", "next train here is leaving in 10"],
@@ -1997,7 +2001,7 @@ const STORY = {
     {
       id: "d6b",
       after: "g6",
-      delay: 15000,
+      delay: 40000,
       flag: "deicall=missed",
       thread: "dei",
       msgs: [
@@ -2045,7 +2049,7 @@ const STORY = {
     {
       id: "fin",
       after: "g6",
-      delay: 90000, // leaves time to read Mydei’s long messages first
+      delay: 140000, // leaves time to read Mydei’s long messages first
       seen: "n:dei",
       call: {
         who: "agl",
@@ -2075,7 +2079,7 @@ const STORY = {
     {
       id: "fa",
       after: "fin",
-      delay: 1500,
+      delay: 2000,
       flag: "aglcall=answered",
       ending: [
         ["x:ticket", "ticket_agl"],
@@ -2086,7 +2090,7 @@ const STORY = {
     {
       id: "fb",
       after: "fin",
-      delay: 2500,
+      delay: 4000,
       flag: "aglcall=missed",
       thread: "agl",
       msgs: [
