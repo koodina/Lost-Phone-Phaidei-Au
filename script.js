@@ -2197,7 +2197,13 @@ function pump(t) {
   t.busy = 1;
   const m = t.q[0],
     len = strip(m[1]).length;
-  const wait = m[0] === "me" ? 400 : Math.min(3400, 1000 + len * 38);
+  // short texts arrive quickly; long paragraphs take longer, like someone actually typing them (8–11 s)
+  const wait =
+    m[0] === "me"
+      ? 400
+      : len <= 80
+      ? Math.min(3400, 1000 + len * 38)
+      : Math.min(11000, 1000 + len * 25);
   if (isViewing(t.id) && m[0] !== "me") showTyping(t, true);
   setTimeout(() => {
     t.q.shift();
@@ -2903,7 +2909,7 @@ function callFail(who, num) {
   sfx("connect");
   setTimeout(() => {
     if (!$("#call") || CALL) return;
-    $("#cls").textContent = "Call Failed";
+    $("#cls").textContent = (who && CT(who).callText) || "Call Failed";
     sfx("sit");
     $(
       ".cl-bot",
@@ -3690,6 +3696,7 @@ function calRoot() {
     (a, b) =>
       (a.allDay ? -1 : 1) - (b.allDay ? -1 : 1) || D(a.start) - D(b.start)
   );
+  evs.forEach((e) => e.clue && see("c:" + e.id)); // selecting the day is enough to count it
   const list = evs.length
     ? evs
         .map(

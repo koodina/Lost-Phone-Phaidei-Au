@@ -55,6 +55,7 @@ const STORY = {
       fav: true,
       notes: "try not to text.",
     },
+    cyr: { name: "Cyrene 🌸", notes: "", callText: "No longer in service" },
     cas: { name: "Castorice", fav: true, notes: "purple fujo" },
     hya: { name: "Hyacine", fav: true },
     agl: { name: "Aglaea", fav: true },
@@ -586,7 +587,18 @@ const STORY = {
       with: ["agl"],
       clue: true,
       msgs: [
-        ["~", "2024-10-02 16:58"],
+        ["~", "2023-09-17 18:23"],
+        ["them", "I walked down to the lower road this morning"],
+        [
+          "them",
+          "They’ve put a bench where your mother’s bakery used to be, with the names",
+        ],
+        ["me", "all of them?"],
+        ["them", "All of them"],
+        ["them", "Cyrene’s is right under your mother’s"],
+        ["me", "ok"],
+        ["me", "thank you for going"],
+        ["~", "2024-04-02 16:58"],
         ["them", "What time does your train get in?"],
         ["me", "5:30!!"],
         ["them", "I’ll pick you up."],
@@ -598,6 +610,16 @@ const STORY = {
         ],
         ["me", "can i come tonight"],
         ["them", "The door is open."],
+
+        ["~", "2025-09-17 10:12"],
+        ["them", "I went down to the bench this morning"],
+        [
+          "them",
+          "Someone had already been, there were flowers on it, forget-me-nots",
+        ],
+        ["them", "Do you know who could have left them?"],
+        ["me", "no"],
+
         ["~", "2026-09-04 09:30"],
         ["them", "It was good to have you. Come back before winter."],
         ["me", "i will!! promise"],
@@ -852,8 +874,8 @@ const STORY = {
     {
       id: "cas",
       title: "cas bday ideas",
-      time: "2026-09-02 14:30",
-      body: "– the blue scarf she looked at for 10 min and didn’t buy\n– last tome of that one red blue yaoi she reads\n– the grapefruit parfum she likes",
+      time: "2026-04-02 14:30",
+      body: "– the blue scarf she looked at for 10 min and didn’t buy\n– the last tome of that one red blue yaoi she reads (why's everyone doomed)\n– the grapefruit parfum she likes",
     },
     {
       id: "wifi",
@@ -872,6 +894,13 @@ const STORY = {
         [1, "go to the cat cafe he likes"],
       ],
       body: "<strong>DON'T</strong> walk near a kfc. bad luck.",
+    },
+    {
+      id: "rec",
+      title: "mom's suncakes",
+      time: "2022-03-02 21:30",
+      clue: true,
+      body: "honey suncakes, the aedes way\n\nflour \nhoney (she says there's never enough of it)\nbutter\n2 eggs\norange peel (cyrene always picked it out and ate it first)\na pinch of salt\n\nshe never measured anything, always told me to just add until it looks <i>right</i> i’ve never once made it look right haha",
     },
   ],
 
@@ -1051,15 +1080,21 @@ const STORY = {
       place: "Okhema",
       caption:
         "i gave him a ride on my shoulders, he thinks he's slick but i know he likes getting manhandled",
-      clue: true,
     },
     {
       id: "h9",
-      time: "2024-09-28 17:30",
+      time: "2024-09-17 17:30",
       src: "images/h_heart.jpg",
       place: "Aedes Beach",
       caption:
         "i made a heart in the sand for him. he said it was stupid but he took a picture of it",
+    },
+    {
+      id: "h10",
+      time: "2024-09-17 14:30",
+      src: "images/bench.jpg",
+      place: "Aedes Beach",
+      caption: "told him about them",
       clue: true,
     },
     {
@@ -1100,7 +1135,7 @@ const STORY = {
       time: "2025-04-12 15:21",
       src: "images/library.jpg",
       place: "Kremnos",
-      caption: "you invited me for the reopening",
+      caption: "you invited me for the reopening, i ended up coming alone",
       clue: true,
     },
   ],
@@ -1138,6 +1173,15 @@ const STORY = {
       allDay: true,
       repeat: "yearly",
       notes: "",
+    },
+    {
+      id: "sep",
+      title: "🕯️",
+      start: "2016-09-17",
+      allDay: true,
+      repeat: "yearly",
+      notes: "mom · dad · cyrene\neveryone on the lower road",
+      clue: true,
     },
   ],
 
@@ -1329,6 +1373,11 @@ const STORY = {
       {
         time: "2025-03-19 02:13",
         title: "kremnos old library reopening",
+        url: "Search",
+      },
+      {
+        time: "2024-10-27 01:31",
+        title: "why do i ruin things when they’re going well",
         url: "Search",
       },
     ],
