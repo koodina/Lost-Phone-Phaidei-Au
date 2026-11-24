@@ -1244,7 +1244,7 @@ const STORY = {
       len: "0:23",
       bed: "kitchen",
       clue: true,
-      text: "Phainon, sweetie, after school could you run the order up the hill before coming down? The big house with the gold gate, Miss Aglaea. Cyrene’s helping me in the shop, your dad's also with us so we might be here late, don’t wait for us for dinner. And the wind’s picking up, if it gets too bad, stay up there until it calms down, okay? I'm sure Miss Aglaea won’t mind, she’s always been kind to you. Love you, sunshine.",
+      text: "Phainon, sweetie, after school could you run the order up the hill before coming down? The big house with the gold gate, Miss Aglaea. Cyrene’s helping me in the shop, and your dad's also with us so we might be here late, don’t wait for us for dinner. Also, the wind’s picking up, if it gets too bad, stay up there until it calms down, okay? I'm sure Miss Aglaea won’t mind, she’s always been kind to you. Love you, sunshine.",
     },
   ],
 
@@ -1873,7 +1873,13 @@ const STORY = {
   },
   alarms: [
     { id: "train", time: "07:55", label: "train!", repeat: "Never", on: true },
-    { id: "wk", time: "07:00", label: "Work", repeat: "Weekdays", on: false },
+    {
+      id: "wk",
+      time: "07:00",
+      label: "who invented masters",
+      repeat: "Weekdays",
+      on: false,
+    },
   ],
 
   /* ------------------------------------------------------------ live events */
