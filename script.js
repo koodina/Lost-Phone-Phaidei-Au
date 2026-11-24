@@ -5223,7 +5223,7 @@ function boot() {
       S.resources ? `<p class="end-res">${S.resources}</p>` : ""
     }<div class="sndrow"><button id="snd1" class="chip${sndOn ? " on" : ""}">${
       sndOn ? "🔊 Sound on" : "🔇 Sound off"
-    }</button><span class="l2">Best with headphones.</span></div>`,
+    }</button><span class="l2"></span></div>`,
     "I understand, continue",
     () => scrn(`<div class="end-tx big">${S.intro}</div>`, "Pick it up", pickUp)
   );
