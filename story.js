@@ -2062,11 +2062,11 @@ const STORY = {
     {
       id: "fin",
       after: "g6",
-      delay: 200000, // leaves time to read Mydei’s long messages first
+      delay: 180000, // leaves time to read Mydei’s long messages first
       seen: "n:dei",
       // if the player is only 1–3 clues from everything, she waits up to 3 more minutes so they can finish
       // (once they do, the bank notification comes first and she calls ~25 s later)
-      hold: { missing: 3, max: 180000, grace: 25000 },
+      hold: { missing: 3, max: 100000, grace: 20000 },
       call: {
         who: "agl",
         ring: 30000,

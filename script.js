@@ -201,7 +201,7 @@ const CLUES = new Set();
   if (S.hiddenPassword) CLUES.add("x:hidden");
   CLUES.add("x:edit");
   if (S.safari && S.safari.account) CLUES.add("s:orders");
-  if (S.safari && S.safari.library) CLUES.add("s:lib");
+  if (S.safari && S.safari.library) CLUES.add("s:libacct"); // logging in to the library account (not just opening the tab)
   ((S.music && S.music.playlists) || []).forEach(
     (m) => m.clue && CLUES.add("u:" + m.id)
   );
@@ -4037,7 +4037,7 @@ function libPage() {
       )}</button></div></div>`;
   const top_ = `<div class="acc lib"><div class="acc-h">Kremnos Old Library</div>`;
   if (ok.lib) {
-    see("s:lib");
+    see("s:libacct");
     return {
       title: "My account",
       cls: "nolt saf",
