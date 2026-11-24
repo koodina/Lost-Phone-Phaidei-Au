@@ -206,10 +206,12 @@ const CLUES = new Set();
     (m) => m.clue && CLUES.add("u:" + m.id)
   );
 })();
+let allAt = 0; // when the player found every clue
 const nClues = () => [...seen].filter((k) => CLUES.has(k)).length;
 function see(k) {
   if (seen.has(k)) return;
   seen.add(k);
+  if (!allAt && CLUES.size && nClues() >= CLUES.size) allAt = Date.now();
   prog();
   setTimeout(tick, 30);
 }
@@ -2381,10 +2383,11 @@ function sendReply(tid) {
         r.answer.map((x) => ["them", x])
       );
   }, 6200);
-  pendEnd = r.end;
+  const endK = r.end + (r.endMsg ? ":msg" : "");
+  pendEnd = endK;
   save();
   setTimeout(
-    () => ending(r.end),
+    () => ending(endK),
     8200 + (r.answer ? r.answer.length * 2600 : 0)
   );
 }
@@ -4987,6 +4990,17 @@ function evReady(ev) {
     const [k, v] = ev.flag.split("=");
     if (flags[k] !== v) return false;
   }
+  // hold: { missing, max, grace } — give near-complete players a little more time before this fires
+  if (ev.hold) {
+    const left = CLUES.size - nClues(),
+      h = ev.hold;
+    if (left > 0 && left <= (h.missing ?? 3)) {
+      ev._holdT = ev._holdT || Date.now();
+      if (Date.now() - ev._holdT < (h.max ?? 180000)) return false;
+    }
+    if (left === 0 && ev._holdT && Date.now() - allAt < (h.grace ?? 25000))
+      return false;
+  }
   return true;
 }
 function fire(ev) {
@@ -5137,6 +5151,11 @@ function ending(k) {
   ringStop();
   stopMedia();
   islandClose();
+  let viaMsg = false;
+  if (k.endsWith(":msg")) {
+    viaMsg = true;
+    k = k.slice(0, -4);
+  }
   const e = S.finale.endings[k];
   let found = [];
   try {
@@ -5152,7 +5171,7 @@ function ending(k) {
   o.innerHTML = `<div class="end-in"><div class="end-k">${
     found.length
   } of ${tot} endings</div><h2>${e.title}</h2><div class="end-tx">${
-    e.text
+    (viaMsg && e.textMsg) || e.text
   }</div>${S.resources ? `<p class="end-res">${S.resources}</p>` : ""}${
     S.credit ? `<div class="end-cr">${S.credit}</div>` : ""
   }<button onclick="location.reload()">Read again</button></div>`;
@@ -5275,6 +5294,7 @@ function restore(sv) {
   clock0 = t - sv.el;
   for (const k in sv.fired) fired[k] = t - sv.fired[k];
   sv.seen.forEach((k) => seen.add(k));
+  if (CLUES.size && nClues() >= CLUES.size) allAt = t - 60000;
   Object.assign(flags, sv.flags);
   Object.assign(ok, sv.ok);
   lowPower = sv.lowPower;
