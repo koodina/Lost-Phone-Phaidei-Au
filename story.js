@@ -1,20 +1,14 @@
-/* =====================================================================
-   STORY FILE: everything the reader can find lives here.
-   You never need to touch script.js to change the story.
+/* 
+   dis the story file : everything in story is here
 
-   DATES: always "YYYY-MM-DD HH:MM" (24 h). The game turns them into
-   "Today 07:06", "Yesterday", "Tue 19 Nov 2024 at 23:14" etc. by itself.
-   HTML (<b>, <i>, <br>, <s>) is allowed in text.
+   dates get formatted automatically
 
-   IDs: every item has a short id. The engine records what the reader has
+   ID : every item has a short id, so we record what the reader has
    opened as  t:<thread>  n:<note>  e:<mail>  p:<photo>  m:<memo>
    v:<voicemail>  c:<calendar event>  s:<safari tab> / s:history.
-   Items with  clue:true  count towards the "discovered" counter.
 
-   PHOTOS: put your pictures in an  images/  folder next to index.html and
-   give the photo  src:"images/whatever.jpg". Without src, `scene` draws a
-   placeholder (see SCENES in script.js) with the optional `emoji` on top.
-   ===================================================================== */
+   clue : true means its countes as a clue
+*/
 
 const STORY = {
   owner: "Phainon",
@@ -31,9 +25,9 @@ const STORY = {
     "Hint : my online alias, I ordered the honeycakes under this name so he doesn't know.",
 
   lockWallpaper: "images/forgetmenots.jpg",
-  homeWallpaper: "images/forgetmenots.jpg", //
+  homeWallpaper: "images/forgetmenots.jpg",
   wallpaper: ["#12308f", "#5b2bb8", "#d93a4a"],
-  cameraImage: "images/beachday.jpg", // what the Camera app shows and "takes"
+  cameraImage: "images/beachday.jpg", // what the Camera app shows and "takes" yes u can take a pic heh
   eventGap: 12000, // ms of quiet between two bursts of messages/calls
   sound: true,
   ambience: true,
@@ -47,7 +41,7 @@ const STORY = {
   intro:
     "Saturday, 07:51. The beach at Aedes Elysiae is almost empty. Half out of the sand by the lifeguard hut, a phone keeps lighting up, buzzing, lighting up again.<br><br>You pick it up.",
 
-  /* ------------------------------------------------------------ people */
+  //people
   contacts: {
     dei: {
       name: "Dei 🍯",
@@ -84,7 +78,7 @@ const STORY = {
     ],
   },
 
-  /* ------------------------------------------------------------ lock screen (newest first) */
+  //lockscreen
   lockNotifs: [
     {
       app: "phone",
@@ -113,9 +107,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ messages
-                               ["~","YYYY-MM-DD HH:MM"] divider · ["me",…] Phainon · ["them",…] the other person
-                               [contactId,…] who's talking in a group · 3rd item {photo:{scene,emoji,src}} sends a picture */
+  //messages
   threads: [
     {
       id: "dei",
@@ -650,7 +642,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ phone */
+  //phone ake calls n all
   calls: [
     { who: "cas", kind: "missed", time: "2026-11-21 07:50" },
     { who: "hya", kind: "missed", time: "2026-11-21 07:45" },
@@ -693,8 +685,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ deleted messages
-                               Messages › Filters › Recently Deleted. Gets a badge once `badgeAfter` is seen. */
+  //deletes messages
   deletedMsgs: {
     badgeAfter: "v:v2",
     items: [
@@ -725,7 +716,7 @@ const STORY = {
     ],
   },
 
-  /* ------------------------------------------------------------ mail */
+  //mails
   mails: [
     {
       id: "parcel",
@@ -822,7 +813,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ notes */
+  //notes app
   notes: [
     {
       id: "dei",
@@ -919,7 +910,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ photos (your images live in images/) */
+  //image gallery
   photos: [
     {
       id: "cof",
@@ -1154,9 +1145,9 @@ const STORY = {
       clue: true,
     },
   ],
-  memoryTitle: "Together · 2024", // Photos › For You memory, appears once Hidden is opened
+  memoryTitle: "Together · 2024", // Photos › 'For You' memory appears once Hidden is opened
 
-  /* ------------------------------------------------------------ calendar */
+  //calendar
   calendar: [
     {
       id: "k1",
@@ -1200,7 +1191,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ voice memos */
+  //voice memos
   memos: [
     {
       id: "m4",
@@ -1248,7 +1239,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ safari (behind a Screen Time limit) */
+  //safari behind code
   safari: {
     code: "0607",
     hint: "Hyacine would know.",
@@ -1405,7 +1396,7 @@ const STORY = {
         url: "Search",
       },
     ],
-    // Library "My account": needs the card number from the library card in Wallet
+    // Library "My account": needs the card number
     library: {
       card: "3355 0336", // printed on the library card photo in Photos › Hidden
       name: "Phainon",
@@ -1428,10 +1419,10 @@ const STORY = {
         note: "Ask at the front desk. We’ve been asked to keep this one for as long as it takes.",
       },
     },
-    // "My orders": Forgot password → a code arrives in Mail
+    // "My orders": Forgot password -> a code arrives in Mail
     account: {
       email: "phainon.deliverer@okhemamail.com",
-      alias: "neikos496", // shown once logged in, and as the pickup name on every order
+      alias: "neikos496", // shown once logged in and as the pickup name on every order, is used as password for hidden folder in gallery
       code: "108642",
       clue: true,
       orders: [
@@ -1475,9 +1466,9 @@ const STORY = {
     },
   },
 
-  /* ------------------------------------------------------------ other apps */
+  //other apps
   wallet: [
-    // a card with tx: shows "Latest Transactions" on its page (newest first). amount: "-" spent, "+" refund
+    // a card with tx(event): shows "Latest Transactions" on its page (newest first) amount "-" spent "+" refund
     {
       id: "w0",
       title: "Okhema Bank",
@@ -1485,7 +1476,7 @@ const STORY = {
       color: ["#1c1c1e", "#3a3a3c"],
       clue: true,
       tx: [
-        // appears when the "tx" event fires, stamped with that moment's time. Seeing it unlocks ticket endings
+        // appears when the "tx" event fires w that exact hour pasted
         {
           time: "live",
           who: "Aedes Station",
@@ -1623,7 +1614,7 @@ const STORY = {
       done: false,
     },
   ],
-  // Find My · People. Positions are places on the map: okhema, okhemaStation, aedes, aedesBeach, kremnos, train1, train2
+  // find my
   findmy: [
     {
       clue: true,
@@ -1650,8 +1641,7 @@ const STORY = {
     { icon: "📚", title: "Kremnos Old Library", sub: "Library · Kremnos" },
     { icon: "🏠", title: "Aglaea", sub: "Home · Aedes · 5 min walk" },
   ],
-  // Music › Library. Tracks with  src  play for real (and keep playing in the background).
-  // Tracks with  sp  (a Spotify track id) open a 30-second Spotify preview.
+  // Music › Library
   music: {
     playlists: [
       {
@@ -1882,7 +1872,7 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ live events */
+  //live events that progress story
   events: [
     {
       id: "cas-l",
@@ -1996,7 +1986,7 @@ const STORY = {
       id: "d1",
       after: "g4",
       delay: 40000,
-      clues: 22, // Hya only calls Mydei once the player has found a good part of the story
+      clues: 22, // Hya only calls Mydei after the player has found a good part of the story 22 clues
       seen: "t:dei",
       any: "e:krm,e:ref,e:ord,e:aed,e:hna,s:bakery,s:orders,n:todo,n:groc,p:train,p:bch1,p:d1",
       thread: "grp",
@@ -2128,8 +2118,8 @@ const STORY = {
 
     {
       id: "tx",
-      at: "08:00", // fires the moment the player finds every clue (never before 08:00 on the phone's clock)
-      clues: "all", // only for players who found everything (the counter at the bottom is full)
+      at: "08:00", // fires when player finds every clue (never before 08:00 on the phone's clock tho)
+      clues: "all", // only after all clues found
       notif: {
         app: "wallet",
         title: "Okhema Bank",
@@ -2137,14 +2127,17 @@ const STORY = {
         go: { app: "wallet", card: "w0" },
       },
     },
-    // FINALE · Aglaea calls from the beach. Answer → her ending. Decline (or let it ring) → Mydei's thread opens for a reply.
+    // FINALE
+    // Aglaea calls from the beach
+    //Answer -> her ending
+    // Decline (or let it ring) -> Mydei's thread opens for a reply
     {
       id: "fin",
       after: "g6",
       delay: 180000, // leaves time to read Mydei’s long messages first
       seen: "n:dei",
-      // if the player is only 1–3 clues from everything, she waits up to 3 more minutes so they can finish
-      // (once they do, the bank notification comes first and she calls ~25 s later)
+      // if the player is only 1–3 clues from everything, she waits up to 100s so they can finish
+      // (once they do, the bank notification comes first and she calls around 20s later)
       hold: { missing: 3, max: 100000, grace: 20000 },
       call: {
         who: "agl",
@@ -2170,7 +2163,7 @@ const STORY = {
         ],
       },
     },
-    // answered → Aglaea's ending (the ticket one if the player had found it)
+    // answered -> Aglaea's ending (the ticket one if the player had found it)
     {
       id: "fa",
       after: "fin",
@@ -2181,7 +2174,7 @@ const STORY = {
         [null, "agl"],
       ],
     },
-    // declined → she texts once, then Mydei writes and his thread opens for a reply
+    // declined -> she texts once then Mydei writes and his thread opens for a reply (aglaea's opens too if player found ticket , else you can only text mydei)
     {
       id: "fb",
       after: "fin",
@@ -2214,13 +2207,13 @@ const STORY = {
     },
   ],
 
-  /* ------------------------------------------------------------ finale (open endings) */
+  //FINALE ENDINGS
   finale: {
     idle: 360000,
     lastText: "I’m on my way",
-    // each thread can have several replies. "need" = what the player must have seen for it to show up.
-    // x:ticket = the train ticket in Wallet (the bank notification only comes once every clue is found)
-    // replies only exist in Mydei's thread now (Aglaea's path goes through her call).
+    // each thread can have several replies "need" = what the player must have seen for it to show up
+    // x:ticket = the train ticket in Wallet
+
     replies: {
       // only shows up if the player declined her call AND has seen the ticket in Wallet
       agl: [
