@@ -1334,7 +1334,7 @@ const STORY = {
     ],
     // Library "My account": needs the card number from the library card in Wallet
     library: {
-      card: "1086 42", // printed on the library card photo in Photos › Hidden
+      card: "3355 0336", // printed on the library card photo in Photos › Hidden
       name: "Phainon",
       since: "2024-10-15",
       clue: true,
