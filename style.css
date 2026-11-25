@@ -4874,3 +4874,32 @@ button.row:active,
   opacity: 1 !important;
   transform: none !important;
 }
+/* 911 easter egg */
+.call.sosv {
+  padding: 0;
+  background: #000;
+  justify-content: center;
+}
+.sosv iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.sosv-n {
+  position: absolute;
+  top: 62px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+.sosv .hang {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  margin-left: -39px;
+}

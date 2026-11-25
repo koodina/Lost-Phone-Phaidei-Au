@@ -32,6 +32,18 @@ const STORY = {
   sound: true,
   ambience: true,
   showProgress: true,
+  // easter egg: dialing one of these numbers on the Keypad (edit the lines freely)
+  sos: {
+    numbers: ["911", "112", "17", "15"],
+    name: "Emergency Services",
+    talk: [
+      "Emergency services, what’s your emergency?",
+      { me: true, t: "I found a phone on the beach…" },
+      "Okay. Please stay on the line, I’m transferring you.",
+    ],
+    reveal: "Rick Astley", // right after the last line, the call cuts to this person…
+    youtube: "dQw4w9WgXcQ", // …with the official video (embedded from YouTube, nothing to upload)
+  },
 
   warning:
     "This story deals with sensitive topics. Please look after yourself while you read.",

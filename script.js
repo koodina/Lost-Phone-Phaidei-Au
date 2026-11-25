@@ -2934,6 +2934,7 @@ function callDone(c) {
 }
 function callFail(who, num) {
   if (CALL) return;
+  if (!who && num && S.sos && S.sos.numbers.includes(num)) return sosCall(num);
   const o = callOv();
   o.classList.add("talk");
   o.innerHTML = `<div class="cl-top"><div class="cl-n">${
@@ -2958,6 +2959,84 @@ function callFail(who, num) {
       who ? `'${who}'` : "null"
     },'${num || ""}')">${I("phone", 32)}<span>Call Back</span></button></div>`;
   }, 2200);
+}
+
+// easter egg: emergency numbers get put "on hold"…
+function sosCall(num) {
+  const E = S.sos,
+    o = callOv();
+  o.classList.add("talk");
+  let t0 = 0,
+    iv = 0,
+    tos = [];
+  const hang = () => {
+    tos.forEach(clearTimeout);
+    clearInterval(iv);
+    sfx("end");
+    const s = $("#cls", o);
+    if (s) s.textContent = "Call Ended";
+    o.classList.add("ending");
+    setTimeout(() => o.remove(), 1200);
+  };
+  o.innerHTML = `<div class="cl-top"><div class="cl-n" id="sosn">${num}</div><div class="cl-s" id="cls">calling…</div></div><div class="cl-mid"><div class="cap"><div class="capl">${I(
+    "quote",
+    13
+  )} Live Captions</div><div class="capb" id="capb"></div></div></div><div class="cl-bot">${callGrid()}<button class="cbig red hang">${I(
+    "phone",
+    34,
+    "transform:rotate(135deg)"
+  )}</button></div>`;
+  $(".hang", o).onclick = hang;
+  sfx("connect");
+  const say = (l) => {
+    const b = $("#capb", o);
+    if (!b) return;
+    const h = typeof l === "string" ? l : `<span class="capme">${l.t}</span>`;
+    b.insertAdjacentHTML("beforeend", `<p class="in">${h}</p>`);
+    b.scrollTop = b.scrollHeight;
+  };
+  tos.push(
+    setTimeout(() => {
+      $("#sosn", o).textContent = E.name || num;
+      t0 = Date.now();
+      iv = setInterval(() => {
+        const s = Math.floor((Date.now() - t0) / 1000),
+          e = $("#cls", o);
+        if (e && t0) e.textContent = p2(Math.floor(s / 60)) + ":" + p2(s % 60);
+      }, 500);
+      (E.talk || []).forEach((l, i) =>
+        tos.push(setTimeout(() => say(l), 900 + i * 2600))
+      );
+      // …and right after the last line, the call cuts to the video
+      tos.push(
+        setTimeout(() => {
+          if (!o.isConnected) return;
+          {
+            tos.forEach(clearTimeout);
+            clearInterval(iv);
+            const wasAmb = !!amb;
+            ambStop();
+            musDuckOn();
+            o.className = "call sosv";
+            o.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${
+              E.youtube
+            }?autoplay=1&playsinline=1&controls=0&rel=0&modestbranding=1" allow="autoplay; encrypted-media" frameborder="0"></iframe><div class="sosv-n">${
+              E.reveal
+            }</div><button class="cbig red hang">${I(
+              "phone",
+              34,
+              "transform:rotate(135deg)"
+            )}</button>`;
+            $(".hang", o).onclick = () => {
+              o.remove();
+              musDuckOff();
+              if (wasAmb) ambStart();
+            };
+          }
+        }, 900 + (E.talk || []).length * 2600 + 600)
+      );
+    }, 2000)
+  );
 }
 
 //alarm
