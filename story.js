@@ -2227,16 +2227,35 @@ const STORY = {
         },
       ],
       dei: [
+        // MISSED his call → he still thinks it might be Phainon, so you tell him who you are
         {
+          flag: "deicall=missed",
           label: "This isn’t Phainon…",
-          text: "This isn’t Phainon I found his phone on the beach. I’m sorry I’ll stay with it until someone comes",
+          text: "This isn’t Phainon I found his phone on the beach, I’m sorry I’ll stay with it until someone comes",
           end: "dei",
           answer: ["Stay there I'm coming", "Please"],
         },
         {
+          flag: "deicall=missed",
           need: "x:ticket",
           label: "He bought a ticket…",
           text: "This isn’t Phainon I found his phone on the beach. His bank just sent a notification, I think he paid for a train ticket at Aedes Station a few minutes ago, to Kremnos",
+          end: "ticket_dei",
+          answer: ["…", "Thank you, I’m getting off at the next stop"],
+        },
+        // ANSWERED his call → he already knows it's you, and he asked you to look around
+        {
+          flag: "deicall=answered",
+          label: "Still here…",
+          text: "I’m still here with the phone. I looked around like you asked, no one with white hair on the beach. I’ll stay until someone comes",
+          end: "dei",
+          answer: ["Thank you", "Stay there I'm coming"],
+        },
+        {
+          flag: "deicall=answered",
+          need: "x:ticket",
+          label: "He bought a ticket…",
+          text: "I’m still here. He’s not on the beach, but his bank just sent a notification. He paid for a train ticket at Aedes Station a few minutes ago, to Kremnos",
           end: "ticket_dei",
           answer: ["…", "Thank you, I’m getting off at the next stop"],
         },

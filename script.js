@@ -1,7 +1,3 @@
-/* =====================================================================
-   LOST PHONE ENGINE: you shouldn't need to edit this file.
-   The whole story lives in story.js.
-   ===================================================================== */
 "use strict";
 const S = STORY;
 const STORY_SIG = (() => {
@@ -28,7 +24,7 @@ const strip = (s) =>
     .replace(/&amp;/g, "&")
     .replace(/&nbsp;/g, " ");
 
-/* ------------------------------------------------------------ time */
+//time
 function D(s) {
   if (s instanceof Date) return new Date(s);
   if (!s) return null;
@@ -129,12 +125,12 @@ const durS = (s) => {
 };
 const durF = (n) => Math.floor(n / 60) + ":" + p2(Math.floor(n % 60));
 
-/* ------------------------------------------------------------ state */
+//state
 const seen = new Set(),
   fired = {},
   flags = {},
   ok = {};
-let state = "boot"; // boot | lock | pass | home | off | end
+let state = "boot"; // diff states : boot | lock | pass | home | off | end
 let battery = S.battery ?? 20,
   lowPower = false,
   silent = false,
@@ -150,7 +146,7 @@ let W = null,
 let lockList = (S.lockNotifs || []).map((n) => ({ ...n }));
 let lowWarned = false;
 
-/* ------------------------------------------------------------ people / threads */
+// people/threads
 const CT = (id) => (S.contacts || {})[id] || { name: id };
 const nm = (id) => (id === "me" ? S.owner : CT(id).name || id);
 const first = (id) => strip(nm(id)).split(/\s+/)[0];
@@ -179,7 +175,7 @@ function lastMsg(t) {
 const threadFor = (cid) =>
   S.threads.find((t) => t.with.length === 1 && t.with[0] === cid);
 
-/* ------------------------------------------------------------ clues */
+//clues
 const CLUES = new Set();
 (function () {
   const add = (p, a) => (a || []).forEach((o) => o.clue && CLUES.add(p + o.id));
@@ -222,8 +218,7 @@ function prog() {
       S.showProgress === false ? "" : `discovered ${nClues()} / ${CLUES.size}`;
 }
 
-/* ===================================================================== AUDIO
-      Everything is synthesised with the Web Audio API (original tones). */
+//audio
 const AU = { c: null };
 function ac() {
   if (!AU.c) {
@@ -435,7 +430,7 @@ function sfx(k) {
       break;
   }
 }
-/* ringtone (original marimba motif) + alarm */
+//ringtonee
 let ringT = 0,
   ringA = null;
 const MOTIF = [
@@ -473,7 +468,7 @@ function ringStart() {
 }
 function alarmStart() {
   ringStop();
-  if (!sndOn || !ac()) return; // alarms ignore silent mode, like a real phone
+  if (!sndOn || !ac()) return; // alarms ignore silent mode
   const f = fileSnd("alarm");
   if (f) {
     f.loop = true;
@@ -519,7 +514,7 @@ function dtmf(k) {
   tone(DT[k][0], 0, 0.15, 0.06);
   tone(DT[k][1], 0, 0.15, 0.06);
 }
-/* ambience: waves on the beach */
+//waves sound
 let amb = null;
 function ambStart() {
   if (!ambOn || !sndOn || amb || !ac()) return;
@@ -592,7 +587,7 @@ function ambStop() {
     900
   );
 }
-/* playback beds for voice memos, voicemail, calls */
+//playback beds for vms vms
 let bed = null;
 function bedStart(kind) {
   bedStop();
@@ -649,8 +644,7 @@ function setVol(v) {
   sfx("tick");
 }
 
-/* ===================================================================== ICONS
-      UI glyphs and app icons are simple original drawings. */
+//ICONS UI
 const IP = {
   back: '<path d="M15.5 3.5 7 12l8.5 8.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>',
   chev: '<path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>',
@@ -897,7 +891,7 @@ const appIc = (k, s = 38) => {
   return `<span class="mi" style="width:${s}px;height:${s}px;background:${b}">${g}</span>`;
 };
 
-/* ------------------------------------------------------------ avatars & photo scenes */
+//avatars & photo scenes
 const av = (c, s) =>
   `<span class="av" style="width:${s}px;height:${s}px;font-size:${(
     s * 0.4
@@ -966,7 +960,7 @@ function scene(p, cls) {
   }</div>`;
 }
 
-/* ===================================================================== WINDOW / NAV */
+//WINDOW / NAV
 function rel(e) {
   const r = e.getBoundingClientRect(),
     p = PH.getBoundingClientRect(),
@@ -1225,10 +1219,10 @@ addEventListener("popstate", () => {
   if (hdep > 0) hdep--;
   if (W && state === "home") goBack(true);
 });
-/* swipe from the left edge to go back */
+// swipe from the left edge to go back
 PH.addEventListener("pointerdown", (e) => {
   if (!W || W.stack.length < 2 || state !== "home" || KB) return;
-  if (e.target.closest("button, a, input, textarea, select")) return; // taps on the back button are not swipes
+  if (e.target.closest("button, a, input, textarea, select")) return; // so tht taps on the back button are not swipes
   const p = PH.getBoundingClientRect(),
     k = p.width / PH.offsetWidth,
     x = (e.clientX - p.left) / k;
@@ -1281,7 +1275,7 @@ PH.addEventListener("pointerdown", (e) => {
   addEventListener("pointercancel", up);
 });
 
-/* ------------------------------------------------------------ page chrome */
+//page chrome
 function pg(o) {
   const title = o.title || "";
   const nav = o.noNav
@@ -1322,7 +1316,7 @@ const tabbar = (items, cur, fn) =>
 const tog = (on, fn) =>
   `<button class="tg${on ? " on" : ""}" onclick="${fn || ""}"><i></i></button>`;
 
-/* ===================================================================== STATUS BAR */
+//STATUS BAR
 function sbHTML() {
   const sig = [0, 1, 2, 3]
     .map(
@@ -1347,7 +1341,7 @@ const renderSB = () => {
   $("#sb").innerHTML = sbHTML();
 };
 
-/* ===================================================================== LOCK SCREEN */
+//lockscreen
 let LIBW = null;
 function librarySVG() {
   if (LIBW) return LIBW;
@@ -1509,7 +1503,7 @@ function faceFail() {
   vib([30, 40, 30]);
   setTimeout(pass, 450);
 }
-/* passcode */
+//psscode
 let pin = "",
   bad = 0;
 function keypad(fn) {
@@ -1643,7 +1637,7 @@ function wake() {
   $("#off").classList.remove("on");
 }
 
-/* ===================================================================== HOME */
+//home
 function badge(k) {
   if (k === "messages")
     return S.threads.reduce((a, t) => a + (t.unread || 0), 0);
@@ -1740,7 +1734,7 @@ function goHome() {
   if (W) closeApp();
 }
 
-/* ===================================================================== NOTIFICATIONS */
+//notifs
 let bnT = 0;
 function notify(n) {
   if (ended) return;
@@ -1884,7 +1878,7 @@ function toast(t) {
   setTimeout(() => d.remove(), 1700);
 }
 
-/* ===================================================================== DYNAMIC ISLAND */
+//dynamic island
 function islandOpen(html, kind) {
   const i = $("#isl");
   i.className = "isl x " + kind;
@@ -1924,7 +1918,7 @@ function toggleSilent() {
   if (W && topP() && topP().fn === soundsPage) rerender(topP());
 }
 
-/* ===================================================================== MESSAGES */
+//messages
 let msgFilter = "";
 function msgsRoot() {
   const ts = S.threads.slice().sort((a, b) => lastTime(b) - lastTime(a));
@@ -2197,7 +2191,7 @@ function pump(t) {
   t.busy = 1;
   const m = t.q[0],
     len = strip(m[1]).length;
-  // short texts arrive quickly; long paragraphs take longer, like someone actually typing them (8–11 s)
+  // short texts arrive quickly n long paragraphs take longer so like someone actually typing them (8–11 s)
   const wait =
     m[0] === "me"
       ? 400
@@ -2259,7 +2253,7 @@ function badgesRefresh() {
   }
   void bk;
 }
-/* keyboard for the finale */
+//keyboard for finale
 let KB = null;
 const KROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 function replyOpts(tid) {
@@ -2398,7 +2392,7 @@ function sendReply(tid) {
   );
 }
 
-/* ===================================================================== PHONE */
+//phone
 let phTab = "recents",
   recF = "all",
   vmOpen = null,
@@ -2691,7 +2685,7 @@ function dial(who) {
   callFail(who);
 }
 
-/* ===================================================================== CALLS */
+//calls
 let CALL = null;
 function callOv() {
   let o = $("#call");
@@ -2923,7 +2917,7 @@ function callFail(who, num) {
   }, 2200);
 }
 
-/* ===================================================================== ALARM */
+//alarm
 let ALM = null,
   snz = null;
 function alarmRing(id) {
@@ -2968,7 +2962,7 @@ function alarmStop(snooze) {
   setTimeout(musDuckOff, 800);
 }
 
-/* ===================================================================== MEDIA PLAYBACK */
+//media playback
 let MED = null;
 function playMedia(kind, id, len, bedK) {
   if (MED && MED.id === id) {
@@ -3006,7 +3000,7 @@ function stopMedia() {
   musDuckOff();
 }
 
-/* ===================================================================== MAIL */
+//mail
 function mailRoot() {
   const u = S.mails.filter((m) => m.unread).length;
   const r = (ic, l, n, fn) =>
@@ -3122,7 +3116,7 @@ function mailView(id) {
   };
 }
 
-/* ===================================================================== NOTES */
+//noteu
 function notesRoot() {
   const body = `<div class="sech">On My Phone</div><div class="grp"><button class="row" onclick="push(notesList)"><span class="rico yl">${I(
     "folder",
@@ -3317,7 +3311,7 @@ function noteUnlock(id) {
   );
 }
 
-/* ===================================================================== PHOTOS */
+//pics
 let phoT = "lib";
 const camShots = [];
 const allLib = () =>
@@ -3656,7 +3650,7 @@ function viewer(k, i) {
   };
 }
 
-/* ===================================================================== CALENDAR */
+//callendar
 let calM = null,
   calSel = null;
 function evOn(d) {
@@ -3696,7 +3690,7 @@ function calRoot() {
     (a, b) =>
       (a.allDay ? -1 : 1) - (b.allDay ? -1 : 1) || D(a.start) - D(b.start)
   );
-  evs.forEach((e) => e.clue && see("c:" + e.id)); // selecting the day is enough to count it
+  evs.forEach((e) => e.clue && see("c:" + e.id)); // selecting the day is enough to count it bc nobody would clicl its nt intuitive
   const list = evs.length
     ? evs
         .map(
@@ -3787,7 +3781,7 @@ function evPage(id) {
   };
 }
 
-/* ===================================================================== VOICE MEMOS */
+//voice memos
 let memOpen = null;
 function wave(id, n = 46) {
   let s = 0;
@@ -3859,7 +3853,7 @@ function memPlay(id) {
   rerender(topP());
 }
 
-/* ===================================================================== SAFARI */
+//safari
 let safTab = null;
 function safariRoot() {
   const sf = S.safari || { tabs: [] };
@@ -4127,7 +4121,7 @@ function stAsk() {
     ],
   });
 }
-// pick a tab: drop any account/history pages under the tab view, then slide back to the browser
+// pick a tab n drop any account/history pages under the tab view then slide back to the browser
 function safPick(id) {
   safTab = id;
   while (W && W.stack.length > 2) {
@@ -4208,7 +4202,7 @@ function histPage() {
   };
 }
 
-/* ===================================================================== SMALL APPS */
+//small apps
 function setRow(ic, color, label, val, fn, chev = true) {
   return `<button class="row" onclick="${
     fn || ""
@@ -4468,15 +4462,13 @@ function mapsRoot() {
     html: pg({ title: "", noNav: true, large: false, body }),
   };
 }
-/* ===================================================================== MUSIC
-      Only tracks with a `src` actually play (and keep playing in the background).
-      Tracks with a Spotify id open a 30-second Spotify preview instead. */
+///MUSIC, Only tracks with a `src` actually play (and keep playing in the background) Tracks with a Spotify id open a 30-second Spotify preview instead
 let MUS = null,
   MUST = null,
   musDuck = false;
 const PLS = () => (S.music && S.music.playlists) || [];
 const TRK = (p, i) => PLS()[p].tracks[i];
-// cover image on top of the colour gradient: if the image file is missing, the gradient still shows
+//cover image on top of the colour gradient so that if the image file is missing the gradient still shows
 const artCSS = (o) => {
   const c = o.color || ["#3a3a3c", "#1c1c1e"],
     g = `linear-gradient(135deg,${c[0]},${c[1]})`;
@@ -4961,9 +4953,9 @@ openApp = function (app, from, then) {
   );
 };
 
-/* ===================================================================== EVENTS / TICK */
+//EVENTS / TICK
 let lastQuiet = 0;
-// messages and calls never pile up: they wait until nothing else is arriving, plus a short pause (STORY.eventGap)
+// messages and calls never pile up: they wait until nothing else is arriving, plus a short pause w eventgap
 const anyBusy = () =>
   (S.threads || []).some((t) => t.busy || (t.q && t.q.length));
 function evReady(ev) {
@@ -4997,7 +4989,7 @@ function evReady(ev) {
     const [k, v] = ev.flag.split("=");
     if (flags[k] !== v) return false;
   }
-  // hold: { missing, max, grace } — give near-complete players a little more time before this fires
+  // hold if player is missing only certain glues gives him (max) value more time, decided in story
   if (ev.hold) {
     const left = CLUES.size - nClues(),
       h = ev.hold;
@@ -5082,7 +5074,7 @@ function tick() {
     if (state === "lock") renderLockNs();
     if (state === "home" && !W) renderHome();
   }
-  // battery: drains 1% every 150 s, never below 3% before the end
+  // battery drains 1% every 150 s, never below 3% before the end
   const nb = Math.max(
     3,
     (S.battery ?? 20) - Math.floor((Date.now() - clock0) / 150000)
@@ -5128,7 +5120,7 @@ function tick() {
 }
 setInterval(tick, 500);
 
-/* ===================================================================== ENDINGS */
+//endinguu
 function darkEnd() {
   if (ended) return;
   finale = false;
@@ -5234,9 +5226,10 @@ function boot() {
     hudSync();
   };
 }
-/* ===================================================================== SAVE
-      Progress is kept in this browser (localStorage) every few seconds, so a refresh doesn't lose it.
-      Editing story.js makes old saves invalid on purpose (they'd no longer match the story). */
+//SAVE
+//Progress is kept in this browserevery few seconds so a refresh doesn't lose it
+//Editing story.js makes old saves invalid on purpose
+
 const SAVE_K = "lostphone-save";
 let pendEnd = null;
 function saveClear() {
