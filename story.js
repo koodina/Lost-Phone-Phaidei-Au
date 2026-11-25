@@ -42,7 +42,7 @@ const STORY = {
       "Okay. Please stay on the line, I’m transferring you.",
     ],
     reveal: "Rick Astley", // right after the last line, the call cuts to this person…
-    youtube: "dQw4w9WgXcQ", // …with the official video (embedded from YouTube, nothing to upload)
+    video: "images/rickroll.mp4", // …and this video plays full screen
   },
 
   warning:

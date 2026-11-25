@@ -2965,11 +2965,23 @@ function callFail(who, num) {
 function sosCall(num) {
   const E = S.sos,
     o = callOv();
+  // start + pause the video right now, while the player's tap still counts,
+  // so phones (iPhone especially) let it play WITH sound when the call cuts to it later
+  const v = el("video", "sosvid");
+  v.src = E.video;
+  v.playsInline = true;
+  v.setAttribute("playsinline", "");
+  v.preload = "auto";
+  v.volume = vol;
+  const pr = v.play();
+  v.pause();
+  pr && pr.catch(() => {});
   o.classList.add("talk");
   let t0 = 0,
     iv = 0,
     tos = [];
   const hang = () => {
+    v.pause();
     tos.forEach(clearTimeout);
     clearInterval(iv);
     sfx("end");
@@ -3018,16 +3030,18 @@ function sosCall(num) {
             ambStop();
             musDuckOn();
             o.className = "call sosv";
-            o.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${
-              E.youtube
-            }?autoplay=1&playsinline=1&controls=0&rel=0&modestbranding=1" allow="autoplay; encrypted-media" frameborder="0"></iframe><div class="sosv-n">${
+            o.innerHTML = `<div class="sosv-n">${
               E.reveal
             }</div><button class="cbig red hang">${I(
               "phone",
               34,
               "transform:rotate(135deg)"
             )}</button>`;
+            o.prepend(v);
+            v.currentTime = 0;
+            v.play().catch(() => (v.controls = true)); // if a phone still blocks it, show the play button
             $(".hang", o).onclick = () => {
+              v.pause();
               o.remove();
               musDuckOff();
               if (wasAmb) ambStart();
