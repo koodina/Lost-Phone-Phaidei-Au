@@ -2965,23 +2965,36 @@ function callFail(who, num) {
 function sosCall(num) {
   const E = S.sos,
     o = callOv();
-  // start + pause the video right now, while the player's tap still counts,
-  // so phones (iPhone especially) let it play WITH sound when the call cuts to it later
+  // Safari only lets a video play with sound if it STARTED during a tap.
+  // So it starts right now (on the call button tap), silently, through the game's
+  // audio engine, and when the call cuts to Rick it rewinds to 0 and turns the sound up.
   const v = el("video", "sosvid");
   v.src = E.video;
   v.playsInline = true;
   v.setAttribute("playsinline", "");
   v.preload = "auto";
-  v.volume = vol;
-  const pr = v.play();
-  v.pause();
-  pr && pr.catch(() => {});
+  let vg = null;
+  const c = sndOn && ac();
+  if (c) {
+    try {
+      const src = c.createMediaElementSource(v);
+      vg = c.createGain();
+      vg.gain.value = 0;
+      src.connect(vg);
+      vg.connect(AU.m);
+    } catch (e) {
+      vg = null;
+    }
+  }
+  if (!vg) v.muted = true;
+  v.play().catch(() => {});
   o.classList.add("talk");
   let t0 = 0,
     iv = 0,
     tos = [];
   const hang = () => {
     v.pause();
+    vg && vg.disconnect();
     tos.forEach(clearTimeout);
     clearInterval(iv);
     sfx("end");
@@ -3039,9 +3052,25 @@ function sosCall(num) {
             )}</button>`;
             o.prepend(v);
             v.currentTime = 0;
-            v.play().catch(() => (v.controls = true)); // if a phone still blocks it, show the play button
+            if (vg) vg.gain.value = 1;
+            v.play().catch(() => {});
+            // if the browser still blocked it: one tap anywhere starts it
+            setTimeout(() => {
+              if (v.paused && o.isConnected) {
+                o.insertAdjacentHTML(
+                  "beforeend",
+                  `<div class="sostap">Tap to play</div>`
+                );
+                o.onclick = (e) => {
+                  if (e.target.closest(".hang")) return;
+                  v.play();
+                  $(".sostap", o) && $(".sostap", o).remove();
+                };
+              }
+            }, 800);
             $(".hang", o).onclick = () => {
               v.pause();
+              vg && vg.disconnect();
               o.remove();
               musDuckOff();
               if (wasAmb) ambStart();
