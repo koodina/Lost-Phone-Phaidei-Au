@@ -161,6 +161,8 @@ function ini(id) {
 const TH = (id) => S.threads.find((t) => t.id === id);
 const thName = (t) => t.name || nm(t.with[0]);
 function lastTime(t) {
+  // time of the latest message: live messages store their own arrival time in t.lt
+  if (t.lt) return D(t.lt);
   for (let i = t.msgs.length - 1; i >= 0; i--)
     if (t.msgs[i][0] === "~") {
       const d = D(t.msgs[i][1]);
@@ -2213,6 +2215,7 @@ function arrive(t, m) {
     n = now();
   if (n - lt > 15 * 6e4) t.msgs.push(["~", stamp(n)]);
   t.msgs.push(m);
+  t.lt = stamp(n); // so the Messages list shows (and sorts by) the real time of this message
   const v = isViewing(t.id);
   if (v) redrawThread(t, true);
   if (m[0] !== "me") {
@@ -2259,11 +2262,16 @@ const KROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 function replyOpts(tid) {
   const r = S.finale && S.finale.replies && S.finale.replies[tid];
   if (!r) return [];
-  return []
-    .concat(r)
-    .filter(
-      (o) => !o.need || o.need.split(",").every((k) => seen.has(k.trim()))
-    );
+  return [].concat(r).filter((o) => {
+    // need: what the player must have seen · flag: e.g. "deicall=answered"
+    if (o.need && !o.need.split(",").every((k) => seen.has(k.trim())))
+      return false;
+    if (o.flag) {
+      const [k, v] = o.flag.split("=");
+      if (flags[k] !== v) return false;
+    }
+    return true;
+  });
 }
 function kbPick(n) {
   if (!KB) return;
@@ -2788,30 +2796,65 @@ function callAccept() {
       e = $("#cls");
     if (e) e.textContent = p2(Math.floor(s / 60)) + ":" + p2(s % 60);
   }, 500);
+  // captions: strings = them · {me:true,t} = you · {need:"x:key"} only if seen
+  // {choice:[{label, need, set, say:[…lines]}]} = the player picks what to say (needs 2+ options to show)
   const ok_ = (l) =>
     typeof l === "string" ||
     !l.need ||
     l.need.split(",").every((k) => seen.has(k.trim()));
-  const lines = (c.talk && c.talk.length ? c.talk : ["(silence)"])
-    .filter(ok_)
-    .map((l) =>
-      typeof l === "string"
-        ? l
-        : l.me
-        ? `<span class="capme">${l.t}</span>`
-        : l.t
-    );
-  let n = 0;
+  const fmt = (l) =>
+    typeof l === "string"
+      ? l
+      : l.me
+      ? `<span class="capme">${l.t}</span>`
+      : l.t;
+  const queue = (c.talk && c.talk.length ? c.talk : ["(silence)"]).slice();
+  const say = (html) => {
+    const b = $("#capb");
+    if (!b) return;
+    b.insertAdjacentHTML("beforeend", `<p class="in">${html}</p>`);
+    b.scrollTop = b.scrollHeight;
+  };
+  const pickOpt = (o) => {
+    if (o.set) see(o.set);
+    queue.unshift(...(o.say || []));
+  };
   const nx = () => {
     if (CALL !== c) return;
-    if (n < lines.length) {
-      const b = $("#capb");
-      if (b) {
-        b.insertAdjacentHTML("beforeend", `<p class="in">${lines[n++]}</p>`);
-        b.scrollTop = b.scrollHeight;
+    while (queue.length && !queue[0].choice && !ok_(queue[0])) queue.shift();
+    if (!queue.length) {
+      c.lt = setTimeout(() => callEnd(), 2600);
+      return;
+    }
+    const l = queue.shift();
+    if (l.choice) {
+      const opts = l.choice.filter(ok_);
+      if (opts.length < 2) {
+        if (opts[0]) pickOpt(opts[0]);
+        return nx();
       }
-      c.lt = setTimeout(nx, 2900);
-    } else c.lt = setTimeout(() => callEnd(), 2600);
+      const b = $("#capb");
+      if (!b) return;
+      b.insertAdjacentHTML(
+        "beforeend",
+        `<div class="capch">${opts
+          .map((o, i) => `<button data-i="${i}">${o.label}</button>`)
+          .join("")}</div>`
+      );
+      b.scrollTop = b.scrollHeight;
+      $$(".capch button", b).forEach((btn) => {
+        btn.onclick = () => {
+          if (CALL !== c) return;
+          sfx("key");
+          btn.closest(".capch").remove();
+          pickOpt(opts[+btn.dataset.i]);
+          c.lt = setTimeout(nx, 500);
+        };
+      });
+      return;
+    }
+    say(fmt(l));
+    c.lt = setTimeout(nx, 2900);
   };
   c.lt = setTimeout(nx, 900);
 }
@@ -4963,7 +5006,9 @@ function evReady(ev) {
   if (
     (ev.msgs || ev.call) &&
     !ev.noGap &&
-    (anyBusy() || CALL || Date.now() - lastQuiet < (S.eventGap ?? 12000))
+    (anyBusy() ||
+      CALL ||
+      Date.now() - lastQuiet < (ev.quiet ?? S.eventGap ?? 12000)) // ev.quiet: this event wants a longer silence before it
   )
     return false;
   if (ev.call && (CALL || ALM)) return false;
@@ -5165,17 +5210,65 @@ function ending(k) {
     found = [k];
   }
   saveClear();
-  const tot = Object.keys(S.finale.endings).length;
-  const o = el("div", "end fadein");
-  o.innerHTML = `<div class="end-in"><div class="end-k">${
-    found.length
-  } of ${tot} endings</div><h2>${e.title}</h2><div class="end-tx">${
-    (viaMsg && e.textMsg) || e.text
-  }</div>${S.resources ? `<p class="end-res">${S.resources}</p>` : ""}${
-    S.credit ? `<div class="end-cr">${S.credit}</div>` : ""
-  }<button onclick="location.reload()">Read again</button></div>`;
+  // title card first (ending number, title, key line, which endings you've found),
+  // then "Read the ending" shows the text, one paragraph fading in at a time
+  const keys = Object.keys(S.finale.endings);
+  const num = keys.indexOf(k) + 1;
+  const dots = keys
+    .map(
+      (x) =>
+        `<i class="${x === k ? "cur" : found.includes(x) ? "on" : ""}"></i>`
+    )
+    .join("");
+  const paras = ((viaMsg && e.textMsg) || e.text)
+    .split(/<br>\s*<br>/)
+    .map((t) => `<p>${t.trim()}</p>`)
+    .join("");
+  const o = el("div", "end ecard");
+  o.innerHTML = `<div class="ec-in">
+    <div class="ec-k">Ending ${num} of ${keys.length}</div>
+    <h2 class="ec-t">${e.title}</h2>
+    ${e.key ? `<div class="ec-l">${e.key}</div>` : ""}
+    <div class="ec-d">${dots}</div>
+    <div class="ec-n">${found.length} of ${keys.length} found</div>
+    <button class="ec-b">Read the ending</button>
+  </div>
+  <div class="end-in ec-body">
+    <div class="end-k">Ending ${num} · ${e.title}</div>
+    <div class="end-tx">${paras}</div>
+    ${S.resources ? `<p class="end-res">${S.resources}</p>` : ""}
+    ${S.credit ? `<div class="end-cr">${S.credit}</div>` : ""}
+    <button onclick="location.reload()">Read again</button>
+  </div>`;
   PH.appendChild(o);
-  $("#off").classList.remove("on");
+  // the phone fades to black first (the card's own background), then the card's lines come in
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => o.classList.add("go"))
+  );
+  setTimeout(() => $("#off").classList.remove("on", "slow"), 1800);
+  o.querySelector(".ec-b").onclick = () => {
+    o.classList.add("read");
+    o.scrollTop = 0;
+    const ps = [
+      ...o.querySelectorAll(
+        ".ec-body .end-k, .ec-body .end-tx p, .ec-body .end-res, .ec-body .end-cr, .ec-body > button"
+      ),
+    ];
+    // paragraphs already on screen fade in one after another, the rest as you scroll to them
+    let next = 0;
+    const io = new IntersectionObserver(
+      (es) =>
+        es.forEach((x) => {
+          if (!x.isIntersecting) return;
+          io.unobserve(x.target);
+          const t = Math.max(Date.now() + 250, next);
+          next = t + 700;
+          setTimeout(() => x.target.classList.add("on"), t - Date.now());
+        }),
+      { root: o, threshold: 0.1 }
+    );
+    ps.forEach((p) => io.observe(p));
+  };
 }
 
 /* ===================================================================== BOOT */
@@ -5269,6 +5362,7 @@ function save() {
     threads: S.threads.map((x) => ({
       id: x.id,
       msgs: x.msgs,
+      lt: x.lt,
       unread: x.unread || 0,
       receipt: x.receipt,
       q: x.q || [],
@@ -5305,6 +5399,7 @@ function restore(sv) {
     if (th)
       Object.assign(th, {
         msgs: x.msgs,
+        lt: x.lt,
         unread: x.unread,
         receipt: x.receipt,
         q: x.q,

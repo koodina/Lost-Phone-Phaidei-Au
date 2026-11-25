@@ -61,7 +61,7 @@ button:focus-visible {
   flex: none;
 }
 
-/*device*/
+/*device */
 #stage {
   width: calc(393px * var(--k));
   height: calc(852px * var(--k));
@@ -151,7 +151,7 @@ body {
 body {
   -webkit-touch-callout: none;
 }
-/* phone-sized screens framed phone scaled to fit n HUD underneath */
+/* phone-sized screens: framed phone scaled to fit, HUD underneath */
 body.mob {
   height: 100dvh;
   gap: 8px;
@@ -170,7 +170,7 @@ body.mob #hud button {
   height: 30px;
   font-size: 14px;
 }
-/* fullscreen mode -> the real screen becomes the phone */
+/* fullscreen mode: the real screen becomes the phone */
 body.mob.full {
   justify-content: flex-start;
   gap: 0;
@@ -334,7 +334,7 @@ body.mob.full #hud button {
   filter: invert(1) hue-rotate(180deg);
 }
 
-/* dynamic island */
+/*  dynamic island */
 .isl {
   position: absolute;
   top: 11px;
@@ -471,7 +471,7 @@ body.mob.full .isl:not(.x):not(.p) {
   color: #ff6a3d;
 }
 
-/* banners n lock notifications */
+/*  banners & lock notifications */
 #bns {
   position: absolute;
   left: 8px;
@@ -1010,7 +1010,7 @@ body.mob.full .isl:not(.x):not(.p) {
   width: auto;
 }
 
-/*  windows n pages */
+/*  windows & pages */
 .win {
   position: absolute;
   inset: 0;
@@ -1120,7 +1120,7 @@ body.mob.full .isl:not(.x):not(.p) {
 .page.a-back {
   will-change: transform;
 }
-/* no live blur while pages slide to remove stutter that happens */
+/* no live blur while pages slide: it's what makes the transition stutter */
 .win.anim * {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
@@ -1533,7 +1533,7 @@ button.row:active,
   white-space: pre-wrap;
 }
 
-/* alerts, sheets, toasts */
+/*  alerts, sheets, toasts */
 .alw {
   position: absolute;
   inset: 0;
@@ -1710,7 +1710,7 @@ button.row:active,
   }
 }
 
-/*  messages */
+/* messages */
 .av {
   border-radius: 50%;
   display: inline-grid;
@@ -2252,7 +2252,7 @@ button.row:active,
   background: #6a6a6d;
 }
 
-/* phone n calls */
+/* phone & calls */
 .crow {
   display: flex;
   align-items: center;
@@ -2868,7 +2868,7 @@ button.row:active,
   font-weight: 600;
 }
 
-/*  photos */
+/* photos */
 .scn {
   position: relative;
   overflow: hidden;
@@ -3085,7 +3085,7 @@ button.row:active,
   align-items: center;
 }
 
-/*  calendar */
+/* calendar */
 .cal {
   --ac: var(--red);
 }
@@ -3214,7 +3214,7 @@ button.row:active,
   line-height: 1.4;
 }
 
-/*  voice memos */
+/*voice memos */
 .mmr {
   position: relative;
   border-bottom: 0.5px solid var(--sep);
@@ -3465,7 +3465,7 @@ button.row:active,
   margin: 0 16px 8px;
 }
 
-/*  settings n small apps */
+/*  settings & small apps */
 .prof {
   gap: 14px;
   padding: 10px 16px;
@@ -3944,7 +3944,7 @@ button.row:active,
   place-items: center;
 }
 
-/* intro n endings */
+/*intro & endings */
 .end {
   position: absolute;
   inset: 0;
@@ -4028,7 +4028,7 @@ button.row:active,
   }
 }
 
-/*  v3 additions */
+/* v3 additions */
 .scn.real::after {
   display: none;
 }
@@ -4302,7 +4302,7 @@ button.row:active,
   box-shadow: inset 0 0 0 3px #000;
 }
 
-/* fixes group avatars above bubble tails n text in screenshot-style photos */
+/* fixes: group avatars above bubble tails, text in screenshot-style photos */
 .gr > .av {
   position: relative;
   z-index: 1;
@@ -4682,7 +4682,7 @@ button.row:active,
   color: #8ec5ff;
   font-style: italic;
 }
-/* the reply field during the finale -> to make it obvious you can type it shines blue */
+/* the reply field during the finale: make it obvious you can type */
 .ibf.live {
   border-color: var(--blue) !important;
   animation: ibglow 1.6s ease-in-out infinite;
@@ -4719,8 +4719,158 @@ button.row:active,
   color: #8e8e93;
   font-weight: 500;
 }
-/* call buttons  */
+/* call buttons: keep the phone icon white (".red" is also the red-text class) */
 .cr.red,
 .cbig.red {
   color: #fff;
+}
+/* choices during a call (what you say) */
+.capch {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+.capch button {
+  padding: 11px 14px;
+  border-radius: 14px;
+  background: rgba(10, 132, 255, 0.22);
+  color: #fff;
+  font-size: 15px;
+  text-align: left;
+  border: 1px solid rgba(10, 132, 255, 0.55);
+}
+.capch button:active {
+  background: rgba(10, 132, 255, 0.4);
+}
+/* ending: title card, then the text */
+.ecard {
+  display: block;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+.ecard.go {
+  opacity: 1;
+}
+.ec-in {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 36px;
+  transition: opacity 0.7s, transform 0.7s;
+}
+.ec-in > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.ecard.go .ec-in > * {
+  opacity: 1;
+  transform: none;
+}
+.ecard.go .ec-k {
+  transition-delay: 1.9s;
+}
+.ecard.go .ec-t {
+  transition-delay: 2.8s;
+}
+.ecard.go .ec-l {
+  transition-delay: 4.2s;
+}
+.ecard.go .ec-d,
+.ecard.go .ec-n {
+  transition-delay: 5.6s;
+}
+.ecard.go .ec-b {
+  transition-delay: 6.4s;
+}
+.ec-k {
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #8e8e93;
+}
+.ec-t {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 14px 0 0;
+  letter-spacing: -0.3px;
+}
+.ec-l {
+  margin-top: 18px;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.5;
+  color: #c7c7cc;
+  max-width: 290px;
+}
+.ec-d {
+  display: flex;
+  gap: 9px;
+  margin-top: 44px;
+}
+.ec-d i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #48484a;
+}
+.ec-d i.on {
+  background: #8e8e93;
+  border-color: #8e8e93;
+}
+.ec-d i.cur {
+  background: #fff;
+  border-color: #fff;
+}
+.ec-n {
+  margin-top: 9px;
+  font-size: 12px;
+  color: #636366;
+}
+.ec-b {
+  margin-top: 40px;
+  padding: 13px 26px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  font-size: 16px;
+  font-weight: 500;
+}
+.ec-b:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+/* reading: the card fades up and away, the text takes its place */
+.ecard.read .ec-in {
+  opacity: 0;
+  transform: translateY(-30px);
+  pointer-events: none;
+}
+.ec-body {
+  display: none;
+}
+.ecard.read {
+  overflow-y: auto;
+}
+.ecard.read .ec-body {
+  display: block;
+}
+.ec-body .end-tx p {
+  margin: 0 0 1.1em;
+}
+.ec-body .end-k,
+.ec-body .end-tx p,
+.ec-body .end-res,
+.ec-body .end-cr,
+.ec-body > button {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1.1s ease, transform 1.1s ease;
+}
+.ec-body .on {
+  opacity: 1 !important;
+  transform: none !important;
 }
